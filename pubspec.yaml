@@ -1,0 +1,204 @@
+name: ezhyper
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_verification_code:
+  pin_code_fields:
+  google_maps_flutter:
+  smooth_star_rating:
+  clippy_flutter:
+  dashed_container:
+  pie_chart:
+  #motion_tab_bar: ^0.1.5
+  expandable_bottom_bar:
+ # syncfusion_flutter_sliders: ^18.4.48-beta
+  email_launcher:
+  bloc:
+  flutter_bloc:
+  rxdart:
+  #equatable:
+  dio:
+  shared_preferences:
+  ext_storage:
+  flutter_offline:
+  flushbar:
+  firebase_core:
+  firebase_auth: ^2.0.0
+  firebase_messaging:
+  flutter_sparkline:
+  flutter_spinkit:
+  pin_code_text_field:
+  geocoder:
+  firebase_dynamic_links: ^2.0.4
+  search_map_place: 0.3.0
+  rating_bar:
+  carousel_slider: ^3.0.0
+  flutter_facebook_login:
+  google_sign_in:
+  shimmer:
+  clipboard:
+  intl: ^0.15.1
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons:
+  local_auth:
+  localize_and_translate:
+  notification_permissions:
+  share:
+  url_launcher:
+  fluttertoast:
+  sqflite:
+  flutter_slidable:
+  flutter_twitter_login:
+  geolocator:
+  flutter_webview_plugin: ^0.4.0
+  http: ^0.12.0+4
+  http_parser: 4.0.0
+  devicelocale:
+  english_words: ^3.1.0
+  search_widget: ^1.0.2
+  circle_bottom_navigation_bar: ^1.0.0
+
+
+dependency_overrides:
+  intl: ^0.17.0-nullsafety.2
+  http: ^0.13.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+
+  assets:
+    - assets/Langs/ar.json
+    - assets/Langs/en.json
+    - assets/images/arrow_left.png
+    - assets/images/arrow_left_md.png
+    - assets/images/arrow_right.png
+    - assets/images/arrow_right_md.png
+    - assets/images/asterisk.png
+    - assets/images/bg_location.png
+    - assets/images/cart.png
+    - assets/images/cart_white.png
+    - assets/images/check_circle.png
+    - assets/images/checkbox.png
+    - assets/images/checkbox_gray.png
+    - assets/images/checkbox_gray_outline.png
+    - assets/images/checkbox_outline.png
+    - assets/images/delete.png
+    - assets/images/delete_white.png
+    - assets/images/edit.png
+    - assets/images/error.png
+    - assets/images/eye_off.png
+    - assets/images/eye_on.png
+    - assets/images/filter_outline.png
+    - assets/images/fingerprint_done.png
+    - assets/images/heart.png
+    - assets/images/heart_outline.png
+    - assets/images/heart_outline_black.png
+    - assets/images/icon.png
+    - assets/images/img_contactus.png
+    - assets/images/img_fingerprint.png
+    - assets/images/img_payment.png
+    - assets/images/img_slide1.png
+    - assets/images/img_slide2.png
+    - assets/images/img_slide3.png
+    - assets/images/img_wallet.png
+    - assets/images/lan_arabic.png
+    - assets/images/lan_english.png
+    - assets/images/logo.png
+    - assets/images/menu_cart.png
+    - assets/images/menu_favourite.png
+    - assets/images/menu_home.png
+    - assets/images/menu_notification.png
+    - assets/images/menu_setting.png
+    - assets/images/menu_white_cart.png
+    - assets/images/menu_white_favourite.png
+    - assets/images/menu_white_home.png
+    - assets/images/menu_white_notification.png
+    - assets/images/menu_white_setting.png
+    - assets/images/minus.png
+    - assets/images/minus_gray.png
+    - assets/images/pin.png
+    - assets/images/pin_gray.png
+    - assets/images/plus.png
+    - assets/images/plus_gray.png
+    - assets/images/popup_cvv.png
+    - assets/images/popup_done.png
+    - assets/images/popup_fingerprint.png
+    - assets/images/popup_wallet.png
+    - assets/images/promo_code.png
+    - assets/images/radio_checked.png
+    - assets/images/radio_gray_checked.png
+    - assets/images/radio_gray_unchecked.png
+    - assets/images/radio_unchecked.png
+    - assets/images/search.png
+    - assets/images/search_gray.png
+    - assets/images/share.png
+    - assets/images/sign_fingerprint.png
+    - assets/images/slide_circle.png
+    - assets/images/slide_shape.png
+    - assets/images/social_facebook.png
+    - assets/images/social_gmail.png
+    - assets/images/social_instagram.png
+    - assets/images/social_phone.png
+    - assets/images/social_twitter.png
+    - assets/images/social_whatsapp.png
+    - assets/images/social_whatsapp.png
+    - assets/images/sort_outline.png
+    - assets/images/splash.png
+    - assets/images/star_lg.png
+    - assets/images/star_lg_outline.png
+    - assets/images/star_sm.png
+    - assets/images/star_sm_outline.png
+    - assets/images/status_delivered.png
+    - assets/images/status_new.png
+    - assets/images/status_process.png
+    - assets/images/status_transit.png
+    - assets/images/swipe.png
+    - assets/images/swipe_right.png
+    - assets/images/switch_off.png
+    - assets/images/switch_on.png
+    - assets/images/visa_card.png
+    - assets/images/food1.png
+    - assets/images/food2.png
+    - assets/images/food3.png
+    - assets/images/food4.png
+    - assets/images/food5.png
+    - assets/images/breakfast.png
+    - assets/images/icon.png
+    - assets/images/search_gray.png
+
+
+
+
+
+
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf

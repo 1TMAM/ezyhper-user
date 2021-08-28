@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "143239637220",
+    "project_id": "ez-hyper-25559",
+    "storage_bucket": "ez-hyper-25559.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143239637220:android:a4d0c64f09d2aa6bb024f1",
+        "android_client_info": {
+          "package_name": "com.wothoq.ezhyper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143239637220-smpbds05eeb2jasrme2hli81uglpq7uc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wothoq.ezhyper",
+            "certificate_hash": "cb9d9de334a8d29430110bd7edb887be25316d72"
+          }
+        },
+        {
+          "client_id": "143239637220-8vgc63sljkvdcir6ob4ciqalmfmuppmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNHA55gWwGxCyxjlhKhdZ45Q1cAZBRz0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143239637220-8vgc63sljkvdcir6ob4ciqalmfmuppmd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "143239637220-c621htqo5v2s4tr83nmu42p28j2prcb7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wothoq.ezhyper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
