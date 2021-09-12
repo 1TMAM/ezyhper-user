@@ -59,11 +59,7 @@ void collect_profile_data()async{
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() async{
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -79,7 +75,8 @@ void collect_profile_data()async{
       if (state is Loading) {
         print("Loading");
         _playAnimation();
-      } else if (state is ErrorLoading) {
+      }
+      else if (state is ErrorLoading) {
         var data = state.model as ProfileModel;
         print("ErrorLoading");
         _stopAnimation();
@@ -104,7 +101,8 @@ void collect_profile_data()async{
           flushbarStyle: FlushbarStyle.FLOATING,
           duration: Duration(seconds: 6),
         )..show(_drawerKey.currentState.context);
-      } else if (state is Done) {
+      }
+      else if (state is Done) {
         var data = state.model as ProfileModel;
         print("done");
         _stopAnimation();

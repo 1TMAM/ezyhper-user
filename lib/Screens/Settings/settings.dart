@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
 
   void pending_earnings() async {
     StaticData.user_wallet_earnings =
-        await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
+    await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
   }
 
   Future<Null> _playAnimation() async {
@@ -67,38 +67,38 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
     return NetworkIndicator(
         child: PageContainer(
             child: Scaffold(
-      backgroundColor: whiteColor,
-      body: BlocListener<LogoutBloc, AppState>(
-        cubit: logout_bloc,
-        listener: (context, state) {
-          var data = state.model as AuthenticationModel;
-          if (state is Loading) {
-            print("Loading");
-            _playAnimation();
-          } else if (state is ErrorLoading) {
-            var data = state.model as AuthenticationModel;
-            print("ErrorLoading");
-            _stopAnimation();
-          } else if (state is Done) {
-            print("done");
-            _stopAnimation();
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => SignIn()));
-          }
-        },
-        child: Container(
-          child: Column(
-            children: [topPart(), Expanded(child: buildBody())],
-          ),
-        ),
-      ),
+              backgroundColor: whiteColor,
+              body: BlocListener<LogoutBloc, AppState>(
+                cubit: logout_bloc,
+                listener: (context, state) {
+                  var data = state.model as AuthenticationModel;
+                  if (state is Loading) {
+                    print("Loading");
+                    _playAnimation();
+                  } else if (state is ErrorLoading) {
+                    var data = state.model as AuthenticationModel;
+                    print("ErrorLoading");
+                    _stopAnimation();
+                  } else if (state is Done) {
+                    print("done");
+                    _stopAnimation();
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (context) => SignIn()));
+                  }
+                },
+                child: Container(
+                  child: Column(
+                    children: [topPart(), Expanded(child: buildBody())],
+                  ),
+                ),
+              ),
 
 
-   /*   bottomNavigationBar: CustomBottomNavigationBar2(
+              /*   bottomNavigationBar: CustomBottomNavigationBar2(
         onTapSettings: false,
         isActiveIconSettings: true,
       ),*/
-    )));
+            )));
   }
 
   Widget buildBody() {
@@ -163,182 +163,183 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     return FittedBox(
         child: Container(
-      width: width,
-      decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(height * .05))),
-      child: Column(
-        children: [
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Edit My Profile Info", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return EditMyProfile();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+          width: width,
+          decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.all(Radius.circular(height * .05))),
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Change Password", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return ChangePassword();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow("Edit My Profile Info", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return EditMyProfile();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Finger Print", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return FingerPrint();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow("Change Password", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return ChangePassword();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Manage Address", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return AllAddressesScreen();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow("Finger Print", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return FingerPrint();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Loyalty System", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return LoyaltySystemPromoCode();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow("Manage Address", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return AllAddressesScreen();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Payment Method", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return AllAPaymentMethodsScreen();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow("Loyalty System", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return LoyaltySystemPromoCode();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("My Order History", () {
-            orderBloc.add(UserOrdersEvent());
+              singleSettingRow("Payment Method", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return AllAPaymentMethodsScreen();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
+              ),
+              singleSettingRow("My Order History", () {
+                orderBloc.add(UserOrdersEvent());
 
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return MyOrdersHistory();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return MyOrdersHistory();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow(translator.currentLanguage == 'ar'?  "(${translator.translate("SAR")} ${StaticData.user_wallet_earnings}  ) ${translator.translate("Wallet")}" :
-          "${translator.translate("Wallet")} ( ${StaticData.user_wallet_earnings} ${translator.translate("SAR")} )" ,
-              () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return Wallet();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow(
+                  translator.currentLanguage == 'ar'?  "(${translator.translate("SAR")} ${StaticData.user_wallet_earnings}  ) ${translator.translate("Wallet")}" :
+              "${translator.translate("Wallet")} ( ${StaticData.user_wallet_earnings} ${translator.translate("SAR")} )" ,
+                      () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) {
+                          return Wallet();
+                        },
+                        transitionsBuilder: (context, animation8, animation15, child) {
+                          return FadeTransition(
+                            opacity: animation8,
+                            child: child,
+                          );
+                        },
+                        transitionDuration: Duration(milliseconds: 10),
+                      ),
+                    );
+                  }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget allOurAppItems() {
@@ -346,164 +347,164 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     return FittedBox(
         child: Container(
-      width: width,
-      decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(height * .05))),
-      child: Column(
-        children: [
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow(translator.translate("change_language"), () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return ChangeLanguageScreen();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+          width: width,
+          decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.all(Radius.circular(height * .05))),
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Contact Us", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return ComplainsScreen();
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+              singleSettingRow(translator.translate("change_language"), () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return ChangeLanguageScreen();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("About Us", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                 // return AboutUs();
-                  return WebviewScaffold(
-                      url: 'https://eazyhyper.wothoq.co/privacy',
-                      javascriptChannels: jsChannels,
-                      mediaPlaybackRequiresUserGesture: false,
-                      appBar: AppBar(
-                        backgroundColor: Colors.white,
-                        title: MyText(
-                          text: translator.translate("About Us"),
-                          size: EzhyperFont.header_font_size,
-                          weight: FontWeight.bold,
-                          color: blackColor,
-                        ),
-                        centerTitle: true,
-
-                      ),
-
-                      withZoom: true,
-                      withLocalStorage: true,
-                      hidden: true,
-                      initialChild: Center(child: SpinKitFadingCircle(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: index.isEven ? greenColor : whiteColor,
+              singleSettingRow("Contact Us", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      return ComplainsScreen();
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
+              ),
+              singleSettingRow("About Us", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      // return AboutUs();
+                      return WebviewScaffold(
+                          url: 'https://eazyhyper.wothoq.co/privacy',
+                          javascriptChannels: jsChannels,
+                          mediaPlaybackRequiresUserGesture: false,
+                          appBar: AppBar(
+                            backgroundColor: Colors.white,
+                            title: MyText(
+                              text: translator.translate("About Us"),
+                              size: EzhyperFont.header_font_size,
+                              weight: FontWeight.bold,
+                              color: blackColor,
                             ),
-                          );
-                        },
-                      ),)
+                            centerTitle: true,
 
-                  );
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+                          ),
+
+                          withZoom: true,
+                          withLocalStorage: true,
+                          hidden: true,
+                          initialChild: Center(child: SpinKitFadingCircle(
+                            itemBuilder: (BuildContext context, int index) {
+                              return DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: index.isEven ? greenColor : whiteColor,
+                                ),
+                              );
+                            },
+                          ),)
+
+                      );
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-          singleSettingRow("Terms & Conditions", () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-               //   return TermsAndConditions();
-                  return WebviewScaffold(
-                      url: 'https://eazyhyper.wothoq.co/terms',
-                      javascriptChannels: jsChannels,
-                      mediaPlaybackRequiresUserGesture: false,
-                      appBar: AppBar(
-                        backgroundColor: Colors.white,
-                        centerTitle: true,
-                        title: MyText(
-                          text: translator.translate("Terms & Conditions"),
-                          size: EzhyperFont.header_font_size,
-                          weight: FontWeight.bold,
-                        ),
-                      ),
-                      withZoom: true,
-                      withLocalStorage: true,
-                      hidden: true,
-                      initialChild: Center(child: SpinKitFadingCircle(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: index.isEven ? greenColor : whiteColor,
+              singleSettingRow("Terms & Conditions", () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) {
+                      //   return TermsAndConditions();
+                      return WebviewScaffold(
+                          url: 'https://eazyhyper.wothoq.co/terms',
+                          javascriptChannels: jsChannels,
+                          mediaPlaybackRequiresUserGesture: false,
+                          appBar: AppBar(
+                            backgroundColor: Colors.white,
+                            centerTitle: true,
+                            title: MyText(
+                              text: translator.translate("Terms & Conditions"),
+                              size: EzhyperFont.header_font_size,
+                              weight: FontWeight.bold,
                             ),
-                          );
-                        },
-                      ),)
+                          ),
+                          withZoom: true,
+                          withLocalStorage: true,
+                          hidden: true,
+                          initialChild: Center(child: SpinKitFadingCircle(
+                            itemBuilder: (BuildContext context, int index) {
+                              return DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: index.isEven ? greenColor : whiteColor,
+                                ),
+                              );
+                            },
+                          ),)
 
-                  );
-                },
-                transitionsBuilder: (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
+                      );
+                    },
+                    transitionsBuilder: (context, animation8, animation15, child) {
+                      return FadeTransition(
+                        opacity: animation8,
+                        child: child,
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 10),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: height * .03,
               ),
-            );
-          }),
-          SizedBox(
-            height: height * .03,
+              singleSettingRow("Share App", () {
+                final RenderBox box = context.findRenderObject();
+                Share.share('${settingsBloc.app_link_controller.value}',
+                    subject: 'Welcome To Ezhyper',
+                    sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+              }),
+              SizedBox(
+                height: height * .03,
+              ),
+            ],
           ),
-          singleSettingRow("Share App", () {
-            final RenderBox box = context.findRenderObject();
-            Share.share('${settingsBloc.app_link_controller.value}',
-                subject: 'Welcome To Ezhyper',
-                sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-          }),
-          SizedBox(
-            height: height * .03,
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Widget topPart() {
@@ -532,7 +533,8 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar();
+                              return  translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                             },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
@@ -647,7 +649,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
         onTap: () {
           StaticData.vistor_value == 'visitor'
               ? Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignIn()))
+              context, MaterialPageRoute(builder: (context) => SignIn()))
               : logout_bloc.add(logoutClick());
         });
   }

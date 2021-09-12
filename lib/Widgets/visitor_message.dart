@@ -20,8 +20,8 @@ class VistorMessageState extends State<VistorMessage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: AssetImage('assets/images/logo.png'),
+            SvgPicture.asset(
+              'assets/images/ezhyper_logo.svg',
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.width / 2,

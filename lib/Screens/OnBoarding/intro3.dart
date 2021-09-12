@@ -58,10 +58,11 @@ class _Intro3State extends State<Intro3> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            child: Image.asset(
-              "assets/images/logo.png",
-              height: height * .06,
+            child: SvgPicture.asset(
+              'assets/images/ezhyper_logo.svg',
               color: greenColor,
+              height: height * .06,
+
             ),
           ),
         ],
@@ -108,7 +109,8 @@ class _Intro3State extends State<Intro3> {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) {
-                  return CustomCircleNavigationBar();
+                  return  translator.currentLanguage == 'ar' ?
+                  CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                 },
                 transitionsBuilder:
                     (context, animation8, animation15, child) {

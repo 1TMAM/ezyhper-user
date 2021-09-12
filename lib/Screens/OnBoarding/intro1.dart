@@ -55,10 +55,11 @@ class _Intro1State extends State<Intro1> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            child: Image.asset(
-              "assets/images/logo.png",
-              height: height * .06,
+            child: SvgPicture.asset(
+              'assets/images/ezhyper_logo.svg',
               color: greenColor,
+              height: height * .06,
+
             ),
           ),
         ],
@@ -100,7 +101,9 @@ class _Intro1State extends State<Intro1> {
         children: [
           InkWell(onTap: (){
             Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (context)=> CustomCircleNavigationBar()
+              builder: (context)=>  translator.currentLanguage == 'ar' ?
+              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar()
+
             ));
           },
               child: MyText(text: translator.translate("skip"), size:EzhyperFont.primary_font_size)),

@@ -377,32 +377,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                               : product_details(),
                         ),
                         SizedBox(
-                          height: height * .03,
+                          height: width * .01,
                         ),
-
-                        //releated products
-
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(
-                                left: StaticData.get_width(context) * .05,
-                                right: StaticData.get_width(context) * .05,
-                                bottom: StaticData.get_width(context) * .03),
-                            child: MyText(
-                              text: translator.translate("relatedProducts"),
-                              size: EzhyperFont.primary_font_size,
-                              color: blackColor,
-                            )),
-
-                        Container(
-                            height: StaticData.get_height(context) * .35,
-                            width: StaticData.get_width(context),
-                            child: ProductView(
-                              department_name: 'relatedProducts',
-                              product_id: widget.product.id,
-                              view_type: 'horizontal_ListView',
-                            )),
-
                         Container(
                           padding: EdgeInsets.only(
                               left: StaticData.get_width(context) * 0.02,
@@ -414,7 +390,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 decoration: BoxDecoration(
                                   color: blackColor,
                                   borderRadius:
-                                      BorderRadius.circular(height * .05),
+                                  BorderRadius.circular(height * .05),
                                 ),
                                 alignment: Alignment.center,
                                 child: Row(
@@ -422,14 +398,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     MaterialButton(
                                       height: 5,
                                       minWidth:
-                                          StaticData.get_width(context) * 0.15,
+                                      StaticData.get_width(context) * 0.15,
                                       onPressed: () {
                                         setState(() {
                                           if (qty <= 1) {
                                             errorDialog(
                                               context: context,
                                               text:
-                                                  "لقد نفذت الكمية من هذا المنتج",
+                                              "لقد نفذت الكمية من هذا المنتج",
                                             );
                                           } else {
                                             setState(() {
@@ -452,7 +428,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     MaterialButton(
                                       height: 5,
                                       minWidth:
-                                          StaticData.get_width(context) * 0.15,
+                                      StaticData.get_width(context) * 0.15,
                                       onPressed: () {
                                         setState(() {
                                           print(
@@ -461,7 +437,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             errorDialog(
                                               context: context,
                                               text:
-                                                  "لا يمكنك تخطى الكمية المتاحة",
+                                              "لا يمكنك تخطى الكمية المتاحة",
                                             );
                                           } else {
                                             setState(() {
@@ -482,7 +458,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     ),
                                     CustomSubmitAndSaveButton(
                                       buttonText:
-                                          translator.translate("ADD TO CART"),
+                                      translator.translate("ADD TO CART"),
                                       btn_width: width * .60,
                                       onPressButton: () {
                                         print("cart 1");
@@ -494,19 +470,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                                               prod_name: widget.product.name,
                                               prod_price: widget.product.price,
                                               prod_pricture: widget
-                                                      .product.files.isEmpty
+                                                  .product.files.isEmpty
                                                   ? 'https://eazyhyper.wothoq.co/public/media/categories/yOHvUbpcnTrh58YWwdYb9BNUzorReMyDeabG1m95.jpg'
                                                   : widget.product.files[0].url,
                                               prod_chossed_quantity: qty,
                                               prod_main_quantity:
-                                                  widget.product.quantity,
+                                              widget.product.quantity,
                                               prod_discount:
-                                                  widget.product.discount,
+                                              widget.product.discount,
                                               prod_price_after_discount: widget
                                                   .product.priceAfterDiscount,
                                               prod_cart_status: _cart_status,
                                               prod_order_status:
-                                                  _order_status));
+                                              _order_status));
                                           print("cart 3");
                                           //use to calculate price of all products in cart
                                           DB_Helper.calculate_amount();
@@ -586,6 +562,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: width * .03,
+                        ),
+                        //releated products
+
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(
+                                left: StaticData.get_width(context) * .05,
+                                right: StaticData.get_width(context) * .05,
+                                bottom: StaticData.get_width(context) * .03),
+                            child: MyText(
+                              text: translator.translate("relatedProducts"),
+                              size: EzhyperFont.primary_font_size,
+                              color: blackColor,
+                            )),
+
+                        Container(
+                            height: StaticData.get_height(context) * .35,
+                            width: StaticData.get_width(context),
+                            child: ProductView(
+                              department_name: 'relatedProducts',
+                              product_id: widget.product.id,
+                              view_type: 'horizontal_ListView',
+                            )),
+
+
 
                         SizedBox(
                           height: height * .03,

@@ -54,7 +54,8 @@ class _SplashState extends State<Splash> {
          context,
          PageRouteBuilder(
            pageBuilder: (context, animation1, animation2) {
-             return CustomCircleNavigationBar();
+             return  translator.currentLanguage == 'ar' ?
+             CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
            },
            transitionsBuilder:
                (context, animation8, animation15, child) {
@@ -92,7 +93,10 @@ class _SplashState extends State<Splash> {
     //  await recommended_product_bloc.add(getRecommendedProduct_click());
       await Future.delayed(Duration(seconds: 3));
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => CustomCircleNavigationBar()));
+          context, MaterialPageRoute(
+          builder: (context) =>
+          translator.currentLanguage == 'ar' ?
+          CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar()));
     }
 
     }

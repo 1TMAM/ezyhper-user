@@ -295,30 +295,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                    //   height: StaticData.get_width(context)* 0.7,
                       child:         product_status? product_review(rates: widget.offer_product.rates) : product_details()  ,
                     ),
-                    SizedBox(height: height*.03,),
-
-                    //releated products
-
-                    Container(
-                          alignment:translator.currentLanguage == 'ar' ? Alignment.centerRight : Alignment.centerLeft,
-                        padding: EdgeInsets.only(left: StaticData.get_width(context) * .05, right: StaticData.get_width(context) * .05
-                            ,bottom: StaticData.get_width(context) * .03),
-                        child:   MyText(
-                          text: translator.translate("relatedProducts"),
-                          size: EzhyperFont.primary_font_size,
-                          color: blackColor,
-
-                        )),
-
-                    Container(
-                        height: StaticData.get_height(context) * .35,
-                        width: StaticData.get_width(context),
-                        child: ProductView(
-                          department_name: 'relatedProducts',
-                          product_id: widget.offer_product.id,
-                          view_type: 'horizontal_ListView',
-                        )),
-
+                    SizedBox(height: height*.01,),
                     Container(
                       padding: EdgeInsets.only(
                           left: StaticData.get_width(context) * 0.02,
@@ -432,7 +409,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                                       StaticData.Toast_Short_Message(msg);
                                       print("cart 7");
                                     }
-                                     /*            if(StaticData.vistor_value == 'visitor'){
+                                    /*            if(StaticData.vistor_value == 'visitor'){
                                       Navigator.push(context, MaterialPageRoute(
                                         builder: (context)=>VistorMessage(),
                                       )   );
@@ -480,6 +457,31 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                         ],
                       ),
                     ),
+                    SizedBox(height: height*.03,),
+
+                    //releated products
+
+                    Container(
+                          alignment:translator.currentLanguage == 'ar' ? Alignment.centerRight : Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: StaticData.get_width(context) * .05, right: StaticData.get_width(context) * .05
+                            ,bottom: StaticData.get_width(context) * .03),
+                        child:   MyText(
+                          text: translator.translate("relatedProducts"),
+                          size: EzhyperFont.primary_font_size,
+                          color: blackColor,
+
+                        )),
+
+                    Container(
+                        height: StaticData.get_height(context) * .35,
+                        width: StaticData.get_width(context),
+                        child: ProductView(
+                          department_name: 'relatedProducts',
+                          product_id: widget.offer_product.id,
+                          view_type: 'horizontal_ListView',
+                        )),
+
+
 
                     SizedBox(height: height*.03,),
                   ],

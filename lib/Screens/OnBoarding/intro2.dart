@@ -57,10 +57,11 @@ class _Intro2State extends State<Intro2> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            child: Image.asset(
-              "assets/images/logo.png",
-              height: height * .06,
+            child: SvgPicture.asset(
+              'assets/images/ezhyper_logo.svg',
               color: greenColor,
+              height: height * .06,
+
             ),
           ),
         ],

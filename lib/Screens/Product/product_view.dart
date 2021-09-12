@@ -1,6 +1,7 @@
 
 import 'package:ezhyper/Bloc/Product_Bloc/product_bloc.dart';
 import 'package:ezhyper/Model/ProductModel/product_model.dart';
+import 'package:ezhyper/Screens/Product/product_grid_list.dart';
 import 'package:ezhyper/Widgets/no_data/no_data.dart';
 import 'package:ezhyper/fileExport.dart';
 import 'package:ezhyper/Screens/Product/product_shape.dart';
@@ -70,6 +71,8 @@ class ProductViewState extends State<ProductView>{
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     switch(widget.department_name){
       case 'RecommendedProducts':
         return widget.view_type == 'horizontal_ListView'
@@ -226,21 +229,29 @@ class ProductViewState extends State<ProductView>{
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.isEmpty) {
-                return NoData(
-                  message: translator.translate("There is no products"),
-                );
+                  return Container();
               } else {
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return snapshot.data[index] == null
-                          ? Container()
-                          : ProductShape(
-                        product: snapshot.data[index],
-                      );
-                    });
+                return Column(
+                  children: [
+                    textPurchasedProducts(
+                      context: context
+                    ),
+                    SizedBox(height: height*.02,),
+            ListView.builder(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            itemBuilder: (BuildContext context, int index) {
+            return snapshot.data[index] == null
+            ? Container()
+                : ProductShape(
+            product: snapshot.data[index],
+            );
+            }),
+                  ],
+                );
+
+
               }
             }
             else if (snapshot.hasError) {
@@ -610,4 +621,52 @@ class MyLoader extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget textPurchasedProducts({BuildContext context}) {
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
+  return Container(
+    padding: EdgeInsets.only(left: StaticData.get_width(context) * .05, right: StaticData.get_width(context) * .05,bottom: StaticData.get_width(context) * .01),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        MyText(
+          text: translator.translate("Purchase List"),
+          size: EzhyperFont.header_font_size,
+          color: blackColor,
+        ),
+        InkWell(onTap: (){
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) {
+                return ProductsGridList(
+                  page_name: "purchasedProducts",
+                );
+              },
+              transitionsBuilder:
+                  (context, animation8, animation15, child) {
+                return FadeTransition(
+                  opacity: animation8,
+                  child: child,
+                );
+              },
+              transitionDuration: Duration(milliseconds: 10),
+            ),
+          );
+
+
+        },
+            child:  translator.currentLanguage == 'ar' ? Image.asset(
+              "assets/images/arrow_left_md.png",
+              height: height * .03,
+            ) :Image.asset(
+              "assets/images/arrow_right_md.png",
+              fit: BoxFit.cover,
+              height: StaticData.get_height(context) * .03,
+            ))
+      ],
+    ),
+  );
 }

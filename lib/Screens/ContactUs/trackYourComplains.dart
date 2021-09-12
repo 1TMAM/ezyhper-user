@@ -145,7 +145,6 @@ class _TrackYourComplainsState extends State<TrackYourComplains> {
             if(snapshot.data.data.length != 0){
               return ListView.builder(
                   scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount:snapshot.data.data.length,
                   itemBuilder: (BuildContext context, int index) {

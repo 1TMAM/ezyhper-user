@@ -1,14 +1,12 @@
+import 'package:ezhyper/Bloc/Category_Bloc/category_bloc.dart';
 import 'package:ezhyper/Model/CategoryModel/category_model.dart' as category_model;
 import 'package:ezhyper/Screens/Product/product_grid_list.dart';
 
 import 'package:ezhyper/fileExport.dart';
 
 class CategoryShape extends StatefulWidget {
-
- // List<category_model.Data> categoryModel;
-
   category_model.Data categoryModel;
-CategoryShape({this.categoryModel});
+CategoryShape({this.categoryModel });
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -24,7 +22,7 @@ class CategoryShapeState extends State<CategoryShape> {
     double width = MediaQuery.of(context).size.width;
     return Container(
         height: height * .15,
-        child: InkWell(
+        child:  InkWell(
           onTap: () {
             print("Cover : ${widget.categoryModel.cover}");
             Navigator.push(

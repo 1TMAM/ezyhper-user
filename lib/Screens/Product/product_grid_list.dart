@@ -18,7 +18,7 @@ class ProductsGridList extends StatefulWidget {
 class _ProductsGridListState extends State<ProductsGridList> {
   String search_text='';
   int subcategory_click;
-
+bool second_sub_Category_status = false;
   @override
   void initState() {
     print("--------- ProductsGridList -----------");
@@ -44,7 +44,7 @@ class _ProductsGridListState extends State<ProductsGridList> {
                                 //subcategories list
                         widget.page_name == 'categoryProducts' ?
                                widget.subCategory_list==null ? Container() : subCategory_list() : Container(),
-
+                                second_sub_Category_status ? subCategory_list() : Container(),
 
                                 Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
                                     bottom: height*.02),
@@ -91,7 +91,9 @@ class _ProductsGridListState extends State<ProductsGridList> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar();
+                              return  translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar()
+                              ;
                             },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
@@ -238,6 +240,7 @@ class _ProductsGridListState extends State<ProductsGridList> {
       ),
     );
   }
+
   Widget subCategory_list(){
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -258,7 +261,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
                     setState(() {
                       subcategory_click = widget.subCategory_list[index].id;
                       print("subcategory_click : ${subcategory_click}");
-                      Navigator.pushReplacement(
+                      second_sub_Category_status = !second_sub_Category_status;
+                    /*  Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) {
@@ -278,7 +282,7 @@ class _ProductsGridListState extends State<ProductsGridList> {
                           },
                           transitionDuration: Duration(milliseconds: 10),
                         ),
-                      );
+                      );*/
                     });
                   },
                   child: MyText(

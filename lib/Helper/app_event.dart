@@ -39,6 +39,7 @@ class getAllOffers extends AppEvent{}
 
 //category
 class getAllCategories extends AppEvent{}
+class HomeSubCategoryEvent extends AppEvent{}
 
 class getCategoryProducts extends AppEvent{
   final String category_id;

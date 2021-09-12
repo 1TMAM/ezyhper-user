@@ -55,6 +55,7 @@ class CategoryBloc extends Bloc<AppEvent, AppState> with Validator{
       }
     }
 
+
   }
 
 }

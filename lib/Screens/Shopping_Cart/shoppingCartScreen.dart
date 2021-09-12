@@ -39,7 +39,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
   }
 
   void cart_offers() async {
-    await sharedPreferenceManager.readInteger(CachingKey.COUPON_IS_FRIST) == 0
+    await sharedPreferenceManager.readInteger(CachingKey.FRIST_TIME) == true
         ? showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -236,7 +236,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar();
+                              return  translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                             },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {

@@ -14,13 +14,13 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResultState extends State<SearchResult> {
-TextEditingController controller = new TextEditingController();
+  TextEditingController controller = new TextEditingController();
   @override
   void initState() {
     search_bloc.add(SearchProductsEvent(
-      columns: ['name_ar'],
-      operand: ['like'],
-      columns_values: ['']
+        columns: ['name_ar'],
+        operand: ['like'],
+        columns_values: ['']
 
     ));
     super.initState();
@@ -32,29 +32,29 @@ TextEditingController controller = new TextEditingController();
     return NetworkIndicator(
         child: PageContainer(
             child:  Scaffold(
-      backgroundColor: whiteColor,
-      body:  Directionality(
-            textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
-            child:Container(
-                child: Column(
-                    children: [
-                      topPart(),
-                      SizedBox(height: height*.0,),
-                      Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
-                          bottom: height*.02),decoration:
-                      BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(height*.05),
-                          topRight:Radius.circular(height*.05)),color: backgroundColor),
+              backgroundColor: whiteColor,
+              body:  Directionality(
+                  textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
+                  child:Container(
+                      child: Column(
+                          children: [
+                            topPart(),
+                            SizedBox(height: height*.0,),
+                            Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
+                                bottom: height*.02),decoration:
+                            BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(height*.05),
+                                topRight:Radius.circular(height*.05)),color: backgroundColor),
 
-                         child: searchTextFieldAndFilterPart()
+                                child: searchTextFieldAndFilterPart()
 
-                      ),
-                      Expanded(child: Container(color: backgroundColor,
-                          child: gridView()))
+                            ),
+                            Expanded(child: Container(color: backgroundColor,
+                                child: gridView()))
 
-                    ]))),
+                          ]))),
 
 
-    )));
+            )));
   }
   Widget topPart() {
     double height = MediaQuery.of(context).size.height;
@@ -70,7 +70,7 @@ TextEditingController controller = new TextEditingController();
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-           //     width: width * .4,
+                //     width: width * .4,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -80,7 +80,8 @@ TextEditingController controller = new TextEditingController();
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar();
+                              return  translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                             },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
@@ -146,7 +147,7 @@ TextEditingController controller = new TextEditingController();
         ),
       ),
     )
-   ;
+    ;
   }
 
   Widget searchTextFieldAndFilterPart() {
@@ -263,65 +264,65 @@ TextEditingController controller = new TextEditingController();
     return Directionality(
         textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
         child:BlocBuilder(
-      cubit: search_bloc,
-      builder: (context,state){
-        if(state is Loading){
-          return Center(
-            child: SpinKitFadingCircle(color: greenColor),
-          );
-        }else if(state is Done) {
-          var data = state .model as SearchModel;
-          if(data.data ==null){
-            return NoData(
-              message: data.msg,
-            );
-          }else {
-          return StreamBuilder<SearchModel>(
-            stream: search_bloc.search_products_subject,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<String> gallery = [];
-                if (snapshot.data.data == null) {
-                  return NoData(
-                    message: "there is No Data",
-                  );
-                } else {
-                  return GridView.builder(
+          cubit: search_bloc,
+          builder: (context,state){
+            if(state is Loading){
+              return Center(
+                child: SpinKitFadingCircle(color: greenColor),
+              );
+            }else if(state is Done) {
+              var data = state .model as SearchModel;
+              if(data.data ==null){
+                return NoData(
+                  message: data.msg,
+                );
+              }else {
+                return StreamBuilder<SearchModel>(
+                  stream: search_bloc.search_products_subject,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<String> gallery = [];
+                      if (snapshot.data.data == null) {
+                        return NoData(
+                          message: "there is No Data",
+                        );
+                      } else {
+                        return GridView.builder(
 
-                      itemCount: snapshot.data.data.products.length,
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 9 / 14,
-                        // childAspectRatio: StaticData.get_width(context) * 0.002,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        snapshot.data.data.products[index].files.forEach((
-                            element) {
-                          gallery.add(element.url);
-                        });
-                        return Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 5),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xfff7f7f7),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(0),
-
-
-                              ),
-
-
+                            itemCount: snapshot.data.data.products.length,
+                            gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 9 / 14,
+                              // childAspectRatio: StaticData.get_width(context) * 0.002,
                             ),
-                            child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: StaticData.get_width(context) * .03,
-                                  ),
-                                  InkWell(onTap: () {
+                            itemBuilder: (BuildContext context, int index) {
+                              snapshot.data.data.products[index].files.forEach((
+                                  element) {
+                                gallery.add(element.url);
+                              });
+                              return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xfff7f7f7),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(0),
 
-                                    /*    Navigator.push(
+
+                                    ),
+
+
+                                  ),
+                                  child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: StaticData.get_width(context) * .03,
+                                        ),
+                                        InkWell(onTap: () {
+
+                                          /*    Navigator.push(
                                     context,
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation1, animation2) {
@@ -340,240 +341,241 @@ TextEditingController controller = new TextEditingController();
                                     ),
                                   );*/
 
-                                  },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: whiteColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  StaticData.get_height(
-                                                      context) * .015)),
-                                        ),
-                                        height: StaticData.get_height(context) *
-                                            .35,
-                                        width: StaticData.get_width(context) *
-                                            .4,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .start,
-                                          children: [
-                                            Stack(
-                                              children: [
-                                                MyProductSlider(
-                                                  data: gallery,
-                                                  viewportFraction: 1.0,
-                                                  aspect_ratio: 3.0,
-                                                  border_radius: 15.0,
-                                                  indicator: false,
-                                                ),
-                                                CustomFauvourite(
-                                                  color: redColor,
-                                                  favourite_status: snapshot
-                                                      .data.data.products[index]
-                                                      .inFavorite == 0
-                                                      ? false
-                                                      : true,
-                                                  product_id: snapshot.data.data
-                                                      .products[index].id,
-                                                )
-                                              ],
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left: StaticData.get_width(
-                                                      context) * .01),
+                                        },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: whiteColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(
+                                                        StaticData.get_height(
+                                                            context) * .015)),
+                                              ),
+                                              height: StaticData.get_height(context) *
+                                                  .35,
+                                              width: StaticData.get_width(context) *
+                                                  .4,
                                               child: Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .start,
                                                 children: [
-                                                  Row(
+                                                  Stack(
                                                     children: [
-                                                      RatingBar.readOnly(
-                                                        initialRating: snapshot
-                                                            .data.data
-                                                            .products[index]
-                                                            .totalRate
-                                                            .toDouble(),
-                                                        maxRating: 5,
-                                                        isHalfAllowed: true,
-                                                        halfFilledIcon: Icons
-                                                            .star_half,
-                                                        filledIcon: Icons.star,
-                                                        emptyIcon: Icons
-                                                            .star_border,
-
-                                                        size: StaticData
-                                                            .get_width(
-                                                            context) * 0.03,
-                                                        filledColor: (snapshot
-                                                            .data.data
-                                                            .products[index]
-                                                            .totalRate
-                                                            .toDouble() >= 1)
-                                                            ? Colors.yellow
-                                                            .shade700
-                                                            : Colors.yellow
-                                                            .shade700,
+                                                      MyProductSlider(
+                                                        data: gallery,
+                                                        viewportFraction: 1.0,
+                                                        aspect_ratio: 3.0,
+                                                        border_radius: 15.0,
+                                                        indicator: false,
                                                       ),
-                                                      SizedBox(
-                                                        width: StaticData
-                                                            .get_width(
-                                                            context) * .02,
-                                                      ),
-                                                      MyText(
-                                                        text: "(${snapshot.data
-                                                            .data
-                                                            .products[index]
-                                                            .countRates})",
-                                                        size: StaticData
-                                                            .get_height(
-                                                            context) * .015,
-                                                        color: greyColor,
+                                                      CustomFauvourite(
+                                                        color: redColor,
+                                                        favourite_status: snapshot
+                                                            .data.data.products[index]
+                                                            .inFavorite == 0
+                                                            ? false
+                                                            : true,
+                                                        product_id: snapshot.data.data
+                                                            .products[index].id,
                                                       )
                                                     ],
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Container(
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        left: StaticData.get_width(
+                                                            context) * .01),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            RatingBar.readOnly(
+                                                              initialRating: snapshot
+                                                                  .data.data
+                                                                  .products[index]
+                                                                  .totalRate
+                                                                  .toDouble(),
+                                                              maxRating: 5,
+                                                              isHalfAllowed: true,
+                                                              halfFilledIcon: Icons
+                                                                  .star_half,
+                                                              filledIcon: Icons.star,
+                                                              emptyIcon: Icons
+                                                                  .star_border,
 
-                                                        child: MyText(
-                                                            text: "${snapshot
-                                                                .data.data
-                                                                .products[index]
-                                                                .name} ",
-                                                            size: StaticData
-                                                                .get_height(
-                                                                context) * .014,
-                                                            color: blackColor),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                              size: StaticData
+                                                                  .get_width(
+                                                                  context) * 0.03,
+                                                              filledColor: (snapshot
+                                                                  .data.data
+                                                                  .products[index]
+                                                                  .totalRate
+                                                                  .toDouble() >= 1)
+                                                                  ? Colors.yellow
+                                                                  .shade700
+                                                                  : Colors.yellow
+                                                                  .shade700,
+                                                            ),
+                                                            SizedBox(
+                                                              width: StaticData
+                                                                  .get_width(
+                                                                  context) * .02,
+                                                            ),
+                                                            MyText(
+                                                              text: "(${snapshot.data
+                                                                  .data
+                                                                  .products[index]
+                                                                  .countRates})",
+                                                              size: StaticData
+                                                                  .get_height(
+                                                                  context) * .015,
+                                                              color: greyColor,
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Container(
 
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment
-                                                                .start,
-                                                            children: [
-                                                              MyText(
-                                                                text: "${snapshot
-                                                                    .data.data
-                                                                    .products[index]
-                                                                    .priceAfterDiscount} ${translator
-                                                                    .translate(
-                                                                    "SAR")}",
-                                                                size: StaticData
-                                                                    .get_height(
-                                                                    context) *
-                                                                    .017,
-                                                                color: blackColor,
-                                                                weight: FontWeight
-                                                                    .normal,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                "${snapshot.data
-                                                                    .data
-                                                                    .products[index]
-                                                                    .price} ${translator
-                                                                    .translate(
-                                                                    "SAR")}",
-                                                                style: TextStyle(
-                                                                    decoration: TextDecoration
-                                                                        .lineThrough,
-                                                                    fontSize: StaticData
-                                                                        .get_height(
-                                                                        context) *
-                                                                        .011,
-                                                                    color: greyColor),
-                                                              ),
-                                                              SizedBox(
-                                                                width: StaticData
-                                                                    .get_width(
-                                                                    context) *
-                                                                    .02,
-                                                              ),
-                                                              MyText(
+                                                              child: MyText(
                                                                   text: "${snapshot
                                                                       .data.data
                                                                       .products[index]
-                                                                      .discount}%",
+                                                                      .name} ",
                                                                   size: StaticData
                                                                       .get_height(
-                                                                      context) *
-                                                                      .011,
-                                                                  color: greenColor),
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                          padding: EdgeInsets
-                                                              .all(StaticData
-                                                              .get_height(
-                                                              context) * .01),
-                                                          height: StaticData
-                                                              .get_height(
-                                                              context) * .05,
-                                                          width: StaticData
-                                                              .get_width(
-                                                              context) * .1,
-                                                          decoration: BoxDecoration(
-                                                              color: greenColor,
-                                                              borderRadius: BorderRadius
-                                                                  .only(
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                      StaticData
+                                                                      context) * .014,
+                                                                  color: blackColor),
+                                                            ),
+                                                          ],
+                                                        ),
+
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment
+                                                              .spaceBetween,
+                                                          children: [
+                                                            Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment
+                                                                      .start,
+                                                                  children: [
+                                                                    MyText(
+                                                                      text: "${snapshot
+                                                                          .data.data
+                                                                          .products[index]
+                                                                          .priceAfterDiscount} ${translator
+                                                                          .translate(
+                                                                          "SAR")}",
+                                                                      size: StaticData
                                                                           .get_height(
                                                                           context) *
-                                                                          .01),
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                      StaticData
-                                                                          .get_height(
+                                                                          .017,
+                                                                      color: blackColor,
+                                                                      weight: FontWeight
+                                                                          .normal,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Text(
+                                                                      "${snapshot.data
+                                                                          .data
+                                                                          .products[index]
+                                                                          .price} ${translator
+                                                                          .translate(
+                                                                          "SAR")}",
+                                                                      style: TextStyle(
+                                                                          decoration: TextDecoration
+                                                                              .lineThrough,
+                                                                          fontSize: StaticData
+                                                                              .get_height(
+                                                                              context) *
+                                                                              .011,
+                                                                          color: greyColor),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: StaticData
+                                                                          .get_width(
                                                                           context) *
-                                                                          .01))),
-                                                          child: Image.asset(
-                                                              "assets/images/cart_white.png")),
-                                                    ],
-                                                  )
+                                                                          .02,
+                                                                    ),
+                                                                    MyText(
+                                                                        text: "${snapshot
+                                                                            .data.data
+                                                                            .products[index]
+                                                                            .discount}%",
+                                                                        size: StaticData
+                                                                            .get_height(
+                                                                            context) *
+                                                                            .011,
+                                                                        color: greenColor),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                            Container(
+                                                                padding: EdgeInsets
+                                                                    .all(StaticData
+                                                                    .get_height(
+                                                                    context) * .01),
+                                                                height: StaticData
+                                                                    .get_height(
+                                                                    context) * .05,
+                                                                width: StaticData
+                                                                    .get_width(
+                                                                    context) * .1,
+                                                                decoration: BoxDecoration(
+                                                                    color: greenColor,
+                                                                    borderRadius: BorderRadius
+                                                                        .only(
+                                                                        topRight: Radius
+                                                                            .circular(
+                                                                            StaticData
+                                                                                .get_height(
+                                                                                context) *
+                                                                                .01),
+                                                                        bottomLeft: Radius
+                                                                            .circular(
+                                                                            StaticData
+                                                                                .get_height(
+                                                                                context) *
+                                                                                .01))),
+                                                                child: Image.asset(
+                                                                    "assets/images/cart_white.png")),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                                ])
-                        );
-                      });
-                }
-              }
-              else if (snapshot.hasError) {
-                return Container(
-                  child: Text('${snapshot.error}'),
+                                            )
+                                        )
+                                      ])
+                              );
+                            });
+                      }
+                    }
+                    else if (snapshot.hasError) {
+                      return Container(
+                        child: Text('${snapshot.error}'),
+                      );
+                    } else {
+                      return Center(
+                        child: SpinKitFadingCircle(color: greenColor),
+                      );;
+                    }
+                  },
+
                 );
-              } else {
-                return Center(
-                  child: SpinKitFadingCircle(color: greenColor),
-                );;
               }
-            },
+            }else if(state is ErrorLoading){
+              return NoData(
+                message: 'There is NO Data',
+              );
+            }
 
-          );
-        }
-        }else if(state is ErrorLoading){
-          return NoData(
-            message: 'There is NO Data',
-          );
-        }
-
-      },
+          },
         )   );
 
   }

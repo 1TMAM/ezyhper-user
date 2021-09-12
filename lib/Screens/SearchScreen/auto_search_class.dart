@@ -88,45 +88,6 @@ class _HomePageState extends State<AdvancedSearchClass> {
     },
 
     )
-/*      child: StreamBuilder<SearchModel>(
-        stream: search_bloc.search_products_subject,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData) {
-              return SearchWidget<search_model.Products>(
-                dataList: snapshot.data.data.products,
-                hideSearchBoxWhenItemSelected: true,
-                listContainerHeight: MediaQuery.of(context).size.height / 4,
-                queryBuilder: (query, list) {
-                  return list
-                      .where((item) =>
-                      item.name.toLowerCase().contains(query.toLowerCase()))
-                      .toList();
-                },
-                popupListItemBuilder: (item) {
-                    return PopupListItemWidget(item, widget.token);
-
-                },
-                selectedItemBuilder: (selectedItem, deleteSelectedItem) {},
-                // widget customization
-                noItemsFoundWidget: NoItemsFound(),
-                textFieldBuilder: (controller, focusNode) {
-                    return MyTextField(controller , widget.token , focusNode);
-
-                },
-                onItemSelected: (item) {
-                  setState(() {
-                    _selectedItem = item;
-                  });
-                },
-              );
-            } else {}
-          }
-          return CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(greenColor),
-          );
-        },
-      ),*/
     );
   }
 }
@@ -184,46 +145,6 @@ class MyTextField extends StatelessWidget {
             ),
           ),
         ));
-    return Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.black)),
-            child: Directionality(
-              textDirection: translator=='en'? TextDirection.ltr : TextDirection.rtl,          child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: TextField(
-                    controller: controller,
-                    focusNode: focusNode,
-                    decoration: InputDecoration(
-                      hintText: translator.translate("What Are You Loking For ? "),
-                      hintStyle: TextStyle(
-                        color: Color(0xFFBBBBBB),
-                      ),
-                      prefixIcon: IconButton(
-                        onPressed: () {
-                          search_bloc.add(SearchProductsEvent(
-                              columns: ['name_ar'],
-                              operand: ['like'],
-                              columns_values: [ controller.text]
-
-                          ));
-                        },
-                        icon: Icon(
-                          Icons.search,
-                          color: Color(0xFFBBBBBB),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-              ],
-            ),
-            ));
   }
 
 }

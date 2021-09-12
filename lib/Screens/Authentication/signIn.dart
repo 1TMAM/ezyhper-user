@@ -89,8 +89,8 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar(
-                              );
+                              return  translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                             },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
@@ -287,8 +287,8 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation1, animation2) {
-                    return CustomCircleNavigationBar(
-                    );
+                    return  translator.currentLanguage == 'ar' ?
+                    CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                   },
                   transitionsBuilder:
                       (context, animation8, animation15, child) {

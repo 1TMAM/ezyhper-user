@@ -74,7 +74,8 @@ class _UserLocationState extends State<UserLocation> with TickerProviderStateMix
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) {
-                            return CustomCircleNavigationBar();
+                            return  translator.currentLanguage == 'ar' ?
+                            CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar();
                           },
                           transitionsBuilder:
                               (context, animation8, animation15, child) {
@@ -202,10 +203,13 @@ class _UserLocationState extends State<UserLocation> with TickerProviderStateMix
                 child: translator.currentLanguage == 'ar' ? Image.asset(
                   "assets/images/arrow_right.png",
                   height: height * .03,
-                ) : Image.asset(
-                  "assets/images/logo.png",
-                  height: height * .03,
-                  color: greenColor,
+                ) :   Container(
+                  child: SvgPicture.asset(
+                    'assets/images/ezhyper_logo.svg',
+                    color: greenColor,
+                    height: height * .03,
+
+                  ),
                 ),
               ),
               InkWell(onTap: (){

@@ -98,3 +98,4 @@ export 'package:ezhyper/Repository/ProductRepo/product_repository.dart';
 export 'package:ezhyper/Widgets/visitor_message.dart';
 export 'package:ezhyper/Widgets/customWidgets.dart';
 export 'package:ezhyper/Widgets/custom_circle_navigation_bar.dart';
+export 'package:flutter_svg/flutter_svg.dart';

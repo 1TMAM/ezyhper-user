@@ -185,7 +185,7 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                 ),
                 MyText(
                   text:
-                      "${widget.order == null ? '' : widget.order.total} ${translator.translate("SAR")} ",
+                      "${widget.order == null ? '' : widget.order.total + widget.order.shippingCost} ${translator.translate("SAR")} ",
                   size: height * .02,
                   color: greenColor,
                 ),

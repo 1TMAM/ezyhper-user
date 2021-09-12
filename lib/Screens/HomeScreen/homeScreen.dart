@@ -1,3 +1,4 @@
+import 'package:ezhyper/Bloc/Category_Bloc/category_bloc.dart';
 import 'package:ezhyper/Constants/static_data.dart';
 import 'package:ezhyper/Screens/Category/category_view.dart';
 import 'package:ezhyper/Screens/Offers/offer_slider.dart';
@@ -5,6 +6,7 @@ import 'package:ezhyper/Screens/Offers/offers_view.dart';
 import 'package:ezhyper/Screens/Product/product_grid_list.dart';
 import 'package:ezhyper/fileExport.dart';
 import 'package:ezhyper/Screens/Product/product_view.dart';
+
 class HomeScreen extends StatefulWidget {
 
   @override
@@ -35,15 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             topPart(),
-
             Expanded(
                 child: _buildBody(),
-
             )],
         ),
       ),
-
-
     ),
             )
 
@@ -67,6 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 textCategory(),
             SizedBox(height: height*.02,),
                 categoriesSlider(),
+
+
+
             SizedBox(height: height*.02,),
                 textOffers(),
             SizedBox(height: height*.02,),
@@ -88,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
  */
 
                 SizedBox(height: height*.02,),
-                textPurchasedProducts(),
-                SizedBox(height: height*.02,),
+               // textPurchasedProducts(),
+                //SizedBox(height: height*.02,),
                 purchasedProductsSlider()
               ],
             ),
@@ -141,12 +142,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              child:  Image.asset(
-                "assets/images/logo.png",
-                height: height * .04,
+              child: SvgPicture.asset(
+                  'assets/images/ezhyper_logo.svg',
                 color: greenColor,
+                height: height * .04,
+
               ),
             ),
+  /*            Container(
+              child: SvgPicture.asset(
+                  'assets/images/ezhyper_logo.svg',
+                color: greenColor,
+                height: height * .04,
+
+              ),
+            ),*/
 
           ],
         ),
@@ -209,7 +219,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CategoryView(
           view_type: 'horizontal_ListView',
         )
-
     );
   }
   Widget textOffers() {
@@ -269,7 +278,6 @@ class _HomeScreenState extends State<HomeScreen> {
           view_type: 'horizontal_ListView',
         ));
   }
-
 
   Widget textRecommendedProducts() {
     double height = MediaQuery.of(context).size.height;
@@ -390,57 +398,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  Widget textPurchasedProducts() {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.only(left: StaticData.get_width(context) * .05, right: StaticData.get_width(context) * .05,bottom: StaticData.get_width(context) * .01),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          MyText(
-            text: translator.translate("Purchase List"),
-            size: EzhyperFont.header_font_size,
-            color: blackColor,
-          ),
-          InkWell(onTap: (){
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) {
-                  return ProductsGridList(
-                    page_name: "purchasedProducts",
-                  );
-                },
-                transitionsBuilder:
-                    (context, animation8, animation15, child) {
-                  return FadeTransition(
-                    opacity: animation8,
-                    child: child,
-                  );
-                },
-                transitionDuration: Duration(milliseconds: 10),
-              ),
-            );
-
-
-          },
-              child:  translator.currentLanguage == 'ar' ? Image.asset(
-                "assets/images/arrow_left_md.png",
-                height: height * .03,
-              ) :Image.asset(
-                "assets/images/arrow_right_md.png",
-                fit: BoxFit.cover,
-                height: StaticData.get_height(context) * .03,
-              ))
-        ],
-      ),
-    );
-  }
 
   Widget purchasedProductsSlider() {
     return Container(
-        height: StaticData.get_height(context) * .35,
+       // height: StaticData.get_height(context) * .35,
         width: StaticData.get_width(context),
         child: ProductView(
           view_type: 'horizontal_ListView',

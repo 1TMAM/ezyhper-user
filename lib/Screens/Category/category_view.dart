@@ -1,9 +1,11 @@
 import 'package:ezhyper/Bloc/Category_Bloc/category_bloc.dart';
 import 'package:ezhyper/Model/CategoryModel/category_model.dart';
 import 'package:ezhyper/Screens/Category/category_shape.dart';
+import 'package:ezhyper/Screens/Category/subcategory_products_result.dart';
 import 'package:ezhyper/Widgets/no_data/no_data.dart';
 import 'package:ezhyper/Widgets/visitor_message.dart';
 import 'package:ezhyper/fileExport.dart';
+import 'package:ezhyper/Model/CategoryModel/category_model.dart' as category_model;
 
 class CategoryView extends StatefulWidget{
   final String view_type;
@@ -24,8 +26,11 @@ class CategoryViewState extends State<CategoryView>{
     super.initState();
   }
 
-  @override
+
+    @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Directionality(
         textDirection: TextDirection.ltr,
         child:  BlocBuilder(
@@ -43,17 +48,16 @@ class CategoryViewState extends State<CategoryView>{
                     if(snapshot.data.data.isEmpty){
                       return Container();
                     }else{
-                      return ListView.builder(
+                      return  ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: snapshot.data.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return   CategoryShape(
+                            return    CategoryShape(
                               categoryModel: snapshot.data.data[index],
                             );
                           });
                     }
-
                   }
                   else if (snapshot.hasError) {
                     return Container(
@@ -67,6 +71,7 @@ class CategoryViewState extends State<CategoryView>{
                 },
 
               )
+
                   : StreamBuilder<CategoryModel>(
                 stream: categoryBloc.categories_subject,
                 builder: (context,snapshot){
