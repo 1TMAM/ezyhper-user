@@ -73,7 +73,7 @@ class _ChoosePaymentMethodState extends State<ChoosePaymentMethod> {
         child:   Padding(
           padding: EdgeInsets.only(top: width * 0.06),
           child:  BlocBuilder(
-            cubit: creditCard_bloc,
+            bloc: creditCard_bloc,
             builder: (context,state){
               if(state is Loading){
                 return Center(

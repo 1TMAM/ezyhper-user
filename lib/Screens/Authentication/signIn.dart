@@ -75,7 +75,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
                   key: _drawerKey,
                   backgroundColor: whiteColor,
                   body: BlocListener<SigninBloc, AppState>(
-                    cubit: signIn_bloc,
+                      bloc: signIn_bloc,
                     listener: (context, state) async {
                       var data = state.model as AuthenticationModel;
                       if (state is Loading) {
@@ -598,7 +598,7 @@ class _SignInState extends State<SignIn> with TickerProviderStateMixin {
             context,
             PageRouteBuilder(
               pageBuilder: (context, animation1, animation2) {
-                return UserLocation();
+                return CustomCircleNavigationBar();
               },
               transitionsBuilder:
                   (context, animation8, animation15, child) {

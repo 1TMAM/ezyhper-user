@@ -71,7 +71,7 @@ class CvvDialogState extends State<CvvDialog> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     // TODO: implement build
     return BlocListener<PaymentBloc, AppState>(
-      cubit: paymentBloc,
+      bloc: paymentBloc,
       listener: (context,state){
 
         if(state is Loading){

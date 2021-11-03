@@ -156,7 +156,7 @@ class _AllAPaymentMethodsScreenState extends State<AllAPaymentMethodsScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return  BlocBuilder(
-      cubit: creditCard_bloc,
+      bloc: creditCard_bloc,
       builder: (context,state){
         if(state is Loading){
           return Center(

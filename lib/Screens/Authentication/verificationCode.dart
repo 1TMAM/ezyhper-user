@@ -64,7 +64,7 @@ class _VerificationCodeState extends State<VerificationCode>
                 key: _drawerKey,
                 backgroundColor: whiteColor,
                 body: BlocListener<ForgetPasswordBloc, AppState>(
-                  cubit: forgetPassword_bloc,
+                  bloc: forgetPassword_bloc,
                   listener: (context, state) async {
                     var data = state.model as AuthenticationModel;
                     if (state is Loading) {

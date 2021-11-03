@@ -4,6 +4,7 @@ import 'package:ezhyper/Model/WalletModel/cashout_model.dart';
 import 'package:ezhyper/Model/WalletModel/wallet_model.dart' as wallet_model;
 import 'package:ezhyper/Widgets/customWidgets.dart';
 import 'package:ezhyper/Widgets/error_dialog.dart';
+import 'package:ezhyper/Widgets/no_data/no_data.dart';
 import 'package:ezhyper/fileExport.dart';
 import 'package:ezhyper/Screens/Wallet/walletYouDontHaveAnyPayment.dart';
 class Wallet extends StatefulWidget {
@@ -71,7 +72,7 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
               },
               child: Scaffold(
                 key: _drawerKey,
-                backgroundColor: whiteColor,
+                backgroundColor: backgroundColor,
                 body: Directionality(
                     textDirection: translator.currentLanguage =='ar'?TextDirection.rtl : TextDirection.ltr,
                     child:Container(
@@ -100,21 +101,11 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
                 builder: (context, snapshot){
                   if(snapshot.hasData){
                     if(snapshot.data.data==null){
-                      return Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(height: height*.03,),
-                              Image.asset('assets/images/img_wallet.png',
-                                height:  height*.2,),
-                              SizedBox(height: height*.03,),
-                              MyText(
-                                text: translator.translate("There is No Orders"),
-                                weight: FontWeight.bold,
-                              )
-                            ],
-                          )
+                      return NoData(
+                        image: "assets/images/img_wallet.png",
+                        title: translator.translate("order"),
+                        message: translator.translate(
+                            "If you are facing any problem or if you have a suggestion, please contact us"),
                       );
                     }else{
                       print("balance : ${snapshot.data.data[0].remainBalance}");
@@ -194,9 +185,11 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.push(context,MaterialPageRoute(
+                        Navigator.pop(context);
+
+                       /* Navigator.push(context,MaterialPageRoute(
                           builder: (context)=> CustomCircleNavigationBar(page_index: 4,),
-                        ));
+                        ));*/
 
                       },
                       child: Container(

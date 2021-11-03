@@ -101,7 +101,7 @@ class _ComplainsScreenState extends State<ComplainsScreen> with TickerProviderSt
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<ContactUsBloc, AppState>(
-        cubit: contactUsBloc,
+        bloc: contactUsBloc,
         listener: (context, state) {
 
           if (state is Loading) {

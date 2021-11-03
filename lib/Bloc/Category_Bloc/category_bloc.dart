@@ -1,5 +1,6 @@
 import 'package:ezhyper/Model/CategoryModel/category_model.dart';
 import 'package:ezhyper/Model/CategoryModel/category_products_model.dart';
+import 'package:ezhyper/Model/CategoryModel/second_lvel_subcategory_model.dart';
 import 'package:ezhyper/Model/OffersModel/offer_model.dart';
 import 'package:ezhyper/Repository/CategoryRepo/category_repository.dart';
 import 'package:ezhyper/Repository/OfferRepo/offer_repository.dart';
@@ -27,14 +28,19 @@ class CategoryBloc extends Bloc<AppEvent, AppState> with Validator{
     return categories_search_value;
   }
 
+  BehaviorSubject<SecondLevelSubcategoryModel> _second_level_subcategory_subject = new BehaviorSubject<SecondLevelSubcategoryModel>();
+  get second_level_subcategory_subject {
+    return _second_level_subcategory_subject;
+  }
+
   void drainStream() {
-    _category_subject.value = null;
-    _category_product_subject.value = null;
+   // _category_subject.value = null;
+   // _category_product_subject.value = null;
   }
 
   void dispose(){
-    categoryBloc.drainStream();
-    categoryBloc.dispose();
+   // categoryBloc.drainStream();
+    //categoryBloc.dispose();
 
   }
   @override
@@ -51,6 +57,23 @@ class CategoryBloc extends Bloc<AppEvent, AppState> with Validator{
         yield Done(model: response);
       } else if (response.status == false) {
         print("4");
+        yield ErrorLoading(response);
+      }
+    }
+    else if(event is getSecondLevelSubcategoryEvent) {
+      print("second_sub_category 1");
+      yield Loading();
+      final response = await categoryRepository.getSecondLevelSubcategoryList(
+        subcategory_id: event.subcategory_id
+      );
+      print("second_sub_category 2");
+      if (response.status == true) {
+        print("second_sub_category 3");
+        print("second_sub_category _response : ${response}");
+        _second_level_subcategory_subject.sink.add(response);
+        yield Done(model: response);
+      } else if (response.status == false) {
+        print("second_sub_category 4");
         yield ErrorLoading(response);
       }
     }

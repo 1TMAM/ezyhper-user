@@ -87,7 +87,7 @@ class _UpdatePaymentCardState extends State<UpdatePaymentCard>
                         key: _drawerKey,
                         backgroundColor: whiteColor,
                         body: BlocListener<CreditCardBloc, AppState>(
-                          cubit: creditCard_bloc,
+                            bloc: creditCard_bloc,
                           listener: (context, state) {
                             if (state is Loading) {
                               if (state.indicator == 'update_card') {

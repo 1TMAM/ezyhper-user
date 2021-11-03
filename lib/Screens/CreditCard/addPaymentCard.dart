@@ -83,7 +83,7 @@ class _AddPaymentCardState extends State<AddPaymentCard> with TickerProviderStat
                 key: _drawerKey,
                 backgroundColor: whiteColor,
                 body: BlocListener<CreditCardBloc,AppState>(
-                  cubit: creditCard_bloc,
+                  bloc: creditCard_bloc,
                   listener: (context,state){
                     var data = state.model as CreditCardModel;
                     if (state is Loading) {

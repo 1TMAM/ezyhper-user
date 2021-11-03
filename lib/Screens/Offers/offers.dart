@@ -57,7 +57,7 @@ class _OffersState extends State<Offers> {
                     child: Container(
                         color: backgroundColor,
                         child: BlocBuilder(
-                          cubit: offersBloc,
+                          bloc: offersBloc,
                           builder: (context, state) {
                             if (state is Loading) {
                               return Center(

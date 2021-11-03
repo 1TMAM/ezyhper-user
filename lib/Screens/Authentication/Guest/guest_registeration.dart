@@ -69,7 +69,7 @@ class _GuestRegisterationState extends State<GuestRegisteration> with TickerProv
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<SignUpBloc, AppState>(
-        cubit: signUp_bloc,
+        bloc: signUp_bloc,
         listener: (context, state) {
           var data = state.model as AuthenticationModel;
           if (state is Loading) {

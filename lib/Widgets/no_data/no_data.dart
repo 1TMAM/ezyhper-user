@@ -1,36 +1,95 @@
 import 'package:ezhyper/fileExport.dart';
+import 'package:ezhyper/fileExport.dart';
 import 'package:flutter/material.dart';
 
 class NoData extends StatelessWidget {
   final String message;
-
-  const NoData({Key key, this.message}) : super(key: key);
+  final String title;
+  final String image;
+  const NoData({Key key, this.message,this.title,this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(height * .05),
+                topLeft: Radius.circular(height * .05)),
+            color: backgroundColor),
+        child: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
 
-    return Center(
-        child: Column(
+                  imageContainer(context),
+                  textYouHaveDontHave(context),
+                  SizedBox(
+                    height: height * .01,
+                  ),
+                  textClickAdd(context),
+                  SizedBox(
+                    height: height * .05,
+
+                  ),
+
+
+                ],
+              ),
+            )
+//
+
+        ));
+  }
+  Widget imageContainer(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Image.asset('assets/images/img_slide3.png',
-        height: StaticData.get_width(context) * 0.5,
-        width:  StaticData.get_width(context) * 0.5,),
-  /*      Icon(
-          Icons.not_interested,
-          size: height * 0.12,
-          color: greenColor,
-        ),*/
+      children: [
         Container(
-          margin: EdgeInsets.only(top: height * 0.02),
-          child: Text(
-            message,
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w400, fontSize: 15),
+          width: width * .5,
+          height: height * .4,
+          child: Image.asset(
+            image,height: height*.03,width: width*.1,
           ),
         ),
       ],
-    ));
+    );
+  }
+
+  Widget textYouHaveDontHave(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: width * .75,
+          child: MyText(
+            text: "${translator.translate("Opps, you dont have any")} $title ",
+            size: height * .019,
+            color: Colors.red,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget textClickAdd(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: width * .75,
+          child: MyText(
+            text:message,
+            size: height * .019,
+          ),
+        ),
+      ],
+    );
   }
 }

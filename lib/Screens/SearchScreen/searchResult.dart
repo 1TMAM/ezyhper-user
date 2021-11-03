@@ -264,7 +264,7 @@ class _SearchResultState extends State<SearchResult> {
     return Directionality(
         textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
         child:BlocBuilder(
-          cubit: search_bloc,
+          bloc: search_bloc,
           builder: (context,state){
             if(state is Loading){
               return Center(

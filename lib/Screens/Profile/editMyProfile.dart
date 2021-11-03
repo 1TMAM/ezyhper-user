@@ -70,7 +70,7 @@ void collect_profile_data()async{
               key: _drawerKey,
       backgroundColor: whiteColor,
       body: BlocListener<ProfileBloc, AppState>(
-      cubit: profile_bloc,
+          bloc: profile_bloc,
         listener: (context, state) {
       if (state is Loading) {
         print("Loading");

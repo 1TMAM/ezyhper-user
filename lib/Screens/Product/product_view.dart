@@ -58,7 +58,14 @@ class ProductViewState extends State<ProductView>{
           offset: offset
       ));
       break;
+    case 'ShowSecondLevelSubcCategoryProducts':
+      product_bloc.add(getSecondLevelSubCategoryProducts(
+          secon_level_subcategory_id: widget.category_id,
+          offset: offset
+      ));
+      break;
   }
+
     super.initState();
   }
 
@@ -231,26 +238,24 @@ class ProductViewState extends State<ProductView>{
               if (snapshot.data.isEmpty) {
                   return Container();
               } else {
-                return Column(
-                  children: [
-                    textPurchasedProducts(
-                      context: context
-                    ),
-                    SizedBox(height: height*.02,),
-            ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
-            itemBuilder: (BuildContext context, int index) {
-            return snapshot.data[index] == null
-            ? Container()
-                : ProductShape(
-            product: snapshot.data[index],
-            );
-            }),
-                  ],
-                );
-
+                return  Column(
+                      children: [
+                      textPurchasedProducts(context: context),
+                  SizedBox(height: height*.02,),
+            Container(
+            height: StaticData.get_height(context)  * .35,
+            child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return snapshot.data[index] == null
+                            ? Container()
+                            : ProductShape(
+                          product: snapshot.data[index],
+                        );
+                      }),)
+                  ]);
 
               }
             }
@@ -386,7 +391,7 @@ class ProductViewState extends State<ProductView>{
           stream: product_bloc.cat_products_subject,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data ==null) {
                 return Container();
               } else {
                 return ListView.builder(
@@ -418,35 +423,50 @@ class ProductViewState extends State<ProductView>{
             : StreamBuilder<List<product_model.Products>>(
           stream: product_bloc.cat_products_subject,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return GridView.builder(
-                    controller: _controller,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 9 / 14,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xfff7f7f7),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(0),
+              if (snapshot.hasData) {
+                if (snapshot.data ==null) {
+                  return NoData(
+                    image: "assets/images/img_contactus.png",
+                    title: translator.translate( "There is no products"),
+                    message: translator.translate(
+                        "If you are facing any problem or if you have a suggestion, please contact us"),
+                  );
+                } else {
+                  return GridView.builder(
+                      controller: _controller,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 9 / 14,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Color(0xfff7f7f7),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(0),
+                            ),
                           ),
-                        ),
-                        child: index >= snapshot.data.length
-                            ? MyLoader(25, 25)
-                            :  snapshot.data[index] ==
-                            null ? Container() : ProductShape(
-                          product: snapshot.data[index],
-                        ),
-                      );
-                    });
+                          child: index >= snapshot.data.length
+                              ? MyLoader(25, 25)
+                              : snapshot.data[index] ==
+                              null ? NoData(
+                            image: "assets/images/img_contactus.png",
+                            title: translator.translate( "There is no products"),
+                            message: translator.translate(
+                                "If you are facing any problem or if you have a suggestion, please contact us"),
+                          ) : ProductShape(
+                            product: snapshot.data[index],
+                          ),
+                        );
+                      });
+                }
+
             } else {
               return MyLoader(45, 45);
             }
@@ -528,6 +548,56 @@ class ProductViewState extends State<ProductView>{
                     });
               }
              
+            } else {
+              return MyLoader(45, 45);
+            }
+          },
+
+        );
+        break;
+      case 'ShowSecondLevelSubcCategoryProducts':
+        return StreamBuilder<List<product_model.Products>>(
+          stream: product_bloc.second_level_subcatatgory_products_subject,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if(snapshot.data ==null){
+                return NoData(
+                  image: "assets/images/img_wallet.png",
+                  title: translator.translate( "There is no products"),
+                  message: translator.translate(
+                      "If you are facing any problem or if you have a suggestion, please contact us"),
+                );
+              }else{
+                return GridView.builder(
+                    controller: _controller,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 9 / 14,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Color(0xfff7f7f7),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(0),
+                          ),
+                        ),
+                        child: index >= snapshot.data.length
+                            ? MyLoader(25, 25)
+                            :  snapshot.data[index] ==
+                            null ? Container() : ProductShape(
+                          product: snapshot.data[index],
+                        ),
+                      );
+                    });
+              }
+
             } else {
               return MyLoader(45, 45);
             }

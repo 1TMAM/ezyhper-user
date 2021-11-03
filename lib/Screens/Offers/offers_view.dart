@@ -33,7 +33,7 @@ class OffersViewState extends State<OffersView>{
     return Directionality(
         textDirection: TextDirection.ltr,
         child: BlocBuilder(
-          cubit: offersBloc,
+          bloc: offersBloc,
           builder: (context,state){
           //  var data = state.model as OfferModel;
             if(state is Loading){

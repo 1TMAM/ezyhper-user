@@ -90,7 +90,7 @@ class _RateAndReviewState extends State<RateAndReview> with TickerProviderStateM
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<ProductBloc, AppState>(
-      cubit: product_bloc,
+      bloc: product_bloc,
       listener: (context, state) {
         var data = state.model as RateAndReviewModel;
         if (state is Loading) {

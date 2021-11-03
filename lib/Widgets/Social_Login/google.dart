@@ -47,7 +47,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
     return Material(
       key: _drawerKey,
       child:  BlocListener<SocialLoginBloc, AppState>(
-        cubit: socialLogin_bloc,
+        bloc: socialLogin_bloc,
         listener: (context,state){
           var data = state.model as SocialLoginModel;
           if (state is Loading) {

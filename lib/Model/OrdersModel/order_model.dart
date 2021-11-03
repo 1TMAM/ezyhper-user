@@ -70,7 +70,7 @@ class Data {
   PaymentMethod paymentMethod;
   Coupon coupon;
   User user;
-  Null delivery;
+  Delivery delivery;
   List<Products> products;
   CreateDates createDates;
   UpdateDates updateDates;
@@ -129,7 +129,9 @@ class Data {
     coupon =
     json['coupon'] != null ? new Coupon.fromJson(json['coupon']) : null;
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    delivery = json['delivery'];
+    delivery = json['delivery'] != null
+        ? new Delivery.fromJson(json['delivery'])
+        : null;
     if (json['products'] != null) {
       products = new List<Products>();
       json['products'].forEach((v) {
@@ -175,7 +177,9 @@ class Data {
     if (this.user != null) {
       data['user'] = this.user.toJson();
     }
-    data['delivery'] = this.delivery;
+    if (this.delivery != null) {
+      data['delivery'] = this.delivery.toJson();
+    }
     if (this.products != null) {
       data['products'] = this.products.map((v) => v.toJson()).toList();
     }
@@ -1079,6 +1083,159 @@ class Rates {
     if (this.user != null) {
       data['user'] = this.user.toJson();
     }
+    if (this.createDates != null) {
+      data['create_dates'] = this.createDates.toJson();
+    }
+    if (this.updateDates != null) {
+      data['update_dates'] = this.updateDates.toJson();
+    }
+    return data;
+  }
+}
+
+
+class Delivery {
+  int id;
+  String name;
+  String email;
+  String mobile;
+  String birthDate;
+  Bank bank;
+  int block;
+  String city;
+  String status;
+  int totalRate;
+  int walletBalance;
+  String iqamaExpirationDate;
+  String iqamaPhoto;
+  String deliveryPhoto;
+  String driverLicence;
+  String carLicence;
+  String carFrontPhoto;
+  String carBackPhoto;
+  CreateDates createDates;
+  UpdateDates updateDates;
+
+  Delivery(
+      {this.id,
+        this.name,
+        this.email,
+        this.mobile,
+        this.birthDate,
+        this.bank,
+        this.block,
+        this.city,
+        this.status,
+        this.totalRate,
+        this.walletBalance,
+        this.iqamaExpirationDate,
+        this.iqamaPhoto,
+        this.deliveryPhoto,
+        this.driverLicence,
+        this.carLicence,
+        this.carFrontPhoto,
+        this.carBackPhoto,
+        this.createDates,
+        this.updateDates});
+
+  Delivery.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    mobile = json['mobile'];
+    birthDate = json['birth_date'];
+    bank = json['bank'] != null ? new Bank.fromJson(json['bank']) : null;
+    block = json['block'];
+    city = json['city'];
+    status = json['status'];
+    totalRate = json['total_rate'];
+    walletBalance = json['wallet_balance'];
+    iqamaExpirationDate = json['Iqama_expiration_date'];
+    iqamaPhoto = json['iqama_photo'];
+    deliveryPhoto = json['delivery_photo'];
+    driverLicence = json['driver_licence'];
+    carLicence = json['car_licence'];
+    carFrontPhoto = json['car_front_photo'];
+    carBackPhoto = json['car_back_photo'];
+    createDates = json['create_dates'] != null
+        ? new CreateDates.fromJson(json['create_dates'])
+        : null;
+    updateDates = json['update_dates'] != null
+        ? new UpdateDates.fromJson(json['update_dates'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['mobile'] = this.mobile;
+    data['birth_date'] = this.birthDate;
+    if (this.bank != null) {
+      data['bank'] = this.bank.toJson();
+    }
+    data['block'] = this.block;
+    data['city'] = this.city;
+    data['status'] = this.status;
+    data['total_rate'] = this.totalRate;
+    data['wallet_balance'] = this.walletBalance;
+    data['Iqama_expiration_date'] = this.iqamaExpirationDate;
+    data['iqama_photo'] = this.iqamaPhoto;
+    data['delivery_photo'] = this.deliveryPhoto;
+    data['driver_licence'] = this.driverLicence;
+    data['car_licence'] = this.carLicence;
+    data['car_front_photo'] = this.carFrontPhoto;
+    data['car_back_photo'] = this.carBackPhoto;
+    if (this.createDates != null) {
+      data['create_dates'] = this.createDates.toJson();
+    }
+    if (this.updateDates != null) {
+      data['update_dates'] = this.updateDates.toJson();
+    }
+    return data;
+  }
+}
+
+class Bank {
+  int id;
+  String name;
+  String iban;
+  String nameAr;
+  String nameEn;
+  CreateDates createDates;
+  UpdateDates updateDates;
+
+  Bank(
+      {this.id,
+        this.name,
+        this.iban,
+        this.nameAr,
+        this.nameEn,
+        this.createDates,
+        this.updateDates});
+
+  Bank.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    iban = json['iban'];
+    nameAr = json['name_ar'];
+    nameEn = json['name_en'];
+    createDates = json['create_dates'] != null
+        ? new CreateDates.fromJson(json['create_dates'])
+        : null;
+    updateDates = json['update_dates'] != null
+        ? new UpdateDates.fromJson(json['update_dates'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['iban'] = this.iban;
+    data['name_ar'] = this.nameAr;
+    data['name_en'] = this.nameEn;
     if (this.createDates != null) {
       data['create_dates'] = this.createDates.toJson();
     }

@@ -39,12 +39,22 @@ class getAllOffers extends AppEvent{}
 
 //category
 class getAllCategories extends AppEvent{}
+class getSecondLevelSubcategoryEvent extends AppEvent{
+  final int subcategory_id;
+  getSecondLevelSubcategoryEvent({this.subcategory_id});
+}
+
 class HomeSubCategoryEvent extends AppEvent{}
 
 class getCategoryProducts extends AppEvent{
   final String category_id;
   final int offset;
   getCategoryProducts({this.category_id,this.offset});
+}
+class getSecondLevelSubCategoryProducts extends AppEvent{
+  final String secon_level_subcategory_id;
+  final int offset;
+  getSecondLevelSubCategoryProducts({this.secon_level_subcategory_id,this.offset});
 }
 //complain
 class getAllComplain extends AppEvent{}

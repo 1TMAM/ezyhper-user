@@ -1,6 +1,7 @@
 import 'package:ezhyper/Bloc/Settings_Bloc/settings_bloc.dart';
 import 'package:ezhyper/Model/SettingsModel/settings_model.dart';
 import 'package:ezhyper/fileExport.dart';
+import 'package:html/parser.dart' show parse;
 
 
 class TermsAndConditions extends StatefulWidget {
@@ -75,7 +76,8 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.pop(context);
+                  /*      Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
@@ -89,7 +91,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                             },
                             transitionDuration: Duration(milliseconds: 10),
                           ),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: translator.currentLanguage == 'ar' ? Image.asset(
@@ -158,9 +160,10 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: width * .75,
+                width: width * .9,
                 child: MyText(
-                  text: translator.currentLanguage=='ar'? snapshot.data.data.termsConditionsAr : snapshot.data.data.termsConditionsEn,
+                  text: translator.currentLanguage=='ar'? _parseHtmlString(snapshot.data.data.termsConditionsAr)
+                               : _parseHtmlString(snapshot.data.data.termsConditionsEn),
                   size:height>width? height * .0155 : height*.03,
                 ),
               ),
@@ -180,20 +183,11 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         }
       },
     );
-/*    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: width * .75,
-          child: MyText(
-            text:
-            "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been The Industry's Standard Dummy Text Ever Since The 1500S, When An Unknown Printer Took A Galley Of Type And Scrambled It To Make A Type Specimen Book. It Has Survived Not Only Five Centuries, But Also The Leap Into Electronic Typesetting, Remaining Essentially Unchanged. It Was Popularised In The 1960S With The Release Of Letraset Sheets Containing Lorem Ipsum Passages, And More Recently With Desktop Publishing Software Like Aldus Pagemaker Including Versions Of Lorem Ipsum.Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been The Industry's Standard Dummy Text Ever Since The 1500S, When An Unknown Printer Took A Galley Of Type And Scrambled It To Make A Type Specimen Book. It Has Survived Not Only Five Centuries, But Also The Leap Into Electronic Typesetting, Remaining Essentially Unchanged. It Was Popularised In The 1960S With The Release Of Letraset Sheets Containing Lorem Ipsum Passages, And More Recently With Desktop Publishing Software Like Aldus Pagemaker Including Versions Of Lorem Ipsum.",
-            size:height>width? height * .0155 : height*.03,
-          ),
-        ),
-      ],
-    );*/
   }
 
-
+  String _parseHtmlString(String htmlString) {
+    var document = parse(htmlString);
+    String parsedString = parse(document.body.text).documentElement.text;
+    return parsedString;
+  }
 }

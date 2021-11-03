@@ -69,7 +69,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
       key: _drawerKey,
       backgroundColor: whiteColor,
       body: BlocListener<SignUpBloc, AppState>(
-          cubit: signUp_bloc,
+          bloc: signUp_bloc,
           listener: (context, state) {
             var data = state.model as AuthenticationModel;
             if (state is Loading) {

@@ -63,7 +63,7 @@ class _ChangePasswordState extends State<ChangePassword> with TickerProviderStat
               key: _drawerKey,
       backgroundColor: whiteColor,
       body: BlocListener<ProfileBloc, AppState>(
-      cubit: profile_bloc,
+        bloc: profile_bloc,
         listener: (context, state) {
       if (state is Loading) {
         print("Loading");

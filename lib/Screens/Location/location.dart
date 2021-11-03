@@ -61,7 +61,7 @@ class _UserLocationState extends State<UserLocation> with TickerProviderStateMix
                 key: _drawerKey,
                 backgroundColor: whiteColor,
                 body: BlocListener<AddressBloc, AppState>(
-                  cubit: address_bloc,
+                    bloc: address_bloc,
                   listener: (context, state) async {
                     var data = state.model as AddressModel;
                     if (state is Loading) {

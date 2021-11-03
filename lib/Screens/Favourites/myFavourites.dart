@@ -223,7 +223,7 @@ class _MyFavouritesState extends State<MyFavourites> {
 
   Widget gridView() {
     return BlocBuilder(
-      cubit: favourite_bloc,
+      bloc: favourite_bloc,
       builder: (context, state) {
         if (state is Loading) {
           return Center(

@@ -65,7 +65,7 @@ class _AllAddressesScreenState extends State<AllAddressesScreen> {
     return Directionality(
         textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
         child: BlocBuilder(
-      cubit: address_bloc,
+          bloc: address_bloc,
       builder: (context,state){
        // var data = state.model as address_list.AddressListModel;
         if(state is Loading){

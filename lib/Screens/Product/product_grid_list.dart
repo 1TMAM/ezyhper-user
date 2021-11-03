@@ -1,7 +1,11 @@
 
+import 'package:ezhyper/Bloc/Category_Bloc/category_bloc.dart';
+import 'package:ezhyper/Bloc/Product_Bloc/product_bloc.dart';
+import 'package:ezhyper/Model/CategoryModel/second_lvel_subcategory_model.dart';
 import 'package:ezhyper/Screens/Category/subcategory_products_result.dart';
 import 'package:ezhyper/Screens/Filter/filterScreen.dart';
 import 'package:ezhyper/Screens/Product/product_view.dart';
+import 'package:ezhyper/Widgets/no_data/no_data.dart';
 import 'package:ezhyper/fileExport.dart';
 import 'package:ezhyper/Model/CategoryModel/category_model.dart' as category_model;
 
@@ -18,12 +22,25 @@ class ProductsGridList extends StatefulWidget {
 class _ProductsGridListState extends State<ProductsGridList> {
   String search_text='';
   int subcategory_click;
-bool second_sub_Category_status = false;
+  int second_level_subcategory_click;
+
+  bool second_sub_Category_status = false;
+  var offset = 1;
+
   @override
   void initState() {
     print("--------- ProductsGridList -----------");
     subcategory_click = 1;
+    second_level_subcategory_click= 1;
+    print("@@@@@@@@@@@@@@@@@@@@ widget.category_id : ${widget.category_id} @@@@@@@@@@@@");
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    product_bloc.dispose();
+
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -34,6 +51,7 @@ bool second_sub_Category_status = false;
             child:  Scaffold(
                 backgroundColor: whiteColor,
                 body: Container(
+                  color: backgroundColor,
                     child:  Column(
                         children: [
                           topPart(),
@@ -44,7 +62,9 @@ bool second_sub_Category_status = false;
                                 //subcategories list
                         widget.page_name == 'categoryProducts' ?
                                widget.subCategory_list==null ? Container() : subCategory_list() : Container(),
-                                second_sub_Category_status ? subCategory_list() : Container(),
+                                SizedBox(height: width * 0.02,),
+                                //second level subcategories list
+                                second_sub_Category_status ? second_subCategory_list() : Container(),
 
                                 Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
                                     bottom: height*.02),
@@ -53,12 +73,14 @@ bool second_sub_Category_status = false;
 
                                     child: searchTextFieldAndFilterPart()),
 
-                                Container(color: backgroundColor,
+                                Container(
+                                    color: backgroundColor,
                                     child: ProductView(
                                       view_type: 'GridView',
                                       category_id: widget.category_id,
-                                      department_name: widget.page_name,
-                                    ))
+                                      department_name: second_sub_Category_status ? 'ShowSecondLevelSubcCategoryProducts' : widget.page_name,
+                                    )
+                                )
                               ],
                             ),
                           )),
@@ -87,7 +109,7 @@ bool second_sub_Category_status = false;
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
+                       /* Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
@@ -104,7 +126,8 @@ bool second_sub_Category_status = false;
                             },
                             transitionDuration: Duration(milliseconds: 10),
                           ),
-                        );
+                        );*/
+                        Navigator.pop(context);
                       },
                       child: Container(
                         child:  translator.currentLanguage == 'ar' ? Image.asset(
@@ -245,62 +268,155 @@ bool second_sub_Category_status = false;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return widget.subCategory_list.isEmpty ? Container() :
-    Container(
-      padding: EdgeInsets.only(right:width * 0.03 , left: width * 0.03),
-      height: width * 0.08,
-      child: ListView.builder(
-          itemCount: widget.subCategory_list.length,
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemBuilder: (context , index){
-            return Row(
-              children: [
-                InkWell(
-                  onTap: (){
-                    print("name : ${widget.subCategory_list[index].nameAr}");
-                    setState(() {
-                      subcategory_click = widget.subCategory_list[index].id;
-                      print("subcategory_click : ${subcategory_click}");
-                      second_sub_Category_status = !second_sub_Category_status;
-                    /*  Navigator.pushReplacement(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) {
-                            return SubCategoryProductResult(
-                              category_id: widget.category_id,
-                              subcategory_name: translator.currentLanguage == 'ar' ? widget.subCategory_list[index].nameAr :
-                              widget.subCategory_list[index].nameEn,
-                              sub_category_id: widget.subCategory_list[index].id,
-                            );
-                          },
-                          transitionsBuilder:
-                              (context, animation8, animation15, child) {
-                            return FadeTransition(
-                              opacity: animation8,
-                              child: child,
-                            );
-                          },
-                          transitionDuration: Duration(milliseconds: 10),
-                        ),
-                      );*/
-                    });
-                  },
-                  child: MyText(
-                    text: translator.currentLanguage == 'ar' ? widget.subCategory_list[index].nameAr :
-                    widget.subCategory_list[index].nameEn,
-                    size: EzhyperFont.header_font_size,
-                    weight: FontWeight.bold,
-                    color: subcategory_click ==widget.subCategory_list[index].id? greenColor : blackColor,
-                  ),
-                ),
-                SizedBox(width: width *0.05,)
-              ],
-            );
-          }),
-    );
+   Padding(padding: EdgeInsets.only(top: width * 0.02),
+   child:  Container(
+     height: width * 0.1,
+     child: ListView.builder(
+         itemCount: widget.subCategory_list.length,
+         scrollDirection: Axis.horizontal,
+         shrinkWrap: true,
+         itemBuilder: (context , index){
+
+           return Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10,),
+               child: Container(
+                 decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(10),
+                   color: subcategory_click == widget.subCategory_list[index].id ? greenColor : Colors.grey.shade200,
+                 ),
+
+                 child: InkWell(
+                     onTap: (){
+                       print("name : ${widget.subCategory_list[index].nameAr}");
+                       setState(() {
+                         subcategory_click = widget.subCategory_list[index].id;
+                         second_sub_Category_status = !second_sub_Category_status;
+                         categoryBloc.add(getSecondLevelSubcategoryEvent(
+                             subcategory_id: widget.subCategory_list[index].id
+                         ));
+
+                       });
+                     },
+                     child: Container(
+                       margin: EdgeInsets.only(left:width  * 0.05,right: width*0.05),
+                       child: MyText(
+                         text: translator.currentLanguage == 'ar' ? widget.subCategory_list[index].nameAr :
+                         widget.subCategory_list[index].nameEn,
+                         size: EzhyperFont.header_font_size,
+                         weight: FontWeight.bold,
+                         align: TextAlign.center,
+                         color: subcategory_click ==widget.subCategory_list[index].id? whiteColor : blackColor,
+                       ),
+                     )
+                 ),));
+         }),
+   ),);
   }
 
 
+  Widget second_subCategory_list(){
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+        color: backgroundColor,
+      //  padding: EdgeInsets.only(left: width * 0.1),
+        child:  BlocBuilder(
+          bloc: categoryBloc,
+          builder: (context,state){
+            if(state is Loading){
+              return Center(
+                child: SpinKitFadingCircle(color: greenColor),
+              );
+            }
+            else if(state is Done){
+              var data = state .model as SecondLevelSubcategoryModel;
+              if(data.data ==null){
+                second_sub_Category_status = false;
+
+                return Container();
+
+              }else {
+                return StreamBuilder<SecondLevelSubcategoryModel>(
+                  stream: categoryBloc.second_level_subcategory_subject,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data.data == null) {
+                        return Container();
+                      } else {
+                        return widget.subCategory_list.isEmpty ? Container() :
+                        Container(
+                          height: width * 0.07,
+                          child: ListView.builder(
+                              itemCount: snapshot.data.data.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context , index){
+                                return Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10,),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: second_level_subcategory_click == snapshot.data.data[index].id ?  greenColor : Colors.grey.shade200,
+                                      ),
+
+                                      child: InkWell(
+                                          onTap: (){
+                                            setState(() {
+                                              second_level_subcategory_click = snapshot.data.data[index].id;
+                                              print("second_level_subcategory_click : ${second_level_subcategory_click}");
+                                             // second_sub_Category_status = !second_sub_Category_status;
+                                              product_bloc.add(getSecondLevelSubCategoryProducts(
+                                                secon_level_subcategory_id: snapshot.data.data[index].id.toString(),
+                                                offset: offset
+                                              ));
+
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(left:width  * 0.05,right: width*0.05),
+                                            child: MyText(
+                                              text:  snapshot.data.data[index].name,
+                                              size: EzhyperFont.secondary_font_size,
+                                              weight: FontWeight.normal,
+                                              align: TextAlign.center,
+                                              color: second_level_subcategory_click == snapshot.data.data[index].id? whiteColor : blackColor,
+                                            ),
+                                          )
+                                      ),));
+                              }),
+                        );
+                      }
+                    }
+                    else if (snapshot.hasError) {
+                      return Container(
+                        child: Text('${snapshot.error}'),
+                      );
+                    } else {
+                      return Center(
+                        child: SpinKitFadingCircle(color: greenColor),
+                      );;
+                    }
+                  },
+
+                );
+              }
+            }else if(state is ErrorLoading){
+              return NoData(
+                message: translator.translate("There is Error"),
+              );
+            }else{
+              return Center(
+                child: SpinKitFadingCircle(color: greenColor),
+              );
+            }
+
+          },
+        )
+
+    );
+
+
+  }
 }
 
 

@@ -6,6 +6,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await translator.init(
     assetsDirectory: 'assets/Langs/',
+
   );
   runApp(
     new MyApp(),

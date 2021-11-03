@@ -83,7 +83,7 @@ class _UpdateAddressState extends State<UpdateAddress> with TickerProviderStateM
             child:  Scaffold(
               backgroundColor: whiteColor,
               body: BlocListener<AddressBloc, AppState>(
-              cubit: address_bloc,
+                  bloc: address_bloc,
         listener: (context, state) async {
 
       if (state is Loading) {

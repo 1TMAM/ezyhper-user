@@ -45,7 +45,7 @@ String search_text='';
             ));
           },
           child: Scaffold(
-            backgroundColor: whiteColor,
+            backgroundColor: backgroundColor,
             body: Container(
               child: Column(
                 children: [topPart(),
@@ -75,7 +75,6 @@ String search_text='';
                 child: Column(
                   children: [
                     SizedBox(height: height*.03,),
-                    searchTextFieldAndFilterPart(),
                     listViewOfOrdersItems(),
                   ],
                 ),
@@ -285,29 +284,41 @@ String search_text='';
       stream: orderBloc.user_orders_subject,
       builder: (context,snapshot){
         if(snapshot.hasData){
-          if(snapshot.data.data.isEmpty){
+          if(snapshot.data.data ==null){
             return NoData(
-              message:  translator.translate("If you are facing any problem or if you have a suggestion, please contact us"),
+              image: "assets/images/img_wallet.png",
+              title: translator.translate("order"),
+              message: translator.translate(
+                  "If you are facing any problem or if you have a suggestion, please contact us"),
             );
           }else{
             return Container(
-               height: height*.75,
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount:snapshot.data.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: (){
-                        },
-                        child: singleCardForOrderItems(
-                            order: snapshot.data.data[index]
-                        ),
-                      );
+              // height: height*.75,
+                child: SingleChildScrollView(
+                  child:  Column(
+                    children: [
+                      searchTextFieldAndFilterPart(),
+                      ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount:snapshot.data.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: (){
+                              },
+                              child: singleCardForOrderItems(
+                                  order: snapshot.data.data[index]
+                              ),
+                            );
 
 
-                    }));
+                          })
+                    ],
+                  ),
+                )
+
+               );
           }
         }else{
           return Center(child: SpinKitFadingCircle(

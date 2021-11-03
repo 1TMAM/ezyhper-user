@@ -48,7 +48,7 @@ class SortResultScreenState extends State<SortResultScreen>{
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return  BlocBuilder(
-      cubit: sort_bloc,
+      bloc: sort_bloc,
       builder: (context,state){
         if(state is Loading){
           return Center(

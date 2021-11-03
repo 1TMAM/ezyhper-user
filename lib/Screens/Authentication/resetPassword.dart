@@ -60,7 +60,7 @@ class _ResetPasswordState extends State<ResetPassword> with TickerProviderStateM
               key: _drawerKey,
       backgroundColor: whiteColor,
       body: BlocListener<ForgetPasswordBloc, AppState>(
-        cubit: forgetPassword_bloc,
+          bloc: forgetPassword_bloc,
         listener: (context, state) {
           var data = state.model as AuthenticationModel;
           if (state is Loading) {

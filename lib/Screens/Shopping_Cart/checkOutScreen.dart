@@ -194,7 +194,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<OrderBloc, AppState>(
-        cubit: orderBloc,
+        bloc: orderBloc,
         listener: (context, state) {
           if (state is Loading) {
             if (state.indicator == 'make_order') {
@@ -809,7 +809,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                 )
               ],
             ),
-            Row(
+     /*       Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
@@ -826,7 +826,8 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                                 CachingKey.PAYMENT_METHOD, value);
                             payment_type = value;
 
-                            /*          showDialog(
+                            */
+            /*          showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
@@ -834,6 +835,8 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                                     content:  show_credit_cards(),
                                   );
                                 });*/
+
+            /*
                           });
                         },
                       ),
@@ -845,7 +848,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                   ),
                 ),
               ],
-            ),
+            ),*/
           ],
         ),
       ),
@@ -865,7 +868,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
         child: Padding(
           padding: EdgeInsets.only(top: width * 0.06),
           child: BlocBuilder(
-            cubit: creditCard_bloc,
+            bloc: creditCard_bloc,
             builder: (context, state) {
               if (state is Loading) {
                 return Center(
@@ -1052,79 +1055,79 @@ class _CheckOutScreenState extends State<CheckOutScreen>
     switch (week_day) {
       case 'Saturday':
         day_name = [
-          'Saturday',
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday'
+         translator.currentLanguage == 'ar'? 'السبت' :  'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :  'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :  'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :  'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :   'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :   'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday'
         ];
         break;
       case 'Sunday':
         day_name = [
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday'
+          translator.currentLanguage == 'ar'? 'الاحد' :   'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :    'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :    'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :   'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :   'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :   'Saturday'
         ];
         break;
       case 'Monday':
         day_name = [
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday'
+          translator.currentLanguage == 'ar'? 'الاثنين' :   'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :   'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :  'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :    'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :   'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :   'Sunday'
         ];
         break;
       case 'Tuesday':
         day_name = [
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday',
-          'Monday'
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :   'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :   'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :   'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :    'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :    'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :   'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :    'Monday'
         ];
         break;
       case 'Wednesday':
         day_name = [
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday',
-          'Monday',
-          'Tuesday'
+          translator.currentLanguage == 'ar'? 'الاربعاء' :   'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :    'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :   'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :   'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :    'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :   'Tuesday'
         ];
         break;
       case 'Thursday':
         day_name = [
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday'
+          translator.currentLanguage == 'ar'? 'الخميس' :   'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :   'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :   'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :   'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :   'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :   'Wednesday'
         ];
         break;
       case 'Friday':
         day_name = [
-          'Friday',
-          'Saturday',
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
+          translator.currentLanguage == 'ar'? 'الجمعة' :   'Friday',
+          translator.currentLanguage == 'ar'? 'السبت' :   'Saturday',
+          translator.currentLanguage == 'ar'? 'الاحد' :    'Sunday',
+          translator.currentLanguage == 'ar'? 'الاثنين' :    'Monday',
+          translator.currentLanguage == 'ar'? 'الثلاثاء' :   'Tuesday',
+          translator.currentLanguage == 'ar'? 'الاربعاء' :  'Wednesday',
+          translator.currentLanguage == 'ar'? 'الخميس' :   'Thursday',
         ];
         break;
     }
@@ -1196,7 +1199,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
   Widget detect_guest_location({String name, double lat, double lang}) {
     double width = MediaQuery.of(context).size.width;
     return BlocListener<AddressBloc, AppState>(
-        cubit: address_bloc,
+        bloc: address_bloc,
         listener: (context, state) async {
           var data = state.model as AddressModel;
           if (state is Loading) {
@@ -1339,7 +1342,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
       children: [
         Container(
           padding: EdgeInsets.only(right: width * .03, left: width * .03),
-          child: MyText(text: "Choose Delivery Time "),
+          child: MyText(text: translator.translate("Choose Delivery Time ")),
         ),
       ],
     );
@@ -1408,7 +1411,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
       children: [
         Container(
           padding: EdgeInsets.only(right: width * .03, left: width * .03),
-          child: MyText(text: "Have A Discount Coupon?"),
+          child: MyText(text: translator.translate("Have A Discount Coupon?")),
         ),
       ],
     );
@@ -1510,7 +1513,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder(
-      cubit: orderBloc,
+      bloc: orderBloc,
       builder: (context, state) {
         if (state is Loading) {
           if (state.indicator == 'apply_coupon') {

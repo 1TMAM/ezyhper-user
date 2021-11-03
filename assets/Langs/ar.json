@@ -119,6 +119,8 @@
   "Product Review": "مراجعة المنتج",
   "product number": "رقم المنتج",
   "product Size": "حجم المنتج",
+  "Have A Discount Coupon?" : "هل لديك قسيمة خصم؟",
+  "Choose Delivery Time " : "اختر وقت التسليم",
   "Width": "العرض",
   "Height": "الارتفاع",
   "Cm": "سم",
@@ -130,8 +132,8 @@
   "Using experiences": " خبرة الاستخدام" ,
   "leave a comment": "اترك تعليقك",
   "Tell us more about your experience with the product": "أخبرنا بالمزيد عن تجربتك مع المنتج",
-  "Opps, You haven't set up your fingerprint": "معذرة ، جهازك لا يدعم استخدام البصمة ",
-  " Please, click on \"Fingerprint Set up\" button to set up your fingerprint":    "من فضلك ، انقر فوق الزر إعداد بصمة الإصبع  لإعداد بصمة إصبعك من فضلك ، انقر فوق الزر  إعداد بصمة الإصبع  لإعداد بصمة إصبعك ",
+  "Opps, You haven't set up your fingerprint": "عفوا ، لم تقم بإعداد بصمة إصبعك",
+  " Please, click on \"Fingerprint Set up\" button to set up your fingerprint":    "من فضلك ، انقر فوق الزر إعداد بصمة الإصبع  لإعداد بصمة إصبعك",
   "Opps, Your device does not support the fingerprint feature": "معذرة ، جهازك لا يدعم خاصية البصمة " ,
   "FINGERPRINT SET UP": "إعداد بصمة الإصبع" ,
   "fingerprint added ! whenever you see this icon, you can use your fingerprint for Sign in":  "تمت إضافة بصمة الإصبع! عندما ترى هذا الرمز ، يمكنك استخدام بصمة إصبعك لتسجيل الدخول تمت إضافة بصمة الإصبع! كلما رأيت هذا الرمز ، يمكنك استخدام بصمة إصبعك لتسجيل الدخول",
@@ -156,6 +158,7 @@
   "Card Number *": "رقم البطاقة *" ,
   "Expires Year* ": "سنة الانتهاء *",
   "Expires Month* ": "شهر الانتهاء * ",
+  "Notifications": "الإشعارات",
   "Default Payment Method ": "طريقة الدفع الافتراضية",
   "Opps, you dont have any payment Methods":  "معذرة ، ليس لديك أي طرق دفع",
   "Please click on the \"Add Payment Method\" button to add a new payment card": "الرجاء النقر فوق الزر إضافة طريقة دفع لإضافة بطاقة دفع جديدة",
@@ -245,5 +248,6 @@
   "password is incorrect" :    "كلمة المرور غير صحيحة",
   "input is incorrect" :    "البيانات المدخلة غير صحيح",
   "otp code is incorrect" :    "رمز التفعيل غير صحيح",
-  "Confirm" : "تاكيد"
+  "Confirm" : "تاكيد",
+  "Opps, you dont have any" : "عفوًا ، ليس لديك أي "
 }

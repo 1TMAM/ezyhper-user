@@ -96,7 +96,8 @@ class _SplashState extends State<Splash> {
           context, MaterialPageRoute(
           builder: (context) =>
           translator.currentLanguage == 'ar' ?
-          CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar()));
+          CustomCircleNavigationBar(page_index: 4,) : CustomCircleNavigationBar()
+      ));
     }
 
     }

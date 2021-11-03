@@ -78,7 +78,7 @@ class _NotificationsState extends State<Notifications> {
     double width = MediaQuery.of(context).size.width;
 
     return BlocBuilder(
-      cubit: notificationBloc,
+      bloc: notificationBloc,
       builder: (context, state) {
         if (state is Loading) {
           return ShimmerNotification(
@@ -96,10 +96,11 @@ class _NotificationsState extends State<Notifications> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.data.isEmpty) {
-                      return YouDontHaveFavourites(
+                      return NoData(
+                        image: "assets/images/img_contactus.png",
+                        title: translator.translate("Notifications"),
                         message: translator.translate(
-                            "You Dont Have Any Notificaions"),
-                        image: 'assets/images/menu_notification.png',
+                            "If you are facing any problem or if you have a suggestion, please contact us"),
                       );
                     } else {
                       return ListView.builder(

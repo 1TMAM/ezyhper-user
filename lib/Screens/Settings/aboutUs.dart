@@ -1,6 +1,8 @@
 import 'package:ezhyper/Bloc/Settings_Bloc/settings_bloc.dart';
 import 'package:ezhyper/Model/SettingsModel/settings_model.dart';
 import 'package:ezhyper/fileExport.dart';
+import 'package:html/parser.dart' show parse;
+
 class AboutUs extends StatefulWidget {
   @override
   _AboutUsState createState() => _AboutUsState();
@@ -52,7 +54,7 @@ class _AboutUsState extends State<AboutUs> {
             ],
           ),
         )
-//
+
 
             ));
   }
@@ -76,7 +78,8 @@ class _AboutUsState extends State<AboutUs> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.pop(context);
+                  /*      Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
@@ -90,7 +93,7 @@ class _AboutUsState extends State<AboutUs> {
                             },
                             transitionDuration: Duration(milliseconds: 10),
                           ),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: translator.currentLanguage == 'ar' ? Image.asset(
@@ -158,9 +161,10 @@ class _AboutUsState extends State<AboutUs> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: width * .75,
+                width: width * .9,
                 child: MyText(
-                  text: translator.currentLanguage=='ar'? snapshot.data.data.aboutAr : snapshot.data.data.aboutEn,
+                  text: translator.currentLanguage=='ar'? _parseHtmlString(snapshot.data.data.about)
+                                    : _parseHtmlString(snapshot.data.data.aboutEn),
                   size: height > width ? height * .0155 : height * .03,
                 ),
               ),
@@ -180,6 +184,11 @@ class _AboutUsState extends State<AboutUs> {
       },
     );
 
+  }
+  String _parseHtmlString(String htmlString) {
+    var document = parse(htmlString);
+    String parsedString = parse(document.body.text).documentElement.text;
+    return parsedString;
   }
 }
 

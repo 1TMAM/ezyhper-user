@@ -129,7 +129,7 @@ class _FilterScreenState extends State<FilterScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<ProductBloc, AppState>(
-        cubit: product_bloc,
+        bloc: product_bloc,
         listener: (context, state) {
           if (state is Loading) {
             if (state.indicator == 'filter') {
@@ -416,7 +416,7 @@ class _FilterScreenState extends State<FilterScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder(
-      cubit: categoryBloc,
+      bloc: categoryBloc,
       builder: (context, state) {
         if (state is Loading) {
           return Center(
@@ -514,7 +514,7 @@ class _FilterScreenState extends State<FilterScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder(
-      cubit: filter_bloc,
+      bloc: filter_bloc,
       builder: (context, state) {
         if (state is Loading) {
           return Center(
@@ -610,7 +610,7 @@ class _FilterScreenState extends State<FilterScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder(
-      cubit: filter_bloc,
+      bloc: filter_bloc,
       builder: (context, state) {
         if (state is Loading) {
           return Center(

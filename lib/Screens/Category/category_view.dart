@@ -34,7 +34,7 @@ class CategoryViewState extends State<CategoryView>{
     return Directionality(
         textDirection: TextDirection.ltr,
         child:  BlocBuilder(
-          cubit: categoryBloc,
+          bloc: categoryBloc,
           builder: (context,state){
             if(state is Loading){
               return Center(

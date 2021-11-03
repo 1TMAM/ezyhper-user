@@ -69,7 +69,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
             child: Scaffold(
               backgroundColor: whiteColor,
               body: BlocListener<LogoutBloc, AppState>(
-                cubit: logout_bloc,
+                bloc: logout_bloc,
                 listener: (context, state) {
                   var data = state.model as AuthenticationModel;
                   if (state is Loading) {
@@ -401,8 +401,8 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      // return AboutUs();
-                      return WebviewScaffold(
+                       return AboutUs();
+                      /*return WebviewScaffold(
                           url: 'https://eazyhyper.wothoq.co/privacy',
                           javascriptChannels: jsChannels,
                           mediaPlaybackRequiresUserGesture: false,
@@ -431,7 +431,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                             },
                           ),)
 
-                      );
+                      );*/
                     },
                     transitionsBuilder: (context, animation8, animation15, child) {
                       return FadeTransition(
@@ -451,8 +451,8 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      //   return TermsAndConditions();
-                      return WebviewScaffold(
+                         return TermsAndConditions();
+                  /*    return WebviewScaffold(
                           url: 'https://eazyhyper.wothoq.co/terms',
                           javascriptChannels: jsChannels,
                           mediaPlaybackRequiresUserGesture: false,
@@ -478,7 +478,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
                             },
                           ),)
 
-                      );
+                      );*/
                     },
                     transitionsBuilder: (context, animation8, animation15, child) {
                       return FadeTransition(

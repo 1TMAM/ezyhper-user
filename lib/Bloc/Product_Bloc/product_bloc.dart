@@ -19,6 +19,11 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
     return _cat_products_subject;
   }
 
+  BehaviorSubject<List<product_model.Products>> _second_level_subcatatgory_products_subject = new BehaviorSubject<List<product_model.Products>>();
+  get second_level_subcatatgory_products_subject {
+    return _second_level_subcatatgory_products_subject;
+  }
+
   BehaviorSubject<List<product_model.Products>> _purchased_products_subject = new BehaviorSubject<List<product_model.Products>>();
   get purchased_products_subject {
     return _purchased_products_subject;
@@ -43,6 +48,7 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
   @override
   void dispose() {
     // TODO: implement dispose
+    _cat_products_subject = null;
 /*    _products_subject?.close();
     _recomended_products_subject?.close();
     _filter_products_subject?.close();
@@ -63,7 +69,9 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
   final _purchasedProducts_list = <product_model.Products>[];
   final _relatedProducts_list = <product_model.Products>[];
   final _categoryProducts_list = <product_model.Products>[];
- List<product_model.Products>  _filterProducts_list = <product_model.Products>[];
+  final _second_level_categoryProducts_list = <product_model.Products>[];
+
+  List<product_model.Products>  _filterProducts_list = <product_model.Products>[];
   final _mostSellingProducts_list = <product_model.Products>[];
   @override
   Stream<AppState> mapEventToState(AppEvent event) async* {
@@ -144,8 +152,9 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
         offset: event.offset
       );
       if (response.status == true) {
-        _categoryProducts_list.addAll(response.data.products);
-        _cat_products_subject.sink.add(_categoryProducts_list);
+        response.data ==null?_cat_products_subject : _categoryProducts_list.addAll(response.data.products);
+
+        _cat_products_subject.sink.add(_categoryProducts_list == null? [] : _categoryProducts_list);
         print("_cat_products_subject: ${_cat_products_subject}");
         yield Done(model: response);
       } else if (response.status == false) {
@@ -153,6 +162,31 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
         yield ErrorLoading(response);
       }
     }
+
+    else if (event is getSecondLevelSubCategoryProducts) {
+      print("secon_level_subcategory 1");
+      yield Loading();
+      final response = await categoryRepository.getSecondLevelSubcategoryProducts(
+          second_level_subcategory_id: event.secon_level_subcategory_id,
+          offset: event.offset
+      );
+      print("secon_level_subcategory response : ${response}");
+
+      print("secon_level_subcategory 2");
+
+      if (response.status == true) {
+        print("secon_level_subcategory 3");
+
+        _second_level_categoryProducts_list.addAll(response.data.products);
+        _second_level_subcatatgory_products_subject.sink.add(_second_level_categoryProducts_list);
+        print("_second_level_categoryProducts_list: ${_second_level_categoryProducts_list}");
+        yield Done(model: response);
+      } else if (response.status == false) {
+        print(" secon_level_subcategory 4");
+        yield ErrorLoading(response);
+      }
+    }
+
     else if (event is FilterProductsEvent) {
       yield Loading(indicator: 'filter');
       List<int> category = new List<int>();

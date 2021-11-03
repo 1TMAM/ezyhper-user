@@ -36,6 +36,7 @@ class Urls {
   static final String GET_ALL_SIZE = '/api/user/sizes/index';
 
   static final String GET_CATEGORy_PRODUCTS = '/api/user/categories/products';
+  static final String GET_SECOND_LEVEL_SUBCATEGORY_PRODUCTS = '/api/user/products/subCategory';
 
   static final String GET_ALL_NOTIFICATIONS = '/api/user/notification/get';
   static final String REMOVE_NOTIFICATIONS = '/api/user/notification/delete';
@@ -62,5 +63,6 @@ class Urls {
   static final String CHARGE_WALLET = '/api/user/payments/chargeWallet';
   static final String CREDIT_CARD_PAY = '/api/user/payments/pay';
   static final String WALLET_PAY = '/api/user/payments/WalletPay';
+  static final String SECOND_LEVEL_SUBCATEGORY = '/api/user/categories/parent-subCategory';
 }
 

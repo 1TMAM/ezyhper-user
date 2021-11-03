@@ -57,7 +57,7 @@ class _CategoriesState extends State<Categories> {
         Container(
                   color: backgroundColor,
               child:  BlocBuilder(
-                cubit: categoryBloc,
+                bloc: categoryBloc,
                 builder: (context,state){
                   if(state is Loading){
                     return Center(

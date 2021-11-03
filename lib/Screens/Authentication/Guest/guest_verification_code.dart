@@ -62,7 +62,7 @@ class _GuestVerificationCodeState extends State<GuestVerificationCode>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocListener<ForgetPasswordBloc, AppState>(
-      cubit: forgetPassword_bloc,
+      bloc: forgetPassword_bloc,
       listener: (context, state) async {
         var data = state.model as AuthenticationModel;
         if (state is Loading) {
