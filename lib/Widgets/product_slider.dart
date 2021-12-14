@@ -84,7 +84,7 @@ class _MyProductSliderState extends State<MyProductSlider> {
           BorderRadius.all(Radius.circular(height * .015)),
           child: Image.network(
             widget.data.isEmpty? 'assets/images/breakfast.png':  widget.data[0],
-             height: MediaQuery.of(context).size.height/5,
+             height: MediaQuery.of(context).size.height/6,
             fit: BoxFit.fill,
           ),
       ),

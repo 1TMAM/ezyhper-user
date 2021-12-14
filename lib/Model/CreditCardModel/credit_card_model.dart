@@ -2,8 +2,8 @@ import 'package:ezhyper/Base/network-mappers.dart';
 
 class CreditCardModel extends BaseMappable{
   bool status;
-  int code;
-  String msg;
+  var code;
+  var msg;
   Data data;
   Errors errors;
   CreditCardModel({this.status, this.code, this.msg, this.data,this.errors});
@@ -47,11 +47,11 @@ class CreditCardModel extends BaseMappable{
 }
 
 class Data {
-  int id;
-  String holderName;
-  String number;
-  String expYear;
-  String expMonth;
+  var id;
+  var holderName;
+  var number;
+  var expYear;
+  var expMonth;
   User user;
   CreateDates createDates;
   UpdateDates updateDates;
@@ -128,13 +128,13 @@ class Errors {
 }
 
 class User {
-  int id;
-  String name;
-  String email;
-  String phone;
-  String type;
-  Null promoCode;
-  Null address;
+  var id;
+  var name;
+  var email;
+  var phone;
+  var type;
+  var promoCode;
+  var address;
 
   User(
       {this.id,

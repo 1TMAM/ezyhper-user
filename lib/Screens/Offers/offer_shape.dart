@@ -17,13 +17,26 @@ class OfferShape extends StatefulWidget{
 }
 
 class OfferShapeState extends State<OfferShape>{
-
+var total_rate = 0.0;
   @override
   Widget build(BuildContext context) {
     List<String> gallery = new List<String>();
     widget.offer.product.files.forEach((element) {
       gallery.add(element.url);
     });
+
+    var percentage =  (1 - (double.parse(widget.offer.price) /  double.parse(widget.offer.oldPrice)) )* 100;
+    List rates=[];
+    if(widget.offer.product.rates.isEmpty){
+      total_rate = widget.offer.product.totalRate.toDouble();
+    }else{
+      widget.offer.product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
+
     return Directionality(
         textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
         child:Row(
@@ -31,13 +44,18 @@ class OfferShapeState extends State<OfferShape>{
           SizedBox(
             width: StaticData.get_width(context) * .03,
           ),
-          InkWell(onTap: (){
+          InkWell(
+              onTap: (){
             Navigator.push(
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation1, animation2) {
                   return OfferProductDetails(
                     offer_product: widget.offer.product,
+                    old_price: widget.offer.oldPrice,
+                    price: widget.offer.price,
+                    percentage: percentage.round(),
+
                   );
                 },
                 transitionsBuilder:
@@ -63,13 +81,14 @@ class OfferShapeState extends State<OfferShape>{
         children: [
           Stack(
             children: [
-              MyProductSlider(
+              Image.network(widget.offer.product.cover),
+    /*          MyProductSlider(
                 data: gallery,
                 viewportFraction: 1.0,
                 aspect_ratio: 3.0,
                 border_radius: 15.0,
                 indicator: false,
-              ),
+              ),*/
             ],
           ),
           Container(
@@ -79,7 +98,7 @@ class OfferShapeState extends State<OfferShape>{
                 Row(
                   children: [
                     RatingBar.readOnly(
-                      initialRating: widget.offer.product.totalRate.toDouble(),
+                      initialRating: total_rate.toDouble(),
                       maxRating: 5,
                       isHalfAllowed: true,
                       halfFilledIcon: Icons.star_half,
@@ -87,7 +106,7 @@ class OfferShapeState extends State<OfferShape>{
                       emptyIcon: Icons.star_border,
 
                       size: StaticData.get_width(context) * 0.03,
-                      filledColor: (widget.offer.product.totalRate.toDouble() >= 1)
+                      filledColor: (total_rate >= 1)
                           ? Colors.yellow.shade700
                           : Colors.yellow.shade700,
                     ),
@@ -102,14 +121,18 @@ class OfferShapeState extends State<OfferShape>{
                   ],
                 ),
                 Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.start,
                   children: [
                     Container(
+                      margin: EdgeInsets.symmetric(horizontal: 5),
                       alignment : translator.currentLanguage == 'ar' ?  Alignment.centerRight : Alignment.centerLeft,
                       child: MyText(
                           text: "${widget.offer.product.name} ",
-                          size: StaticData.get_height(context)  * .014,
+                          size: StaticData.get_height(context)  * .013,
+
                           color: blackColor),
                     )
+
 
                   ],
                 ),
@@ -122,7 +145,7 @@ class OfferShapeState extends State<OfferShape>{
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             MyText(
-                              text: "${widget.offer.product.priceAfterDiscount} ${translator.translate("SAR")}",
+                              text: "${widget.offer.price} ${translator.translate("SAR")}",
                               size: StaticData.get_height(context) * .017,
                               color: blackColor,
                               weight: FontWeight.normal,
@@ -132,7 +155,7 @@ class OfferShapeState extends State<OfferShape>{
                         Row(
                           children: [
                             Text(
-                              "${widget.offer.product.price} ${translator.translate("SAR")}",
+                              "${widget.offer.oldPrice} ${translator.translate("SAR")}",
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   fontSize: StaticData.get_height(context)  * .011,
@@ -142,7 +165,7 @@ class OfferShapeState extends State<OfferShape>{
                               width: StaticData.get_width(context) * .02,
                             ),
                             MyText(
-                                text: "${widget.offer.product.discount}%",
+                                text: "${percentage.round()}%",
                                 size: StaticData.get_height(context)  * .011,
                                 color: greenColor),
                           ],

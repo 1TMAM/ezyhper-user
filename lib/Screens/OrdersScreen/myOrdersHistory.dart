@@ -17,11 +17,17 @@ class _MyOrdersHistoryState extends State<MyOrdersHistory> {
 bool sort ;
 TextEditingController controller ;
 String search_text='';
+var order_address;
+
   @override
   void initState() {
     orderBloc.add(UserOrdersEvent());
     sort= false;
     controller = TextEditingController();
+    sharedPreferenceManager.readString(CachingKey.MAP_ADDRESS).then((value){
+      StaticData.order_address = value;
+      print("order_address : ${order_address}");
+    });
     super.initState();
 
   }

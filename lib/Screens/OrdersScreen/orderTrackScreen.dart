@@ -135,7 +135,7 @@ class _OrderTrackScreenState extends State<OrderTrackScreen> {
                                 alignment:  translator.currentLanguage == 'ar' ? Alignment.centerRight : Alignment.centerLeft,
                                 child: MyText(
                                   text:
-                                      "${widget.order.user.address == null ? translator.translate("address") : widget.order.user.address}",
+                                      "${widget.order.user.address == null ?  StaticData.order_address == null?  translator.translate("address") : StaticData.order_address : widget.order.user.address}",
                                   size: EzhyperFont.primary_font_size,
                                   color: blackColor,
                                 ),

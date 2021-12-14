@@ -17,8 +17,14 @@ import 'package:share/share.dart';
 
 class OfferProductDetails extends StatefulWidget {
   offerModel.Product offer_product;
+  final String old_price;
+  final String price;
+  final int percentage;
   OfferProductDetails({
     this.offer_product,
+    this.price,
+    this.old_price,
+    this.percentage
   });
   @override
   _OfferProductDetailsState createState() {
@@ -33,6 +39,8 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
   int qty;
   var _cart_status = 0;
   var _order_status = 0;
+  var total_rate = 0.0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -54,6 +62,16 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
     widget.offer_product.files.forEach((element) {
       gallery.add(element.url);
     });
+    List rates=[];
+    if(widget.offer_product.rates.isEmpty){
+      total_rate = widget.offer_product.totalRate.toDouble();
+    }else{
+      widget.offer_product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
     return NetworkIndicator(
         child: PageContainer(
             child: Directionality(
@@ -68,7 +86,8 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                           children: [
                             Stack(
                               children: [
-                                MyProductSlider(
+                                Image.network(widget.offer_product.cover),
+                  /*              MyProductSlider(
                                   data: gallery,
                                   viewportFraction: 1.0,
                                   aspect_ratio: 3.0,
@@ -77,7 +96,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                                   slider_height:
                                       StaticData.get_height(context) / 2,
                                   motion: true,
-                                ),
+                                ),*/
                                 Padding(
                                   padding: EdgeInsets.only(top: width * 0.05),
                                   child: Row(
@@ -269,7 +288,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                           children: [
                             MyText(
                                 text:
-                                    "${widget.offer_product.priceAfterDiscount} ${translator.translate("SAR")} ",
+                                    "${widget.price} ${translator.translate("SAR")} ",
                                 size: height * .02),
                             SizedBox(
                               width: width * .02,
@@ -277,7 +296,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                             Row(
                               children: [
                                 Text(
-                                  "${widget.offer_product.price} ${translator.translate("SAR")}",
+                                  "${widget.old_price} ${translator.translate("SAR")}",
                                   style: TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                       fontSize: height * .011,
@@ -287,7 +306,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                                   width: width * .02,
                                 ),
                                 MyText(
-                                    text: "${widget.offer_product.discount}%",
+                                    text: "${widget.percentage}%",
                                     size: height * .011,
                                     color: greenColor),
                               ],
@@ -301,17 +320,14 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                               child: Row(
                                 children: [
                                   RatingBar.readOnly(
-                                    initialRating: widget
-                                        .offer_product.totalRate
-                                        .toDouble(),
+                                    initialRating: total_rate.toDouble(),
                                     maxRating: 5,
                                     isHalfAllowed: true,
                                     halfFilledIcon: Icons.star_half,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
                                     size: StaticData.get_width(context) * 0.03,
-                                    filledColor: (widget.offer_product.totalRate
-                                                .toDouble() >=
+                                    filledColor: (total_rate.toDouble() >=
                                             1)
                                         ? Colors.yellow.shade700
                                         : Colors.yellow.shade700,
@@ -725,7 +741,8 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                       size: StaticData.get_height(context) * .02),
                   MyText(
                       text:
-                          "${widget.offer_product.size ?? translator.translate("not found")}",
+                          "${widget.offer_product.size == null ?  translator.translate("not found") :
+                          " ${widget.offer_product.unitSize} "+  "${widget.offer_product.overallSize}" }",
                       size: StaticData.get_height(context) * .02),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -746,12 +763,12 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                 child: Row(
                   children: [
                     MyText(
-                        text: translator.translate("Width"),
+                        text: translator.translate("Brand"),
                         size: StaticData.get_height(context) * .02),
                     MyText(
-                        text: widget.offer_product.unit == null
+                        text: widget.offer_product.brand == null
                             ? translator.translate("not found")
-                            : "${widget.offer_product.unit} ${translator.translate("Cm")}",
+                            : "${translator.currentLanguage == 'ar' ? widget.offer_product.brand.nameAr :  widget.offer_product.brand.nameAr} ",
                         size: StaticData.get_height(context) * .02),
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -763,6 +780,7 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
         SizedBox(
           height: StaticData.get_height(context) * .03,
         ),
+/*
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -789,9 +807,12 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
             )
           ],
         ),
+
         SizedBox(
           height: StaticData.get_height(context) * .03,
         ),
+
+ */
       ],
     );
   }

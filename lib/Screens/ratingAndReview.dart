@@ -26,6 +26,8 @@ class _RateAndReviewState extends State<RateAndReview> with TickerProviderStateM
   AnimationController _loginButtonController;
   bool isLoading = false;
   String profile_name , profile_email , profile_phone;
+  final product_bloc = ProductBloc(null);
+
   @override
   void initState() {
     rating = 0.0;

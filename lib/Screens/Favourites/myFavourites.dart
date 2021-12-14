@@ -15,6 +15,8 @@ class MyFavourites extends StatefulWidget {
 }
 
 class _MyFavouritesState extends State<MyFavourites> {
+  var total_rate = 0.0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -64,6 +66,24 @@ class _MyFavouritesState extends State<MyFavourites> {
     product.files.forEach((element) {
       gallery.add(element.url);
     });
+    List rates=[];
+    if(product.rates.isEmpty){
+      total_rate = product.totalRate.toDouble();
+    }else{
+      product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
+    var price_after_discount;
+    if(product.priceAfterDiscount.runtimeType == String){
+      price_after_discount = double.parse(product.priceAfterDiscount).toStringAsFixed(2);
+    }else if(product.priceAfterDiscount.runtimeType == double){
+      price_after_discount = product.priceAfterDiscount.toStringAsFixed(2);
+    }else if(product.priceAfterDiscount.runtimeType == int){
+      price_after_discount = double.parse(product.priceAfterDiscount).toStringAsFixed(2);
+    }
     return Row(
       children: [
         SizedBox(
@@ -81,14 +101,16 @@ class _MyFavouritesState extends State<MyFavourites> {
             children: [
               Stack(
                 children: [
-                  MyProductSlider(
+                  Image.network(product.cover),
+
+                  /*        MyProductSlider(
                     data: gallery,
                     viewportFraction: 1.0,
                     aspect_ratio: 3.0,
                     border_radius: 15.0,
                     indicator: false,
 
-                  ),
+                  ),*/
                   CustomFauvourite(
                     color: redColor,
                     favourite_status: product.inFavorite == 0 ? false : true,
@@ -126,14 +148,14 @@ class _MyFavouritesState extends State<MyFavourites> {
                           Row(
                             children: [
                               RatingBar.readOnly(
-                                initialRating: product.quantity.toDouble(),
+                                initialRating: total_rate.toDouble(),
                                 maxRating: 5,
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
                                 filledIcon: Icons.star,
                                 emptyIcon: Icons.star_border,
                                 size: StaticData.get_width(context) * 0.03,
-                                filledColor: (product.quantity.toDouble() >= 1)
+                                filledColor: (total_rate.toDouble() >= 1)
                                     ? Colors.yellow.shade700
                                     : Colors.yellow.shade700,
                               ),
@@ -141,7 +163,7 @@ class _MyFavouritesState extends State<MyFavourites> {
                                 width: width * .01,
                               ),
                               MyText(
-                                text: "(5)",
+                                text: "(${product.countRates})",
                                 size: height * .015,
                                 color: greyColor,
                               )
@@ -167,8 +189,9 @@ class _MyFavouritesState extends State<MyFavourites> {
                                     children: [
                                       MyText(
                                         text:
-                                            "${product.priceAfterDiscount} ${translator.translate("SAR").toLowerCase()}",
-                                        size: height * .017,
+                                            "${product.priceAfterDiscount == 0 ? product.price :
+                                            price_after_discount } ${translator.translate("SAR").toLowerCase()}",
+                                        size: height * .015,
                                         color: blackColor,
                                         weight: FontWeight.normal,
                                       ),
@@ -188,7 +211,7 @@ class _MyFavouritesState extends State<MyFavourites> {
                                         width: width * .02,
                                       ),
                                       MyText(
-                                          text: "35%",
+                                          text: "${product.discount}%",
                                           size: height * .011,
                                           color: greenColor),
                                     ],

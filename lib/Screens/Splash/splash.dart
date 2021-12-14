@@ -88,8 +88,8 @@ class _SplashState extends State<Splash> {
 
     } else {
      new CircularProgressIndicator();
-     // await signIn_bloc.add(refreshToken()); // refresh token
       await offersBloc.add(getAllOffers());
+     // await signIn_bloc.add(refreshToken()); // refresh token
     //  await recommended_product_bloc.add(getRecommendedProduct_click());
       await Future.delayed(Duration(seconds: 3));
       Navigator.pushReplacement(
@@ -102,6 +102,6 @@ class _SplashState extends State<Splash> {
 
     }
 
+}
 
-  }
 

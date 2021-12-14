@@ -18,6 +18,7 @@ class SortResultScreen extends StatefulWidget{
 
 }
 class SortResultScreenState extends State<SortResultScreen>{
+  var total_rate = 0.0;
 
   @override
   void didChangeDependencies() {
@@ -61,6 +62,7 @@ class SortResultScreenState extends State<SortResultScreen>{
               message: data.msg,
             );
           }else {
+
             return StreamBuilder<SortModel>(
               stream: sort_bloc.sort_products_subject,
               builder: (context, snapshot) {
@@ -81,6 +83,24 @@ class SortResultScreenState extends State<SortResultScreen>{
                             element) {
                           gallery.add(element.url);
                         });
+                        List rates=[];
+                        if(snapshot.data.data.products[index].rates.isEmpty){
+                          total_rate = snapshot.data.data.products[index].totalRate.toDouble();
+                        }else{
+                          snapshot.data.data.products[index].rates.forEach((element) {
+                            rates.add(element.value);
+                          });
+                          total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+                          print("------ total_rate ------- : ${total_rate}");
+                        }
+                        var price_after_discount;
+                        if( snapshot.data.data.products[index].priceAfterDiscount.runtimeType == String){
+                          price_after_discount = double.parse( snapshot.data.data.products[index].priceAfterDiscount).toStringAsFixed(2);
+                        }else if( snapshot.data.data.products[index].priceAfterDiscount.runtimeType == double){
+                          price_after_discount =  snapshot.data.data.products[index].priceAfterDiscount.toStringAsFixed(2);
+                        }else if( snapshot.data.data.products[index].priceAfterDiscount.runtimeType == int){
+                          price_after_discount = double.parse( snapshot.data.data.products[index].priceAfterDiscount).toStringAsFixed(2);
+                        }
                         return Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: 5, vertical: 5),
@@ -118,22 +138,26 @@ class SortResultScreenState extends State<SortResultScreen>{
                                                           context) * .015)),
                                             ),
                                             height: StaticData.get_height(
-                                                context) * .35,
-                                            width: StaticData.get_width(
                                                 context) * .4,
+                                            width: StaticData.get_width(
+                                                context) * .42,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment
                                                   .start,
                                               children: [
                                                 Stack(
                                                   children: [
-                                                    MyProductSlider(
+                                                    Image.network( snapshot
+                                                        .data.data
+                                                        .products[index]
+                                                        .cover),
+                                                    /*MyProductSlider(
                                                       data: gallery,
                                                       viewportFraction: 1.0,
                                                       aspect_ratio: 3.0,
                                                       border_radius: 15.0,
                                                       indicator: false,
-                                                    ),
+                                                    ),*/
                                                     CustomFauvourite(
                                                       color: redColor,
                                                       favourite_status: snapshot
@@ -158,11 +182,7 @@ class SortResultScreenState extends State<SortResultScreen>{
                                                       Row(
                                                         children: [
                                                           RatingBar.readOnly(
-                                                            initialRating: snapshot
-                                                                .data.data
-                                                                .products[index]
-                                                                .totalRate
-                                                                .toDouble(),
+                                                            initialRating: total_rate.toDouble(),
                                                             maxRating: 5,
                                                             isHalfAllowed: true,
                                                             halfFilledIcon: Icons
@@ -175,11 +195,7 @@ class SortResultScreenState extends State<SortResultScreen>{
                                                             size: StaticData
                                                                 .get_width(
                                                                 context) * 0.03,
-                                                            filledColor: (snapshot
-                                                                .data.data
-                                                                .products[index]
-                                                                .totalRate
-                                                                .toDouble() >=
+                                                            filledColor: (total_rate.toDouble() >=
                                                                 1)
                                                                 ? Colors.yellow
                                                                 .shade700
@@ -242,11 +258,7 @@ class SortResultScreenState extends State<SortResultScreen>{
                                                                     .start,
                                                                 children: [
                                                                   MyText(
-                                                                    text: "${snapshot
-                                                                        .data
-                                                                        .data
-                                                                        .products[index]
-                                                                        .priceAfterDiscount} ${translator
+                                                                    text: "${snapshot.data.data.products[index].priceAfterDiscount == 0 ? snapshot.data.data.products[index].price : price_after_discount} ${translator
                                                                         .translate(
                                                                         "SAR")}",
                                                                     size: StaticData

@@ -12,13 +12,25 @@ class SortRepository {
 
   Future<SortModel> sort_products_fun(
       {String price, String rate , String most_selling , String unit_price }) async{
+    Map<String, String> headers;
+    if(price != null){
+      headers = {
+        'price' : price,
+      };
+    }else if(rate != null){
+      headers = {
+        "rate": rate,
+      };
+    }else if(most_selling != null){
+      headers = {
+        "most_selling": most_selling,
+      };
+    }else if( unit_price != null){
+      headers = {
+        "unit_price" : unit_price
+      };
+    }
 
-    Map<String, String> headers = {
-      'price' : price,
-      "rate": rate,
-      "most_selling": most_selling,
-      "unit_price" : unit_price
-    };
     return NetworkUtil.internal().get(
         SortModel(), Urls.SORT_URL, headers: headers);
   }

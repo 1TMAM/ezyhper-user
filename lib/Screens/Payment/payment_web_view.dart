@@ -25,9 +25,11 @@ class PaymentWebViewState extends State<PaymentWebView> {
         backgroundColor: Theme.of(context).primaryColor,
         leading: InkWell(
           onTap: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustomCircleNavigationBar(
-              page_index: 0,
-            )));
+           translator.currentLanguage == 'ar' ?  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustomCircleNavigationBar(
+             page_index: 4,
+           ))) : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CustomCircleNavigationBar(
+             page_index: 0,
+           )));
           },
           child: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),

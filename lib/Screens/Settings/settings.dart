@@ -36,6 +36,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
   void pending_earnings() async {
     StaticData.user_wallet_earnings =
     await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
+    print("StaticData.user_wallet_earnings : ${StaticData.user_wallet_earnings}");
   }
 
   Future<Null> _playAnimation() async {
@@ -212,12 +213,13 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
               SizedBox(
                 height: height * .03,
               ),
-              singleSettingRow("Finger Print", () {
+              singleSettingRow("Finger Print", () async{
+                var fingerprint_status = await sharedPreferenceManager.readBoolean(CachingKey.FINGERPRINT_STATUS);
                 Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      return FingerPrint();
+                      return fingerprint_status ? FingerPrintAdded() : FingerPrint();
                     },
                     transitionsBuilder: (context, animation8, animation15, child) {
                       return FadeTransition(

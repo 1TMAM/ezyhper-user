@@ -1,5 +1,5 @@
 import 'package:ezhyper/Model/AddressModel/address_list_model.dart';
-import 'file:///D:/Wothoq%20Tech/ezhyper/code/ezhyper/lib/Repository/AddressRepo/address_repository.dart';
+import 'package:ezhyper/Repository/AddressRepo/address_repository.dart';
 import 'package:ezhyper/fileExport.dart';
 import 'package:rxdart/rxdart.dart';
 

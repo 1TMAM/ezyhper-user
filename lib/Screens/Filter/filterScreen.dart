@@ -36,6 +36,11 @@ class _FilterScreenState extends State<FilterScreen>
   String _pricevalue;
   int _ratevalue;
   List price_chosses;
+
+  final product_bloc = ProductBloc(null);
+
+  double price_from,  price_to ;
+  int categories_id , brand_id, size_id,  rate ,offset;
   @override
   void initState() {
     price_chosses = [
@@ -96,7 +101,8 @@ class _FilterScreenState extends State<FilterScreen>
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) {
-                      return CustomCircleNavigationBar(page_index: 4,);                    },
+                      return CustomCircleNavigationBar()  ;
+                      },
                     transitionsBuilder:
                         (context, animation8, animation15, child) {
                       return FadeTransition(
@@ -178,7 +184,9 @@ class _FilterScreenState extends State<FilterScreen>
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => FilterResultScreen()));
+                      builder: (context) => FilterResultScreen(
+
+                      )));
 
             } else {}
           }
@@ -311,7 +319,7 @@ class _FilterScreenState extends State<FilterScreen>
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar(page_index: 4,);                            },
+                              return CustomCircleNavigationBar();                            },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
                               return FadeTransition(
@@ -1180,7 +1188,7 @@ class _FilterScreenState extends State<FilterScreen>
               givenHeight: height * .07,
               givenWidth: width * .35,
               onTapFunction: () async {
-                product_bloc.add(FilterProductsEvent(
+             /*   product_bloc.add(FilterProductsEvent(
                   price_from: await sharedPreferenceManager
                           .readDouble(CachingKey.STRART_PRICE) ??
                       0.0,
@@ -1195,7 +1203,21 @@ class _FilterScreenState extends State<FilterScreen>
                   size_id: await sharedPreferenceManager
                       .readInteger(CachingKey.SIZE_ID),
                   offset: 1
-                ));
+                ));*/
+                get_filter_certieria();
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FilterResultScreen(
+                          size_id: size_id,
+                          rate: rate,
+                          price_to: price_to,
+                          price_from: price_from,
+                          offset: offset,
+                          brand_id: brand_id,
+                          categories_id: categories_id,
+
+                        )));
               },
               text: translator.translate("Apply"),
               fontSize:EzhyperFont.header_font_size,
@@ -1205,5 +1227,28 @@ class _FilterScreenState extends State<FilterScreen>
         ),
       ),
     );
+  }
+
+  void get_filter_certieria()async{
+    await sharedPreferenceManager.readDouble(CachingKey.STRART_PRICE).then((value){
+      price_from = value??0.0;
+    });
+    await sharedPreferenceManager.readDouble(CachingKey.END_PRICE).then((value){
+      price_to = value??0.0;
+    });
+    await sharedPreferenceManager.readInteger(CachingKey.FILTER_RATE).then((value){
+      rate = value;
+    });
+    await  sharedPreferenceManager.readInteger(CachingKey.BRAND_ID).then((value){
+      brand_id = value;
+    });
+    await sharedPreferenceManager.readInteger(CachingKey.SIZE_ID).then((value){
+      size_id = value;
+    });
+    await sharedPreferenceManager.readInteger(CachingKey.CATEGORY_ID).then((value){
+      categories_id = value;
+    });
+    offset= 1;
+    print("-------------get_filter_certieria Done ");
   }
 }

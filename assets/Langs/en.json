@@ -128,7 +128,7 @@
   "Full Name *": "Full Name *",
   "Already Have An Account ! ": "Already Have An Account ! ",
   "There is Error": "There is Error",
-  "There is no products": "There is products",
+  "There is no products": "products",
   "CATEGORIES": "CATEGORIES",
   "SEND": "SEND",
   "Track Your Complains": "Track Your Complains",
@@ -233,6 +233,6 @@
   "input is incorrect" : "input is incorrect",
   "otp code is incorrect" : "otp code is incorrect",
   "Choose Delivery Location" : "Choose Delivery Location",
-  "Confirm" : "Confirm"
-
+  "Confirm" : "Confirm",
+  "Add Payment Method " : "Add Payment Method "
 }

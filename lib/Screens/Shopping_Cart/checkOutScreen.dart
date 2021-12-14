@@ -573,7 +573,8 @@ class _CheckOutScreenState extends State<CheckOutScreen>
         padding: EdgeInsets.only(left: width * .0, right: width * .0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(height * .05)),
-            color: whiteColor),
+            color: whiteColor
+        ),
         //  height: height * .4,
         child: FutureBuilder(
             future: cart_products,
@@ -631,8 +632,9 @@ class _CheckOutScreenState extends State<CheckOutScreen>
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius:
-                        BorderRadius.all(Radius.circular(height * .0)),
-                    color: whiteColor),
+                        BorderRadius.all(Radius.circular(height * .1)),
+                    color: whiteColor
+                ),
                 width: width * .85,
                 child: Column(
                   children: [
@@ -653,19 +655,26 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                                 fit: BoxFit.fill,
                               ),
                         Container(
-                          padding: EdgeInsets.only(left: width * .03),
+                          margin: EdgeInsets.only(left: width * .01,right: width * .01),
                           height: height * .13,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FittedBox(
                                   child: Container(
-                                width: StaticData.get_width(context) * 0.5,
-                                child: MyText(
+                                width: StaticData.get_width(context) * 0.6,
+                                child:      Wrap(
+                                    crossAxisAlignment: WrapCrossAlignment.start,
+                                    children: [
+                                Container(
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                    alignment : translator.currentLanguage == 'ar' ?  Alignment.centerRight : Alignment.centerLeft,
+                                    child: MyText(
                                     text: product.prod_name == null
                                         ? ''
                                         : product.prod_name,
                                     size: height * .02),
+                        )])
                               )),
                               SizedBox(
                                 height: height * .01,
@@ -677,7 +686,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                                   children: [
                                     MyText(
                                         text:
-                                            "${product.prod_chossed_quantity} × ${product.prod_price} ${translator.translate("SAR")}",
+                                            "${product.prod_chossed_quantity}    ×    ${product.prod_price} ",
                                         size: height * .02),
                                   ],
                                 ),
@@ -855,7 +864,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
     );
   }
 
-/*  Widget show_credit_cards() {
+  Widget show_credit_cards() {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
@@ -1027,7 +1036,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                         cardModel: data[index], index: data[index].id)),
               );
             })));
-  }*/
+  }
 
   Widget textChooseDeliveryDate() {
     double width = MediaQuery.of(context).size.width;
@@ -1281,8 +1290,8 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                           var addresses = await Geocoder.local
                               .findAddressesFromCoordinates(coordinates);
                           var address = addresses.first;
-                          sharedPreferenceManager.writeData(
-                              CachingKey.MAP_ADDRESS, address.addressLine);
+                          sharedPreferenceManager.writeData(CachingKey.MAP_ADDRESS, address.addressLine);
+
                           _add(
                               lat: latLng.latitude,
                               lng: latLng.longitude,

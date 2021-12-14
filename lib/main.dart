@@ -23,7 +23,6 @@ class MyApp extends StatefulWidget{
     // ignore: invalid_use_of_protected_member
     state.setState(() => state.local = newLocale);
   }
-
 }
 
 class _MyAppState extends State<MyApp>{

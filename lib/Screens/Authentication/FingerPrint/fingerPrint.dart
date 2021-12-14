@@ -95,7 +95,8 @@ class _FingerPrintState extends State<FingerPrint> {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar(page_index: 4,);                            },
+                              return translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar() : CustomCircleNavigationBar(page_index: 4,);                            },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
                               return FadeTransition(
@@ -284,6 +285,8 @@ class _FingerPrintState extends State<FingerPrint> {
           sharedPreferenceManager.writeData(CachingKey.EMAIL, response.data.email);
           sharedPreferenceManager.writeData(CachingKey.MOBILE_NUMBER, response.data.phone);
           sharedPreferenceManager.writeData(CachingKey.USER_WALLET, response.data.walletBalance);
+          sharedPreferenceManager.writeData(CachingKey.FINGERPRINT_STATUS, true);
+
           Navigator.push(
             context,
             PageRouteBuilder(

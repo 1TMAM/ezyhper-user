@@ -19,7 +19,7 @@ class CouponDialogState extends State<CouponDialog>{
         var width = MediaQuery.of(context).size.width;
         return Container(
           width: width,
-          height: height / 3,
+          height: height / 4,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(height*.1)
           ),
@@ -53,10 +53,12 @@ class CouponDialogState extends State<CouponDialog>{
                               Container(
                                 margin: EdgeInsets.all(width * 0.02),
                                 child: MyText(
+                                    maxLines:6,
                                   text: translator.translate(widget.text),
-                                  size:EzhyperFont.header_font_size,
+                                  size:EzhyperFont.primary_font_size,
                                   color: blackColor,
                                   weight: FontWeight.normal,
+
                                 ),
                               ),
                               Padding(

@@ -245,7 +245,7 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
  ;
   }
 
-  Widget dashedContainer({int remain_balance}){
+  Widget dashedContainer({var remain_balance}){
     StaticData.user_wallet_earnings = remain_balance;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;

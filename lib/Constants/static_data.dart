@@ -7,9 +7,9 @@ import 'package:geocoder/geocoder.dart';
 class StaticData {
   static String vistor_value;
   static String order_status = 'accepted';
-  static int user_wallet_earnings = 0;
+  static var user_wallet_earnings ;
   static Address user_location;
-
+  static String order_address = null;
   static double get_height(BuildContext context) {
     var height = MediaQuery
         .of(context)

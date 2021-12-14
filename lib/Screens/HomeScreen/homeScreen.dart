@@ -1,4 +1,5 @@
 import 'package:ezhyper/Bloc/Category_Bloc/category_bloc.dart';
+import 'package:ezhyper/Bloc/Product_Bloc/product_bloc.dart';
 import 'package:ezhyper/Constants/static_data.dart';
 import 'package:ezhyper/Screens/Category/category_view.dart';
 import 'package:ezhyper/Screens/Offers/offer_slider.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void pending_earnings()async{
     StaticData.user_wallet_earnings = await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
   }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -63,18 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
             OfferSlider(),
             SizedBox(height: height*.01,),
                 textCategory(),
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
                 categoriesSlider(),
 
 
 
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
                 textOffers(),
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
                 offersSlider(),
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
             textMostSellingProducts(),
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
             MostSellingProductsSlider(),
 
             (StaticData.vistor_value == 'visitor')
@@ -88,14 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
  */
 
-                SizedBox(height: height*.02,),
+                SizedBox(height: height*.01,),
                // textPurchasedProducts(),
                 //SizedBox(height: height*.02,),
                 purchasedProductsSlider()
               ],
             ),
 
-            SizedBox(height: height*.02,),
+            SizedBox(height: height*.01,),
               ],
 
            ),

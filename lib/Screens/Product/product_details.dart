@@ -33,6 +33,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   int qty;
   var _cart_status = 0;
   var _order_status = 0;
+  var total_rate = 0.0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -54,6 +56,16 @@ class _ProductDetailsState extends State<ProductDetails> {
     widget.product.files.forEach((element) {
       gallery.add(element.url);
     });
+    List rates = [];
+    if (widget.product.rates.isEmpty) {
+      total_rate = widget.product.totalRate.toDouble();
+    } else {
+      widget.product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c) / rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
     return NetworkIndicator(
         child: PageContainer(
             child: Directionality(
@@ -68,7 +80,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           children: [
                             Stack(
                               children: [
-                                MyProductSlider(
+                                Image.network(widget.product.cover),
+                                /*         MyProductSlider(
                                   data: gallery,
                                   viewportFraction: 1.0,
                                   aspect_ratio: 3.0,
@@ -77,7 +90,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   slider_height:
                                       StaticData.get_height(context) / 2,
                                   motion: true,
-                                ),
+                                ),*/
                                 Padding(
                                   padding: EdgeInsets.only(top: width * 0.05),
                                   child: Row(
@@ -254,12 +267,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                           padding: EdgeInsets.only(
                             top: width * .02,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                          child: Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.start,
                             children: [
-                              MyText(
-                                  text: "${widget.product.name} ",
-                                  size: height * .02),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 1),
+                                alignment: translator.currentLanguage == 'ar'
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: MyText(
+                                    text: "${widget.product.name} ",
+                                    size: height * .02),
+                              )
                             ],
                           ),
                         ),
@@ -271,7 +290,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           children: [
                             MyText(
                                 text:
-                                    "${widget.product.priceAfterDiscount} ${translator.translate("SAR")} ",
+                                    "${widget.product.priceAfterDiscount == 0 ? widget.product.price : widget.product.priceAfterDiscount} ${translator.translate("SAR")} ",
                                 size: height * .02),
                             SizedBox(
                               width: width * .02,
@@ -303,19 +322,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                               child: Row(
                                 children: [
                                   RatingBar.readOnly(
-                                    initialRating:
-                                        widget.product.totalRate.toDouble(),
+                                    initialRating: total_rate.toDouble(),
                                     maxRating: 5,
                                     isHalfAllowed: true,
                                     halfFilledIcon: Icons.star_half,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
                                     size: StaticData.get_width(context) * 0.03,
-                                    filledColor:
-                                        (widget.product.totalRate.toDouble() >=
-                                                1)
-                                            ? Colors.yellow.shade700
-                                            : Colors.yellow.shade700,
+                                    filledColor: (total_rate.toDouble() >= 1)
+                                        ? Colors.yellow.shade700
+                                        : Colors.yellow.shade700,
                                   ),
                                   SizedBox(
                                     width: width * .01,
@@ -390,7 +406,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 decoration: BoxDecoration(
                                   color: blackColor,
                                   borderRadius:
-                                  BorderRadius.circular(height * .05),
+                                      BorderRadius.circular(height * .05),
                                 ),
                                 alignment: Alignment.center,
                                 child: Row(
@@ -398,14 +414,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     MaterialButton(
                                       height: 5,
                                       minWidth:
-                                      StaticData.get_width(context) * 0.15,
+                                          StaticData.get_width(context) * 0.15,
                                       onPressed: () {
                                         setState(() {
                                           if (qty <= 1) {
                                             errorDialog(
                                               context: context,
                                               text:
-                                              "لقد نفذت الكمية من هذا المنتج",
+                                                  "لقد نفذت الكمية من هذا المنتج",
                                             );
                                           } else {
                                             setState(() {
@@ -428,7 +444,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     MaterialButton(
                                       height: 5,
                                       minWidth:
-                                      StaticData.get_width(context) * 0.15,
+                                          StaticData.get_width(context) * 0.15,
                                       onPressed: () {
                                         setState(() {
                                           print(
@@ -437,7 +453,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             errorDialog(
                                               context: context,
                                               text:
-                                              "لا يمكنك تخطى الكمية المتاحة",
+                                                  "لا يمكنك تخطى الكمية المتاحة",
                                             );
                                           } else {
                                             setState(() {
@@ -458,7 +474,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     ),
                                     CustomSubmitAndSaveButton(
                                       buttonText:
-                                      translator.translate("ADD TO CART"),
+                                          translator.translate("ADD TO CART"),
                                       btn_width: width * .60,
                                       onPressButton: () {
                                         print("cart 1");
@@ -470,19 +486,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                                               prod_name: widget.product.name,
                                               prod_price: widget.product.price,
                                               prod_pricture: widget
-                                                  .product.files.isEmpty
+                                                      .product.files.isEmpty
                                                   ? 'https://eazyhyper.wothoq.co/public/media/categories/yOHvUbpcnTrh58YWwdYb9BNUzorReMyDeabG1m95.jpg'
                                                   : widget.product.files[0].url,
                                               prod_chossed_quantity: qty,
                                               prod_main_quantity:
-                                              widget.product.quantity,
+                                                  widget.product.quantity,
                                               prod_discount:
-                                              widget.product.discount,
+                                                  widget.product.discount,
                                               prod_price_after_discount: widget
-                                                  .product.priceAfterDiscount,
+                                                          .product
+                                                          .priceAfterDiscount ==
+                                                      0
+                                                  ? widget.product.price
+                                                  : widget.product
+                                                      .priceAfterDiscount,
                                               prod_cart_status: _cart_status,
                                               prod_order_status:
-                                              _order_status));
+                                                  _order_status));
                                           print("cart 3");
                                           //use to calculate price of all products in cart
                                           DB_Helper.calculate_amount();
@@ -497,7 +518,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                       ShoppingCart()));
                                         } else {
                                           print("cart 6");
-                                          String msg = "this product already added in shopping cart";
+                                          String msg =
+                                              "this product already added in shopping cart";
                                           StaticData.Toast_Short_Message(msg);
                                           print("cart 7");
                                         }
@@ -587,8 +609,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                               product_id: widget.product.id,
                               view_type: 'horizontal_ListView',
                             )),
-
-
 
                         SizedBox(
                           height: height * .03,
@@ -729,7 +749,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       size: StaticData.get_height(context) * .02),
                   MyText(
                       text:
-                          "${widget.product.size ?? translator.translate("not found")}",
+                          "${widget.product.size == null ? translator.translate("not found") : " ${widget.product.unitSize} " + "${widget.product.overallSize}"}",
                       size: StaticData.get_height(context) * .02),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -750,12 +770,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Row(
                   children: [
                     MyText(
-                        text: translator.translate("Width"),
+                        text: translator.translate("Brand"),
                         size: StaticData.get_height(context) * .02),
                     MyText(
                         text: widget.product.unit == null
                             ? translator.translate("not found")
-                            : "${widget.product.unit} ${translator.translate("Cm")}",
+                            : "${translator.currentLanguage == 'ar' ? widget.product.brand.nameAr : widget.product.brand.nameAr} ",
                         size: StaticData.get_height(context) * .02),
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -767,7 +787,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         SizedBox(
           height: StaticData.get_height(context) * .03,
         ),
-        Row(
+        /*       Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -795,7 +815,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
         SizedBox(
           height: StaticData.get_height(context) * .03,
-        ),
+        ),*/
       ],
     );
   }

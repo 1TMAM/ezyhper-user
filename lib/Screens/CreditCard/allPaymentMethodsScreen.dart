@@ -164,10 +164,8 @@ class _AllAPaymentMethodsScreenState extends State<AllAPaymentMethodsScreen> {
           );
         }else if(state is Done){
           var data = state .model as CreditCardListModel;
-          if(data.data ==null){
-            return NoData(
-              message: data.msg,
-            );
+          if(data.msg =="عفوا لا توجد بيانات"){
+            return YouDontHavePaymentMethod();
           }else {
             return StreamBuilder<card_list.CreditCardListModel>(
                 stream: creditCard_bloc.credit_card_list_subject,

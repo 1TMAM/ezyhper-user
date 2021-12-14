@@ -10,6 +10,10 @@ import 'package:ezhyper/fileExport.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class FilterResultScreen extends StatefulWidget{
+  double price_from,  price_to ;
+  int categories_id , brand_id, size_id,  rate ,offset;
+  FilterResultScreen({this.price_to,this.offset,this.rate,this.size_id,this.brand_id,this.categories_id,
+    this.price_from, });
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,10 +23,11 @@ class FilterResultScreen extends StatefulWidget{
 }
 class FilterResultScreenState extends State<FilterResultScreen>{
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+
+@override
+  void initState() {
+
+  super.initState();
   }
 
   @override
@@ -67,9 +72,21 @@ class FilterResultScreenState extends State<FilterResultScreen>{
                 child: Column(
                   children: [topPart(),
                     Expanded(
-                        child:  ProductView(
+                        child:  ProductView.filter(
                           department_name: 'filter_result',
                           view_type: 'GridView',
+                          categories_id: widget.categories_id,
+                          brand_id: widget.brand_id,
+                          offset: widget.offset,
+                          price_from: widget.price_from,
+                          price_to: widget.price_to,
+                          rate: widget.rate,
+                          size_id: widget.size_id,
+
+
+
+
+
                         )),
                     ],
                 ),

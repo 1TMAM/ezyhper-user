@@ -17,7 +17,8 @@ class _FingerPrintAddedState extends State<FingerPrintAdded > {
             child:  WillPopScope(
               onWillPop: (){
                 Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context)=>Settings()
+                  builder: (context)=>translator.currentLanguage == 'ar' ?
+                  CustomCircleNavigationBar() : CustomCircleNavigationBar(page_index: 4,)
                 ));
               },
               child: Scaffold(
@@ -91,7 +92,8 @@ class _FingerPrintAddedState extends State<FingerPrintAdded > {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation1, animation2) {
-                              return CustomCircleNavigationBar(page_index: 4,);                            },
+                              return translator.currentLanguage == 'ar' ?
+                              CustomCircleNavigationBar() : CustomCircleNavigationBar(page_index: 4,);                            },
                             transitionsBuilder:
                                 (context, animation8, animation15, child) {
                               return FadeTransition(

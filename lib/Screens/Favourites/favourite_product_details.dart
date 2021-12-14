@@ -33,6 +33,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
   int qty;
   var _cart_status = 0;
   var _order_status = 0;
+  var total_rate = 0.0;
 
   @override
   void initState() {
@@ -56,6 +57,16 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
     widget.favourite_product.files.forEach((element) {
       gallery.add(element.url);
     });
+    List rates=[];
+    if(widget.favourite_product.rates.isEmpty){
+      total_rate = widget.favourite_product.totalRate.toDouble();
+    }else{
+      widget.favourite_product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
     return NetworkIndicator(
         child: PageContainer(
             child: Directionality(
@@ -72,7 +83,8 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                             children: [
                               Stack(
                                 children: [
-                                  MyProductSlider(
+                                  Image.network(widget.favourite_product.cover),
+                                  /*MyProductSlider(
                                     data: gallery,
                                     viewportFraction: 1.0,
                                     aspect_ratio: 3.0,
@@ -81,7 +93,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                                     slider_height:
                                     StaticData.get_height(context) / 2,
                                     motion: true,
-                                  ),
+                                  ),*/
                                   Padding(
                                     padding: EdgeInsets.only(top: width * 0.05),
                                     child: Row(
@@ -262,6 +274,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               MyText(
+
                                   text: "${widget.favourite_product.name} ",
                                   size: height * .02),
                             ],
@@ -275,7 +288,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                           children: [
                             MyText(
                                 text:
-                                "${widget.favourite_product.priceAfterDiscount} ${translator.translate("SAR")} ",
+                                "${widget.favourite_product.priceAfterDiscount == 0 ? widget.favourite_product.price : widget.favourite_product.priceAfterDiscount} ${translator.translate("SAR")} ",
                                 size: height * .02),
                             SizedBox(
                               width: width * .02,
@@ -307,8 +320,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                               child: Row(
                                 children: [
                                   RatingBar.readOnly(
-                                    initialRating:
-                                    widget.favourite_product.totalRate.toDouble(),
+                                    initialRating: total_rate.toDouble(),
                                     maxRating: 5,
                                     isHalfAllowed: true,
                                     halfFilledIcon: Icons.star_half,
@@ -316,7 +328,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                                     emptyIcon: Icons.star_border,
                                     size: StaticData.get_width(context) * 0.03,
                                     filledColor:
-                                    (widget.favourite_product.totalRate.toDouble() >=
+                                    (total_rate.toDouble() >=
                                         1)
                                         ? Colors.yellow.shade700
                                         : Colors.yellow.shade700,
@@ -733,7 +745,8 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                       size: StaticData.get_height(context) * .02),
                   MyText(
                       text:
-                      "${widget.favourite_product.size ?? translator.translate("not found")}",
+                      "${widget.favourite_product.size ==null? translator.translate("not found")
+                      :" ${widget.favourite_product.unitSize} "+  "${widget.favourite_product.overallSize}" }",
                       size: StaticData.get_height(context) * .02),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -754,12 +767,12 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
                 child: Row(
                   children: [
                     MyText(
-                        text: translator.translate("Width"),
+                        text: translator.translate("Brand"),
                         size: StaticData.get_height(context) * .02),
                     MyText(
                         text: widget.favourite_product.unit == null
                             ? translator.translate("not found")
-                            : "${widget.favourite_product.unit} ${translator.translate("Cm")}",
+                            : "${translator.currentLanguage == 'ar' ? widget.favourite_product.brand.nameAr :  widget.favourite_product.brand.nameAr} ",
                         size: StaticData.get_height(context) * .02),
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -771,7 +784,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
         SizedBox(
           height: StaticData.get_height(context) * .03,
         ),
-        Row(
+     /*   Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -799,7 +812,7 @@ class _FavouriteProductDetailsState extends State<FavouriteProductDetails> {
         ),
         SizedBox(
           height: StaticData.get_height(context) * .03,
-        ),
+        ),*/
       ],
     );
   }

@@ -11,6 +11,8 @@ class OrderHistoryDetails extends StatefulWidget {
 }
 
 class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
+
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -288,7 +290,9 @@ class _OrderHistoryDetailsState extends State<OrderHistoryDetails> {
                                 alignment:  translator.currentLanguage == 'ar' ? Alignment.centerRight : Alignment.centerLeft,
                                 child: MyText(
                                   text:
-                                      "${widget.order.user.address == null ? translator.translate("address") : widget.order.user.address}",
+                                      "${widget.order.user.address == null ?
+                                      StaticData.order_address == null?  translator.translate("address") : StaticData.order_address
+                                          : widget.order.user.address}",
                                   size: height * .014,
                                   color: blackColor,
                                 ),

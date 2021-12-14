@@ -8,7 +8,7 @@
   "sign in" : "تسجيل الدخول " ,
   "or sign in by" : "أو تسجيل الدخول عن طريق ",
   "don't have an account with us yet ? sign up" : "ليس لديك حساب معنا حتى الآن؟ اشتراك ",
-  "change_language" : "تغير اللغة",
+  "change_language" : "تغيير اللغة",
   "select_language" : "تحديد اللغة",
   "arabic_language" : "اللغة العربية ",
   "english_language" : "اللغة الانجليزية",
@@ -59,7 +59,7 @@
   "This product is out of stock" : "لقد نفذت الكمية من هذا المنتج",
   "You cannot exceed the available quantity" : "لا يمكنك تخطى الكمية المتاحة",
   "this product already added in shopping cart" : "هذا المنتج مضاف بالفعل في عربة التسوق",
-  "There is no products": "لا توجد منتجات",
+  "There is no products": " منتجات",
   "What Are You Loking For ? " : "عن ماذا تريد البحث ؟",
 
   "don't have an account with us yet ?": "ليس لديك حساب معنا حتى الآن؟",
@@ -136,7 +136,7 @@
   " Please, click on \"Fingerprint Set up\" button to set up your fingerprint":    "من فضلك ، انقر فوق الزر إعداد بصمة الإصبع  لإعداد بصمة إصبعك",
   "Opps, Your device does not support the fingerprint feature": "معذرة ، جهازك لا يدعم خاصية البصمة " ,
   "FINGERPRINT SET UP": "إعداد بصمة الإصبع" ,
-  "fingerprint added ! whenever you see this icon, you can use your fingerprint for Sign in":  "تمت إضافة بصمة الإصبع! عندما ترى هذا الرمز ، يمكنك استخدام بصمة إصبعك لتسجيل الدخول تمت إضافة بصمة الإصبع! كلما رأيت هذا الرمز ، يمكنك استخدام بصمة إصبعك لتسجيل الدخول",
+  "fingerprint added ! whenever you see this icon, you can use your fingerprint for Sign in":  "تمت إضافة بصمة الإصبع! عندما ترى هذا الرمز ، يمكنك استخدام بصمة إصبعك لتسجيل الدخول ",
 
   "Full Name *":  "الاسم الكامل *",
   "Already Have An Account ! ": "لديك حساب بالفعل!",
@@ -153,7 +153,7 @@
   "order": "طلب",
   "date": "التاريخ",
   "Opps, you dont have any Complaint ": "معذرة ، ليس لديك أي شكوى",
-  "If you are facing any problem or if you have a suggestion, please contact us": "إذا كنت تواجه أي مشكلة أو إذا كان لديك اقتراح يرجى الاتصال بنا  إذا كنت تواجه أي مشكلة أو إذا كان لديك اقتراح   فيرجى الاتصال بنا  ",
+  "If you are facing any problem or if you have a suggestion, please contact us": "إذا كنت تواجه أي مشكلة أو إذا كان لديك اقتراح يرجى الاتصال بنا ",
   "Card Holder Name * ":  "اسم صاحب البطاقة *",
   "Card Number *": "رقم البطاقة *" ,
   "Expires Year* ": "سنة الانتهاء *",
@@ -173,17 +173,17 @@
   "Description *": "الوصف *" ,
   "Default Shipping Address ":  "عنوان الشحن الافتراضي" ,
   "You do not have any addresses currently, please add a new address": "ليس لديك أي عناوين حاليًا ، يُرجى إضافة عنوان جديد",
-  "You will get points when you constantly rating your purchases, and these points will help you get a discount on your next purchase": "ستحصل على نقاط عند تقييم مشترياتك باستمرار ، وستساعدك هذه النقاط في الحصول على خصم على مشترياتك التالية ستحصل على نقاط عند تقييم مشترياتك باستمرار ، وستساعدك هذه النقاط في الحصول على خصم على مشترياتك الشراء التالي " ,
+  "You will get points when you constantly rating your purchases, and these points will help you get a discount on your next purchase": "ستحصل على نقاط عند تقييم مشترياتك باستمرار ، وستساعدك هذه النقاط في الحصول على خصم على مشترياتك التالية" ,
   "there is no comments" : "لا توجد تعليقات حاليا",
 
   "Promo Code": "الرمز الترويجي" ,
   "Your Points": "نقاطك" ,
-  "Share the coupon and get 5% off your next purchase":   "شارك القسيمة واحصل على خصم 5٪ على عملية الشراء التالية شارك الكوبون واحصل على خصم 5٪ على مشترياتك التالية" ,
+  "Share the coupon and get 5% off your next purchase":   "شارك القسيمة واحصل على خصم 5٪ على عملية الشراء التالية " ,
   "Copied to Clipboard": "تم النسخ ",
   "Points": "النقاط",
   "coupon code":  "رمز القسيمة",
   "Online stores platform: a multi-store platform that aims to enable the merchant to sell his goods easily and directly deal with the customer" :
-  "منصة المتاجر الإلكترونية: منصة متعددة المتاجر تهدف إلى تمكين التاجر من بيع بضاعته بسهولة وبشكل مباشر مع العميل منصة المتاجر الإلكترونية منصة متعددة المتاجر تهدف إلى تمكين التاجر من بيع بضاعته بسهولة والتعامل مباشرة مع العميل ",
+  "منصة المتاجر الإلكترونية: منصة متعددة المتاجر تهدف إلى تمكين التاجر من بيع بضاعته بسهولة وبشكل مباشر مع العميل",
   "Invoice Summary": "ملخص الفاتورة",
   "inclusive of vat" :  "بما في ذلك ضريبة القيمة المضافة",
   "Items" : "العناصر",
@@ -216,7 +216,7 @@
   "Order Total" : "الأجمالى",
   "Choose Payment Method" : "اختر وسيلة الدفع",
   "Choose Delivery Date" : "اختر تاريخ التسليم",
-  "Credit Card" : "لبطاقات الائتمانية",
+  "Credit Card" : "البطاقات الائتمانية",
   "Wallet Balance" : "المحفظة",
   "Our App": "التطبيق",
   "please complete all require data" : "الرجاء إكمال جميع البيانات المطلوبة",
@@ -249,5 +249,6 @@
   "input is incorrect" :    "البيانات المدخلة غير صحيح",
   "otp code is incorrect" :    "رمز التفعيل غير صحيح",
   "Confirm" : "تاكيد",
-  "Opps, you dont have any" : "عفوًا ، ليس لديك أي "
+  "Opps, you dont have any" : "عفوًا ، ليس لديك أي ",
+  "Add Payment Method " : "أضافة بطاقة دفع"
 }

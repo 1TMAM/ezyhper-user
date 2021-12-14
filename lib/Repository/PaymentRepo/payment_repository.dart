@@ -32,7 +32,7 @@ class PaymentRepository{
     return NetworkUtil.internal().post(CreditCardPayModel(), Urls.CREDIT_CARD_PAY,body: formData);
   }
 
-  Future<void> hyperpay_payment({ int amount, int user_id, int order_id, BuildContext context}) async {
+  Future<void> hyperpay_payment({ var amount, var user_id, var order_id, BuildContext context}) async {
     print('payment 1');
     Dio dio = new Dio();
     var token = await sharedPreferenceManager.readString(CachingKey.AUTH_TOKEN);
@@ -43,7 +43,7 @@ class PaymentRepository{
     try {
       FormData _formData = FormData.fromMap({
         'token': token,
-        'amount': '${amount}',
+        'amount': '${amount.toString()}',
         'user_id': '${user_id}',
         'order_id': '${order_id}',
       });
@@ -64,7 +64,7 @@ class PaymentRepository{
       }
     } catch (e) {
       print('payment 11');
-      print('getPaymentResponse errorr');
+      print('getPaymentResponse errorr : ${e}');
       errorDialog(context: context, text: e.toString());
     }
   }

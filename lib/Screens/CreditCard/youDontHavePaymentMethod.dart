@@ -44,7 +44,7 @@ class _YouDontHavePaymentMethodState extends State<YouDontHavePaymentMethod> {
                 height: height * .05,
               ),
               CustomSubmitAndSaveButton(
-                buttonText: translator.translate("Default Payment Method " ),
+                buttonText: translator.translate("Add Payment Method "  ),
                 onPressButton: () {
                   Navigator.pushReplacement(
                     context,

@@ -18,6 +18,7 @@ class ProductShape extends StatefulWidget{
 }
 
 class ProductShapeState extends State<ProductShape>{
+  var total_rate = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,25 @@ class ProductShapeState extends State<ProductShape>{
     widget.product.files.forEach((element) {
       gallery.add(element.url);
     });
+    print("---- images : ${widget.product.cover}");
+    List rates=[];
+    if(widget.product.rates.isEmpty){
+      total_rate = widget.product.totalRate.toDouble();
+    }else{
+      widget.product.rates.forEach((element) {
+        rates.add(element.value);
+      });
+      total_rate = rates.fold(0, (p, c) => p + c)/ rates.length;
+      print("------ total_rate ------- : ${total_rate}");
+    }
+    var price_after_discount;
+    if(widget.product.priceAfterDiscount.runtimeType == String){
+      price_after_discount = double.parse(widget.product.priceAfterDiscount).toStringAsFixed(2);
+    }else if(widget.product.priceAfterDiscount.runtimeType == double){
+      price_after_discount = widget.product.priceAfterDiscount.toStringAsFixed(2);
+    }else if(widget.product.priceAfterDiscount.runtimeType == int){
+      price_after_discount = double.parse(widget.product.priceAfterDiscount).toStringAsFixed(2);
+    }
     return Directionality(
         textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
         child:Row(
@@ -66,13 +86,14 @@ class ProductShapeState extends State<ProductShape>{
                   children: [
                     Stack(
                       children: [
-                        MyProductSlider(
+                    /*    MyProductSlider(
                           data: gallery,
                           viewportFraction: 1.0,
                           aspect_ratio: 3.0,
                           border_radius: 15.0,
                           indicator: false,
-                        ),
+                        ),*/
+                        Image.network(widget.product.cover),
                         CustomFauvourite(
                           color: redColor,
                           favourite_status:   widget.product.inFavorite==0?false:true ,
@@ -87,7 +108,7 @@ class ProductShapeState extends State<ProductShape>{
                           Row(
                             children: [
                               RatingBar.readOnly(
-                                initialRating: widget.product.totalRate.toDouble(),
+                                initialRating: total_rate.toDouble(),
                                 maxRating: 5,
                                 isHalfAllowed: true,
                                 halfFilledIcon: Icons.star_half,
@@ -95,7 +116,7 @@ class ProductShapeState extends State<ProductShape>{
                                 emptyIcon: Icons.star_border,
 
                                 size: StaticData.get_width(context) * 0.03,
-                                filledColor: (widget.product.totalRate.toDouble() >= 1)
+                                filledColor: (total_rate.toDouble() >= 1)
                                     ? Colors.yellow.shade700
                                     : Colors.yellow.shade700,
                               ),
@@ -115,10 +136,11 @@ class ProductShapeState extends State<ProductShape>{
                               children: [
                                 Expanded(
                                   child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 5),
                                     alignment : translator.currentLanguage == 'ar' ?  Alignment.centerRight : Alignment.centerLeft,
                                     child:  MyText(
                                         text: "${widget.product.name} ",
-                                        size: StaticData.get_height(context)  * .014,
+                                        size: StaticData.get_height(context)  * .013,
                                         color: blackColor),
                      )
 
@@ -135,7 +157,8 @@ class ProductShapeState extends State<ProductShape>{
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       MyText(
-                                        text: "${widget.product.priceAfterDiscount} ${translator.translate("SAR")}",
+                                        text: "${widget.product.priceAfterDiscount == 0 ? widget.product.price :
+                                        price_after_discount}  ${translator.translate("SAR")}",
                                         size: StaticData.get_height(context) * .017,
                                         color: blackColor,
                                         weight: FontWeight.normal,

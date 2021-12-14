@@ -99,7 +99,7 @@ class _OfferSlider_State extends State<OfferSlider> {
                             shape: BoxShape.circle,
                             color: _current == index
                                 ? greenColor
-                                : whiteColor,
+                                : blackColor,
                           ),
                         );
                       }).toList(),

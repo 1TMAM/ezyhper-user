@@ -78,9 +78,11 @@ class CreditCardBloc extends Bloc<AppEvent,AppState> with Validator{
       var response =await creditCard_repository.getCreditCardList();
       if(response.status==true){
         _credit_card_list_subject.sink.add(response);
+        print("credit respose : $response");
         yield  Done(model: response);
 
       }else{
+        print("ErrorLoading credit respose : $response");
         yield   ErrorLoading(response);
       }
 

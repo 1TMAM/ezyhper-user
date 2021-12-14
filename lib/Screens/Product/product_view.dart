@@ -12,7 +12,11 @@ class ProductView extends StatefulWidget{
   final String department_name;
   final int product_id;
   final String category_id;
+  double price_from,  price_to ;
+  int categories_id , brand_id, size_id,  rate ,offset;
   ProductView({this.view_type,this.department_name,this.product_id,this.category_id});
+  ProductView.filter({this.price_to,this.offset,this.rate,this.size_id,this.brand_id,this.categories_id,
+    this.price_from, this.view_type, this.department_name, this.product_id, this.category_id});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -23,9 +27,10 @@ class ProductView extends StatefulWidget{
 class ProductViewState extends State<ProductView>{
   ScrollController _controller;
   var offset = 1;
+  final product_bloc = ProductBloc(null);
 
   @override
-  void initState() {
+  Future<void> initState()  {
   print("--------- ProductView -----------");
   _controller = ScrollController()..addListener(_scrollListener);
 
@@ -45,6 +50,12 @@ class ProductViewState extends State<ProductView>{
           offset: offset
       ));
       break;
+    case 'categoryProducts':
+      product_bloc.add(getCategoryProducts(
+          category_id: widget.category_id,
+          offset: offset
+      ));
+      break;
     case 'relatedProducts':
       product_bloc.add(getRelatedProduct_click(
         product_id: widget.product_id,
@@ -52,17 +63,23 @@ class ProductViewState extends State<ProductView>{
 
       ));
       break;
-    case 'categoryProducts':
-      product_bloc.add(getCategoryProducts(
-          category_id: widget.category_id,
-          offset: offset
-      ));
-      break;
+
     case 'ShowSecondLevelSubcCategoryProducts':
       product_bloc.add(getSecondLevelSubCategoryProducts(
           secon_level_subcategory_id: widget.category_id,
           offset: offset
       ));
+      break;
+    case 'filter_result' :
+      product_bloc.add(FilterProductsEvent(
+          price_from: widget.price_from,
+          price_to: widget.price_to,
+    rate: widget.rate,
+    categories_id: widget.categories_id,
+    brand_id: widget.brand_id,
+    size_id: widget.size_id,
+    offset: widget.offset
+    ));
       break;
   }
 
@@ -311,6 +328,122 @@ class ProductViewState extends State<ProductView>{
 
         );
         break;
+
+      case 'categoryProducts':
+        return BlocBuilder(
+          bloc: product_bloc,
+          builder: (context,state){
+            if(state is Done){
+              return widget.view_type == 'horizontal_ListView'
+                  ? StreamBuilder<List<product_model.Products>>(
+                stream: product_bloc.cat_products_subject,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data ==null) {
+                      return Container();
+                    } else {
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return snapshot.data[index] == null
+                                ? Container()
+                                : ProductShape(
+                              product: snapshot.data[index],
+                            );
+                          });
+                    }
+                  }
+                  else if (snapshot.hasError) {
+                    return Container(
+                      child: Text('${snapshot.error}'),
+                    );
+                  } else {
+                    return Center(
+                      child: SpinKitFadingCircle(color: greenColor),
+                    );;
+                  }
+                },
+
+              )
+
+                  : StreamBuilder<List<product_model.Products>>(
+                stream: product_bloc.cat_products_subject,
+                builder: (context, snapshot) {
+                  //     print("%%%%%%% : ${snapshot.data}");
+                  if (snapshot.hasData) {
+                    if (snapshot.data ==null) {
+                      return NoData(
+                        image: "assets/images/img_contactus.png",
+                        title: translator.translate( "There is no products"),
+                        message: translator.translate(
+                            "If you are facing any problem or if you have a suggestion, please contact us"),
+                      );
+                    } else {
+                      return GridView.builder(
+                          controller: _controller,
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 9 / 14,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 0),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Color(0xfff7f7f7),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(0),
+                                ),
+                              ),
+                              child: index >= snapshot.data.length
+                                  ? MyLoader(25, 25)
+                                  : snapshot.data[index] ==
+                                  null ? NoData(
+                                image: "assets/images/img_contactus.png",
+                                title: translator.translate( "There is no products"),
+                                message: translator.translate(
+                                    "If you are facing any problem or if you have a suggestion, please contact us"),
+                              ) : ProductShape(
+                                product: snapshot.data[index],
+                              ),
+                            );
+                          });
+                    }
+
+                  } else {
+                    /*         return NoData(
+                  image: "assets/images/img_contactus.png",
+                  title: translator.translate( "There is no products"),
+                  message: translator.translate(
+                      "If you are facing any problem or if you have a suggestion, please contact us"),
+                );*/
+                    return MyLoader(45, 45);
+                  }
+                },
+
+              );
+            }else if (state is ErrorLoading){
+              return NoData(
+                image: "assets/images/img_contactus.png",
+                title: translator.translate( "There is no products"),
+                message: translator.translate(
+                    "If you are facing any problem or if you have a suggestion, please contact us"),
+              );
+            }
+            else{
+              return MyLoader(45, 45);
+
+            }
+          },
+        );
+
+        break;
       case 'relatedProducts':
         return widget.view_type == 'horizontal_ListView'
             ? StreamBuilder<List<product_model.Products>>(
@@ -385,95 +518,6 @@ class ProductViewState extends State<ProductView>{
 
         );
         break;
-      case 'categoryProducts':
-        return widget.view_type == 'horizontal_ListView'
-            ? StreamBuilder<List<product_model.Products>>(
-          stream: product_bloc.cat_products_subject,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data ==null) {
-                return Container();
-              } else {
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return snapshot.data[index] == null
-                          ? Container()
-                          : ProductShape(
-                        product: snapshot.data[index],
-                      );
-                    });
-              }
-            }
-            else if (snapshot.hasError) {
-              return Container(
-                child: Text('${snapshot.error}'),
-              );
-            } else {
-              return Center(
-                child: SpinKitFadingCircle(color: greenColor),
-              );;
-            }
-          },
-
-        )
-
-            : StreamBuilder<List<product_model.Products>>(
-          stream: product_bloc.cat_products_subject,
-          builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data ==null) {
-                  return NoData(
-                    image: "assets/images/img_contactus.png",
-                    title: translator.translate( "There is no products"),
-                    message: translator.translate(
-                        "If you are facing any problem or if you have a suggestion, please contact us"),
-                  );
-                } else {
-                  return GridView.builder(
-                      controller: _controller,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 9 / 14,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 0),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Color(0xfff7f7f7),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(0),
-                            ),
-                          ),
-                          child: index >= snapshot.data.length
-                              ? MyLoader(25, 25)
-                              : snapshot.data[index] ==
-                              null ? NoData(
-                            image: "assets/images/img_contactus.png",
-                            title: translator.translate( "There is no products"),
-                            message: translator.translate(
-                                "If you are facing any problem or if you have a suggestion, please contact us"),
-                          ) : ProductShape(
-                            product: snapshot.data[index],
-                          ),
-                        );
-                      });
-                }
-
-            } else {
-              return MyLoader(45, 45);
-            }
-          },
-
-        );
-        break;
       case 'filter_result':
         return widget.view_type == 'horizontal_ListView'
             ? StreamBuilder<List<product_model.Products>>(
@@ -515,7 +559,10 @@ class ProductViewState extends State<ProductView>{
             if (snapshot.hasData) {
               if(snapshot.data.isEmpty){
                 return NoData(
-                  message: translator.translate( "There is no products"),
+                  image: "assets/images/img_contactus.png",
+                  title: translator.translate( "There is no products"),
+                  message: translator.translate(
+                      "If you are facing any problem or if you have a suggestion, please contact us"),
                 );
               }else{
                 return GridView.builder(
@@ -556,53 +603,73 @@ class ProductViewState extends State<ProductView>{
         );
         break;
       case 'ShowSecondLevelSubcCategoryProducts':
-        return StreamBuilder<List<product_model.Products>>(
-          stream: product_bloc.second_level_subcatatgory_products_subject,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
+
+        return  BlocBuilder(
+            bloc: product_bloc,
+            builder: (context,state){
+              if( state is Done){
+                return StreamBuilder<List<product_model.Products>>(
+              stream: product_bloc.second_level_subcatatgory_products_subject,
+              builder: (context, snapshot) {
+              if (snapshot.hasData) {
               if(snapshot.data ==null){
+              return NoData(
+              image: "assets/images/img_wallet.png",
+              title: translator.translate( "There is no products"),
+              message: translator.translate(
+              "If you are facing any problem or if you have a suggestion, please contact us"),
+              );
+              }else{
+              return GridView.builder(
+              controller: _controller,
+              shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 9 / 14,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+              return Container(
+              margin: EdgeInsets.symmetric(
+              horizontal: 0, vertical: 0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+              color: Color(0xfff7f7f7),
+              borderRadius: BorderRadius.all(
+              Radius.circular(0),
+              ),
+              ),
+              child: index >= snapshot.data.length
+              ? MyLoader(25, 25)
+                  :  snapshot.data[index] ==
+              null ? Container() : ProductShape(
+              product: snapshot.data[index],
+              ),
+              );
+              });
+              }
+
+              } else {
+              return MyLoader(45, 45);
+              }
+              },
+
+              );
+              }
+              else if( state is ErrorLoading){
                 return NoData(
-                  image: "assets/images/img_wallet.png",
+                  image: "assets/images/img_contactus.png",
                   title: translator.translate( "There is no products"),
                   message: translator.translate(
                       "If you are facing any problem or if you have a suggestion, please contact us"),
                 );
-              }else{
-                return GridView.builder(
-                    controller: _controller,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 9 / 14,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xfff7f7f7),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(0),
-                          ),
-                        ),
-                        child: index >= snapshot.data.length
-                            ? MyLoader(25, 25)
-                            :  snapshot.data[index] ==
-                            null ? Container() : ProductShape(
-                          product: snapshot.data[index],
-                        ),
-                      );
-                    });
               }
+              else{
+                return MyLoader(45, 45);
 
-            } else {
-              return MyLoader(45, 45);
+              }
             }
-          },
-
         );
         break;
       default:
@@ -611,7 +678,6 @@ class ProductViewState extends State<ProductView>{
     }
 
   }
-
 
   void _scrollListener() async{
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {

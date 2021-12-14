@@ -76,6 +76,7 @@ class   CachingKey extends Enum<String> {
   static const CachingKey DEFAULT_SHIPPING_ADDRESS = const CachingKey('DEFAULT_SHIPPING_ADDRESS');
   static const CachingKey USER_DEFAULT_LOCATION_ID = const CachingKey('USER_DEFAULT_LOCATION_ID'); //use in payment
   static const CachingKey LOGOUT = const CachingKey('LOGOUT'); //check direction to UserLocation page
+  static const CachingKey FINGERPRINT_STATUS= const CachingKey('FINGERPRINT_STATUS');
 
   static const CachingKey MAPS_LAT = const CachingKey('lat');
   static const CachingKey Maps_lang = const CachingKey('lang');

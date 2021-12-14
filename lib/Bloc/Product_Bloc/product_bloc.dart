@@ -48,7 +48,7 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _cat_products_subject = null;
+  //  _cat_products_subject = null;
 /*    _products_subject?.close();
     _recomended_products_subject?.close();
     _filter_products_subject?.close();
@@ -151,13 +151,17 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
           category_id: event.category_id,
         offset: event.offset
       );
-      if (response.status == true) {
-        response.data ==null?_cat_products_subject : _categoryProducts_list.addAll(response.data.products);
+   //   if (response.msg == "تم استرجاع البيانات بنجاح" || response.msg ==  " Data Retrieved Successfully") {
+      if(response.data != null){
+/*     response.data ==null?_cat_products_subject : _categoryProducts_list.addAll(response.data.products);
 
-        _cat_products_subject.sink.add(_categoryProducts_list == null? [] : _categoryProducts_list);
+        _cat_products_subject.sink.add(_categoryProducts_list == null? [] : _categoryProducts_list);*/
+        _cat_products_subject.sink.add(response.data.products);
         print("_cat_products_subject: ${_cat_products_subject}");
         yield Done(model: response);
-      } else if (response.status == false) {
+      }
+     // else if (response.msg == "There Is No Data") {
+      else if (response.data == null) {
         print("4");
         yield ErrorLoading(response);
       }
@@ -174,14 +178,15 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
 
       print("secon_level_subcategory 2");
 
-      if (response.status == true) {
+      if (response.data != null) {
         print("secon_level_subcategory 3");
-
+/*
         _second_level_categoryProducts_list.addAll(response.data.products);
         _second_level_subcatatgory_products_subject.sink.add(_second_level_categoryProducts_list);
-        print("_second_level_categoryProducts_list: ${_second_level_categoryProducts_list}");
+        print("_second_level_categoryProducts_list: ${_second_level_categoryProducts_list}");*/
+        _second_level_subcatatgory_products_subject.sink.add(response.data.products);
         yield Done(model: response);
-      } else if (response.status == false) {
+      } else if (response.data == null) {
         print(" secon_level_subcategory 4");
         yield ErrorLoading(response);
       }
@@ -241,4 +246,3 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
   }
 }
 
-final product_bloc = ProductBloc(null);

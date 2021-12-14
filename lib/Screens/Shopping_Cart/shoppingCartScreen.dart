@@ -28,18 +28,19 @@ class _ShoppingCartState extends State<ShoppingCart> {
     cart_products = DB_Helper.get_cart_products();
     product_Data = [];
     print("cart_products : ${cart_products}");
+    print("------------- cart_offers -----------");
+    cart_offers();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    print("------------- cart_offers -----------");
-    cart_offers();
+
     super.didChangeDependencies();
   }
 
   void cart_offers() async {
-    await sharedPreferenceManager.readInteger(CachingKey.FRIST_TIME) == true
+    await sharedPreferenceManager.readBoolean(CachingKey.FRIST_TIME) == true
         ? showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -174,7 +175,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                       buttonText: translator.translate("CHECKOUT"),
                       onPressButton: () async {
                         if (StaticData.vistor_value == 'visitor') {
-                          Navigator.pop(context);
+                      //    Navigator.pop(context);
                           CustomComponents.guestRegisterationBottomSheet(
                             context: context,
                             drawerKey: _drawerKey
@@ -330,6 +331,14 @@ class _ShoppingCartState extends State<ShoppingCart> {
 
     qty = product.prod_chossed_quantity;
     product_quantity = product.prod_main_quantity;
+    var price_after_discount;
+    if(product.prod_price_after_discount.runtimeType == String){
+      price_after_discount = double.parse(product.prod_price_after_discount).toStringAsFixed(2);
+    }else if(product.prod_price_after_discount.runtimeType == double){
+      price_after_discount = product.prod_price_after_discount.toStringAsFixed(2);
+    }else if(product.prod_price_after_discount.runtimeType == int){
+      price_after_discount = double.parse(product.prod_price_after_discount).toStringAsFixed(2);
+    }
     return Directionality(
         textDirection: translator.currentLanguage == 'ar'
             ? TextDirection.rtl
@@ -389,40 +398,42 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
                                         children: [
                                           FittedBox(
                                               child: Container(
                                                   width: StaticData.get_width(
                                                           context) *
-                                                      0.5,
-                                                  alignment: translator
-                                                              .currentLanguage ==
-                                                          'ar'
-                                                      ? Alignment.centerRight
-                                                      : Alignment.centerLeft,
+                                                      0.65,
+                                                  alignment: translator.currentLanguage == 'ar' ? Alignment.centerRight :
+                                                  Alignment.centerLeft,
+                                                  child:      Wrap(
+                                                      crossAxisAlignment: WrapCrossAlignment.start,
+                                                      children: [
+                                                  Container(
+                                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                                  alignment : translator.currentLanguage == 'ar' ?  Alignment.centerRight : Alignment.centerLeft,
                                                   child: MyText(
-                                                    text:
-                                                        "${product.prod_name}",
+                                                    text: "${product.prod_name}",
                                                     size: height * .02,
-                                                    weight: FontWeight.bold,
-                                                    align: TextAlign.left,
-                                                  )))
+                                                    weight: FontWeight.normal,
+                                                    align: translator.currentLanguage == 'ar' ?TextAlign.right : TextAlign.left,
+                                                  )
+                                                  )
+                                              ])))
                                         ],
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
+
                                         children: [
                                           FittedBox(
                                               child: Container(
                                                   child: MyText(
                                             text:
-                                                "${product.prod_price_after_discount} ${translator.translate("SAR")}",
-                                            size: height * .015,
+                                                "${product.prod_price_after_discount == 0 ? product.prod_price
+                                                    : price_after_discount} ",
+                                            size: height * .014,
                                             weight: FontWeight.bold,
                                           ))),
                                           SizedBox(
@@ -433,11 +444,11 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                                   child: Row(
                                             children: [
                                               Text(
-                                                "${product.prod_price} ${translator.translate("SAR")}",
+                                                "${product.prod_price} ",
                                                 style: TextStyle(
                                                     decoration: TextDecoration
                                                         .lineThrough,
-                                                    fontSize: height * .014,
+                                                    fontSize: height * .012,
                                                     fontWeight: FontWeight.bold,
                                                     color: greyColor),
                                               ),

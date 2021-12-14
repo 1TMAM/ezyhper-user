@@ -33,25 +33,33 @@ class _SearchResultState extends State<SearchResult> {
         child: PageContainer(
             child:  Scaffold(
               backgroundColor: whiteColor,
-              body:  Directionality(
-                  textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
-                  child:Container(
-                      child: Column(
-                          children: [
-                            topPart(),
-                            SizedBox(height: height*.0,),
-                            Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
-                                bottom: height*.02),decoration:
-                            BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(height*.05),
-                                topRight:Radius.circular(height*.05)),color: backgroundColor),
+              body:  GestureDetector(
+                onTap: (){
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Directionality(
+                    textDirection: translator.currentLanguage == 'ar' ? TextDirection.rtl :TextDirection.ltr,
+                    child:Container(
+                        child: Column(
+                            children: [
+                              topPart(),
+                              SizedBox(height: height*.0,),
+                              Container(padding: EdgeInsets.only(right: width*.075,left: width*.075,top: height*.02,
+                                  bottom: height*.02),decoration:
+                              BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(height*.05),
+                                  topRight:Radius.circular(height*.05)),color: backgroundColor),
 
-                                child: searchTextFieldAndFilterPart()
+                                  child: searchTextFieldAndFilterPart()
 
-                            ),
-                            Expanded(child: Container(color: backgroundColor,
-                                child: gridView()))
+                              ),
+                              Expanded(child: Container(color: backgroundColor,
+                                  child: gridView()))
 
-                          ]))),
+                            ]))),
+              )
 
 
             )));
@@ -359,14 +367,16 @@ class _SearchResultState extends State<SearchResult> {
                                                     .start,
                                                 children: [
                                                   Stack(
+
                                                     children: [
-                                                      MyProductSlider(
+                                                      Image.network( snapshot.data.data.products[index].cover),
+/*                                                      MyProductSlider(
                                                         data: gallery,
                                                         viewportFraction: 1.0,
                                                         aspect_ratio: 3.0,
                                                         border_radius: 15.0,
                                                         indicator: false,
-                                                      ),
+                                                      ),*/
                                                       CustomFauvourite(
                                                         color: redColor,
                                                         favourite_status: snapshot
@@ -431,9 +441,14 @@ class _SearchResultState extends State<SearchResult> {
                                                             )
                                                           ],
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Container(
+                                                              Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              children: [
+                              Container(
+                              margin: EdgeInsets.symmetric(horizontal: 5),
+                              alignment : translator.currentLanguage == 'ar' ?  Alignment.centerRight : Alignment.centerLeft,
+                              child:
+                              Container(
 
                                                               child: MyText(
                                                                   text: "${snapshot
@@ -444,7 +459,7 @@ class _SearchResultState extends State<SearchResult> {
                                                                       .get_height(
                                                                       context) * .014,
                                                                   color: blackColor),
-                                                            ),
+                              )  ),
                                                           ],
                                                         ),
 
@@ -459,10 +474,8 @@ class _SearchResultState extends State<SearchResult> {
                                                                       .start,
                                                                   children: [
                                                                     MyText(
-                                                                      text: "${snapshot
-                                                                          .data.data
-                                                                          .products[index]
-                                                                          .priceAfterDiscount} ${translator
+                                                                      text: "${snapshot.data.data.products[index]
+                                                                          .priceAfterDiscount == 0 ? snapshot.data.data.products[index].price : snapshot.data.data.products[index].priceAfterDiscount} ${translator
                                                                           .translate(
                                                                           "SAR")}",
                                                                       size: StaticData
