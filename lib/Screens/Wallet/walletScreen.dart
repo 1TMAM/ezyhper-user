@@ -187,9 +187,9 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
                       onTap: () {
                         Navigator.pop(context);
 
-                       /* Navigator.push(context,MaterialPageRoute(
-                          builder: (context)=> CustomCircleNavigationBar(page_index: 4,),
-                        ));*/
+                       Navigator.push(context,MaterialPageRoute(
+                          builder: (context)=> translator.currentLanguage == 'ar' ? CustomCircleNavigationBar() : CustomCircleNavigationBar(page_index: 4,),
+                        ));
 
                       },
                       child: Container(
@@ -331,11 +331,11 @@ class _WalletState extends State<Wallet> with TickerProviderStateMixin{
     return Row(mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(onTap: (){
-          Navigator.push(context,MaterialPageRoute(
+   /*       Navigator.push(context,MaterialPageRoute(
             builder: (context)=> OrderHistoryDetails(
             ),
           ));
-
+*/
         },
           child: Container(
             margin: EdgeInsets.only(bottom: height*.015),

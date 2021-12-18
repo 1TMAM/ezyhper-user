@@ -5,14 +5,16 @@ class AuthenticationModel extends BaseMappable{
   int code;
   String msg;
   Data data;
-
-  AuthenticationModel({this.status, this.code, this.msg, this.data});
+  Errors errors;
+  AuthenticationModel({this.status, this.code, this.msg, this.data,this.errors});
 
   AuthenticationModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     code = json['code'];
     msg = json['msg'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    errors =
+    json['errors'] != null ? new Errors.fromJson(json['errors']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +25,9 @@ class AuthenticationModel extends BaseMappable{
     if (this.data != null) {
       data['data'] = this.data.toJson();
     }
+    if (this.errors != null) {
+      data['errors'] = this.errors.toJson();
+    }
     return data;
   }
 
@@ -32,7 +37,9 @@ class AuthenticationModel extends BaseMappable{
     code = json['code'];
     msg = json['msg'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    return AuthenticationModel(status: status,code: code,msg: msg,data: data);
+    errors =
+    json['errors'] != null ? new Errors.fromJson(json['errors']) : null;
+    return AuthenticationModel(status: status,code: code,msg: msg,data: data,errors: errors);
   }
 }
 
@@ -105,6 +112,25 @@ class Data {
     data['reward_point'] = this.rewardPoint;
     data['firebase_token'] = this.firebaseToken;
     data['access_token'] = this.accessToken;
+    return data;
+  }
+}
+
+class Errors {
+  List<String> phone;
+  List<String> email;
+
+  Errors({this.phone, this.email});
+
+  Errors.fromJson(Map<String, dynamic> json) {
+    phone = json['phone'].cast<String>();
+    email = json['email'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['phone'] = this.phone;
+    data['email'] = this.email;
     return data;
   }
 }

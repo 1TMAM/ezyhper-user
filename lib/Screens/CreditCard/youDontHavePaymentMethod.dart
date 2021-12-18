@@ -76,7 +76,7 @@ class _YouDontHavePaymentMethodState extends State<YouDontHavePaymentMethod> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: width * .9,
+          width: width * .8,
           height: height * .5,
           child: Image.asset(
             "assets/images/img_payment.png",

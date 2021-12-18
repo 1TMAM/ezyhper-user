@@ -82,9 +82,8 @@ class _ChoosePaymentMethodState extends State<ChoosePaymentMethod> {
               }else if(state is Done){
                 var data = state .model as CreditCardListModel;
                 if(data.data ==null){
-                  return NoData(
-                    message: data.msg,
-                  );
+                  //return NoData(message: data.msg??'',);
+                  return YouDontHavePaymentMethod();
                 }else {
                   return StreamBuilder<card_list.CreditCardListModel>(
                       stream: creditCard_bloc.credit_card_list_subject,
