@@ -226,7 +226,7 @@ void collect_profile_data()async{
           child: CustomTextField(
             secure: false,
             onchange: profile_bloc.profile_phone_change,
-            hint: profile_phone,
+            hint: profile_phone??  translator.translate("Phone Number *"),
             inputType: TextInputType.number,
             suffixIcon: null,
             errorText: snapshot.error,

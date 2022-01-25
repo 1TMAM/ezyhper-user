@@ -133,6 +133,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
               return GridView.builder(
                   controller: _controller,
                   itemCount: snapshot.data.length,
+                  physics: NeverScrollableScrollPhysics(),
+
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -216,6 +218,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
               return GridView.builder(
                   controller: _controller,
                   itemCount: snapshot.data.length,
+                  physics: NeverScrollableScrollPhysics(),
+
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -299,6 +303,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
               return GridView.builder(
                   controller: _controller,
                   itemCount: snapshot.data.length,
+                  physics: NeverScrollableScrollPhysics(),
+
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -401,6 +407,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
                                               controller: _controller,
                                               shrinkWrap: true,
                                               itemCount: snapshot.data.length,
+                                              physics: NeverScrollableScrollPhysics(),
+
                                               gridDelegate:
                                                   SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount: 2,
@@ -528,6 +536,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
                     controller: _controller,
                     itemCount: snapshot.data.length,
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+
                     gridDelegate:
                     SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -626,6 +636,8 @@ class _ProductsGridListState extends State<ProductsGridList> {
                             controller: _controller,
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
+                            physics: NeverScrollableScrollPhysics(),
+
                             gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -680,62 +692,6 @@ class _ProductsGridListState extends State<ProductsGridList> {
         return Container();
         break;
     }
-/*    return NetworkIndicator(
-        child: PageContainer(
-            child: Scaffold(
-                backgroundColor: whiteColor,
-                body: Container(
-                    color: backgroundColor,
-                    child: Column(children: [
-                      topPart(),
-                      SizedBox(
-                        height: height * .0,
-                      ),
-                      Expanded(
-                          child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            //subcategories list
-                            widget.page_name == 'categoryProducts'
-                                ? widget.subCategory_list == null
-                                    ? Container()
-                                    : subCategory_list()
-                                : Container(),
-                            SizedBox(
-                              height: width * 0.02,
-                            ),
-                            //second level subcategories list
-                            second_sub_Category_status
-                                ? second_subCategory_list()
-                                : Container(),
-
-                            Container(
-                                padding: EdgeInsets.only(
-                                    right: width * .075,
-                                    left: width * .075,
-                                    top: height * .02,
-                                    bottom: height * .02),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(height * .05),
-                                        topRight:
-                                            Radius.circular(height * .05)),
-                                    color: backgroundColor),
-                                child: searchTextFieldAndFilterPart()),
-
-                            Container(
-                                color: backgroundColor,
-                                child: ProductView(
-                                  view_type: 'GridView',
-                                  category_id: widget.category_id,
-                                  department_name: second_sub_Category_status
-                                      ? 'ShowSecondLevelSubcCategoryProducts'
-                                      : widget.page_name,
-                                ))
-                          ],
-                        ),
-                      )),
-                    ])))));*/
   }
 
   Widget topPart() {
@@ -872,6 +828,7 @@ class _ProductsGridListState extends State<ProductsGridList> {
                           color: greyColor,
                           size: height * .035,
                         )),
+
                     hintText: "What Are You Loking For ? ",
                     hintStyle: TextStyle(
                         color: Colors.grey,

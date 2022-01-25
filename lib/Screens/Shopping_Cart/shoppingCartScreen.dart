@@ -161,8 +161,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              CustomCircleNavigationBar(
-                                                  page_index: 3)));
+                                              CustomCircleNavigationBar(page_index: translator.currentLanguage == 'ar' ? 1: 3)
+                                      ));
                                 },
                               ),
                             ],
@@ -329,6 +329,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
+    print("product.prod_price_after_discount.runtimeType : ${product.prod_price_after_discount.runtimeType}");
     qty = product.prod_chossed_quantity;
     product_quantity = product.prod_main_quantity;
     var price_after_discount;
@@ -337,7 +338,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
     }else if(product.prod_price_after_discount.runtimeType == double){
       price_after_discount = product.prod_price_after_discount.toStringAsFixed(2);
     }else if(product.prod_price_after_discount.runtimeType == int){
-      price_after_discount = double.parse(product.prod_price_after_discount).toStringAsFixed(2);
+      price_after_discount = double.parse(product.prod_price_after_discount.toString()).toStringAsFixed(2);
     }
     return Directionality(
         textDirection: translator.currentLanguage == 'ar'

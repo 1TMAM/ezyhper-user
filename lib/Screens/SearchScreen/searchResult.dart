@@ -298,6 +298,8 @@ class _SearchResultState extends State<SearchResult> {
                         return GridView.builder(
 
                             itemCount: snapshot.data.data.products.length,
+                            physics: NeverScrollableScrollPhysics(),
+
                             gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -474,8 +476,9 @@ class _SearchResultState extends State<SearchResult> {
                                                                       .start,
                                                                   children: [
                                                                     MyText(
-                                                                      text: "${snapshot.data.data.products[index]
-                                                                          .priceAfterDiscount == 0 ? snapshot.data.data.products[index].price : snapshot.data.data.products[index].priceAfterDiscount} ${translator
+                                                                      text: "${snapshot.data.data.products[index].priceAfterDiscount == 0
+                                                                          ? double.parse(snapshot.data.data.products[index].price.toString() ).toStringAsFixed(2)
+                                                                              :  double.parse(snapshot.data.data.products[index].priceAfterDiscount.toString()).toStringAsFixed(2)} ${translator
                                                                           .translate(
                                                                           "SAR")}",
                                                                       size: StaticData
@@ -492,9 +495,7 @@ class _SearchResultState extends State<SearchResult> {
                                                                   children: [
                                                                     Text(
                                                                       "${snapshot.data
-                                                                          .data
-                                                                          .products[index]
-                                                                          .price} ${translator
+                                                                          .data.products[index].price} ${translator
                                                                           .translate(
                                                                           "SAR")}",
                                                                       style: TextStyle(

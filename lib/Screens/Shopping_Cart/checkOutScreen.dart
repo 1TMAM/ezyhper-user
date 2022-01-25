@@ -685,9 +685,9 @@ class _CheckOutScreenState extends State<CheckOutScreen>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     MyText(
-                                        text:
-                                            "${product.prod_chossed_quantity}    ×    ${product.prod_price} ",
-                                        size: height * .02),
+                                        text: "${product.prod_chossed_quantity}    ×    ${product.prod_price_after_discount} ",
+                                        size: height * .02
+                                    ),
                                   ],
                                 ),
                               )
@@ -1667,7 +1667,8 @@ class _CheckOutScreenState extends State<CheckOutScreen>
           } else {
             return Container();
           }
-        } else if (state is ErrorLoading) {
+        }
+        else if (state is ErrorLoading) {
           if (state.indicator == 'apply_coupon') {
             return NoData(
               message: 'There is Error',

@@ -272,6 +272,8 @@ class _MyFavouritesState extends State<MyFavourites> {
                     } else {
                       return GridView.builder(
                           itemCount: snapshot.data.data.length,
+                          physics: NeverScrollableScrollPhysics(),
+
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 9 / 14,

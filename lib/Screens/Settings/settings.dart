@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> with TickerProviderStateMixin {
 
   void pending_earnings() async {
     StaticData.user_wallet_earnings =
-    await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
+    await sharedPreferenceManager.readDouble(CachingKey.USER_WALLET);
     print("StaticData.user_wallet_earnings : ${StaticData.user_wallet_earnings}");
   }
 

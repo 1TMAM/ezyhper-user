@@ -85,6 +85,8 @@ class CategoryViewState extends State<CategoryView>{
                             crossAxisCount: 3,
                             // childAspectRatio: 1,
                           ),
+                          physics: NeverScrollableScrollPhysics(),
+
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                               margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),

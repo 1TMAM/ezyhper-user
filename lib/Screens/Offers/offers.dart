@@ -81,6 +81,8 @@ class _OffersState extends State<Offers> {
                                         return GridView.builder(
                                             itemCount:
                                                 snapshot.data.data.length,
+                                            physics: NeverScrollableScrollPhysics(),
+
                                             gridDelegate:
                                                 SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2,

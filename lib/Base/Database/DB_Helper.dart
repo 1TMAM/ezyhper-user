@@ -28,6 +28,7 @@ class DB_Helper {
 // function that inserts products into the database
   static Future<void> insert_product(Product product) async {
     final Database db = await open_database();
+    print("product.toMap() : ${product.toMap()}");
     await db.insert(
       'product',
       product.toMap(),
@@ -163,7 +164,7 @@ class DB_Helper {
 //use to calculate price of all products in cart
   static void calculate_amount() async {
     var total = (await DB_Helper.getTotal_Amount())[0]['total'];
-    StaticData.TOTAL_AMOUNT = (total==null)?0:total;
+    StaticData.TOTAL_AMOUNT = (total==null)?0.0:total;
   }
 
   //use to get number of all products in cart

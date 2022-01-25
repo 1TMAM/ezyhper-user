@@ -482,12 +482,12 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                                         if (_cart_status == 0) {
                                           _cart_status = 1;
                                           print("cart 2");
+
                                           DB_Helper.insert_product(new Product(
                                               prod_id: widget.offer_product.id,
                                               prod_name:
                                                   widget.offer_product.name,
-                                              prod_price:
-                                                  widget.offer_product.price,
+                                              prod_price: widget.old_price,
                                               prod_pricture: widget
                                                       .offer_product
                                                       .files
@@ -498,11 +498,8 @@ class _OfferProductDetailsState extends State<OfferProductDetails> {
                                               prod_chossed_quantity: qty,
                                               prod_main_quantity:
                                                   widget.offer_product.quantity,
-                                              prod_discount:
-                                                  widget.offer_product.discount,
-                                              prod_price_after_discount: widget
-                                                  .offer_product
-                                                  .priceAfterDiscount,
+                                              prod_discount: widget.percentage,
+                                              prod_price_after_discount: widget.price,
                                               prod_cart_status: _cart_status,
                                               prod_order_status:
                                                   _order_status));

@@ -47,12 +47,12 @@ class ContactUsModel extends BaseMappable {
 }
 
 class Data {
-  int id;
-  String name;
-  String email;
-  String message;
-  int msgNum;
-  String status;
+  var id;
+  var name;
+  var email;
+  var message;
+  var msgNum;
+  var status;
   User user;
   CreateDates createDates;
   UpdateDates updateDates;
@@ -106,13 +106,13 @@ class Data {
 }
 
 class User {
-  int id;
-  String name;
-  String email;
-  String phone;
-  String type;
-  Null promoCode;
-  Null address;
+  var id;
+  var name;
+  var email;
+  var phone;
+  var type;
+  var promoCode;
+  var address;
 
   User(
       {this.id,
@@ -147,7 +147,7 @@ class User {
 }
 
 class CreateDates {
-  String createdAtHuman;
+  var createdAtHuman;
 
   CreateDates({this.createdAtHuman});
 

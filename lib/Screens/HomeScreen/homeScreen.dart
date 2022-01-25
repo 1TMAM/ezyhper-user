@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
   void pending_earnings()async{
-    StaticData.user_wallet_earnings = await sharedPreferenceManager.readInteger(CachingKey.USER_WALLET);
+    StaticData.user_wallet_earnings = await sharedPreferenceManager.readDouble(CachingKey.USER_WALLET);
   }
 
   @override

@@ -86,6 +86,8 @@ class OffersViewState extends State<OffersView>{
                     if (snapshot.hasData) {
                       return GridView.builder(
                           itemCount: snapshot.data.data.length,
+                          physics: NeverScrollableScrollPhysics(),
+
                           gridDelegate:
                           SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,

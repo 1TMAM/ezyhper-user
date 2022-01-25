@@ -26,6 +26,7 @@ var total_rate = 0.0;
     });
 
     var percentage =  (1 - (double.parse(widget.offer.price) /  double.parse(widget.offer.oldPrice)) )* 100;
+    print("percentage ------ ${percentage}");
     List rates=[];
     if(widget.offer.product.rates.isEmpty){
       total_rate = widget.offer.product.totalRate.toDouble();
@@ -53,7 +54,7 @@ var total_rate = 0.0;
                   return OfferProductDetails(
                     offer_product: widget.offer.product,
                     old_price: widget.offer.oldPrice,
-                    price: widget.offer.price,
+                    price: widget.offer.price.toString(),
                     percentage: percentage.round(),
 
                   );

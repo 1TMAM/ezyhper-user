@@ -70,6 +70,7 @@ class SortResultScreenState extends State<SortResultScreen>{
                   List<String> gallery = new List<String>();
 
                   return GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
 
                       itemCount: snapshot.data.data.products.length,
                       gridDelegate:

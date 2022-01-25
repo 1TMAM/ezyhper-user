@@ -39,6 +39,8 @@ class _ListShimmerState extends State<ListShimmer> {
 
     : GridView.builder(
         itemCount: 10,
+        physics: NeverScrollableScrollPhysics(),
+
         gridDelegate:
         SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,

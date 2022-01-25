@@ -250,16 +250,13 @@ class _ForgetPasswordState extends State<ForgetPassword>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      width: width * .85,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          MyText(
-            text: translator.translate("Please Enter Your Registered Email Address To Reset Password" ),
-            size:EzhyperFont.primary_font_size,
-            weight: FontWeight.bold,
-          ),
-        ],
+      width: width ,
+      child: MyText(
+        text: translator.translate("Please Enter Your Registered Email Address To Reset Password" ),
+        size:EzhyperFont.secondary_font_size,
+        weight: FontWeight.bold,
+        maxLines: 2,
+        align: translator.currentLanguage == 'ar' ?TextAlign.right : TextAlign.left,
       ),
     );
   }

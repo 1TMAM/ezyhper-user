@@ -518,8 +518,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                                       ShoppingCart()));
                                         } else {
                                           print("cart 6");
-                                          String msg =
-                                              "this product already added in shopping cart";
+                                          String msg = "this product already added in shopping cart";
                                           StaticData.Toast_Short_Message(msg);
                                           print("cart 7");
                                         }

@@ -89,6 +89,8 @@ class _SubCategoryProductResultState extends State<SubCategoryProductResult> {
                                       return GridView.builder(
                                           controller: _controller,
                                           itemCount: snapshot.data.length,
+                                          physics: NeverScrollableScrollPhysics(),
+
                                           gridDelegate:
                                               SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 2,
